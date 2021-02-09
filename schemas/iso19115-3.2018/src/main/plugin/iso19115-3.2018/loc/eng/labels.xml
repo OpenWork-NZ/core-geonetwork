@@ -4894,7 +4894,7 @@
     <description>A unique identifier for this interface</description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/Service-Metadata#operation-name">Help</a>]]></help>
   </element>
-  <element name="srv:SV_OperationMetadata">
+  <element name="srv:operation">
     <label>Operation</label>
     <description>Operation Metadata</description>
   </element>
@@ -5010,6 +5010,14 @@
   </element>
   <element name="srv:scopedName">
     <label>Scoped Name</label>
+    <description>Name used by the service to describe the resource</description>
+  </element>
+  <element name="srv:SV_CouplingType">
+    <label>Coupling Type</label>
+    <description>Type of Coupling</description>
+  </element>
+  <element name="srv:scopedName">
+    <label>Name of Coupled Resource</label>
     <description>Name used by the service to describe the resource</description>
   </element>
   <element name="gex:extent">
