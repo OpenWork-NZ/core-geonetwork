@@ -538,7 +538,8 @@
               // See #setLayersParams
               // In this case, dataset-add.xsl MUST not add coupledResource
               // So setting it to empty
-              scopedName: params.name === qParams.name ? '' : qParams.name,
+              //scopedName: params.name === qParams.name ? '' : qParams.name,
+              scopedName: qParams.name || '',
               uuidref: qParams.uuidDS,
               uuid: qParams.uuidSrv,
               source: qParams.identifier || '',
