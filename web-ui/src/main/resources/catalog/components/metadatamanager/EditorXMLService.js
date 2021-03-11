@@ -98,7 +98,7 @@
           '</mrs:referenceSystemType>' +
           '</mrs:MD_ReferenceSystem>' +
           '</mdb:referenceSystemInfo>'
-      }});
+          }});
 
   module.factory('gnEditorXMLService',
       ['gnSchemaManagerService',
