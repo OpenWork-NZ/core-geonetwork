@@ -263,6 +263,9 @@
             <xsl:with-param name="process-params">{"replace": "true", "boundingAll": "true"}</xsl:with-param>
           </xsl:call-template>
         </xsl:if>
+        <details>
+          <xsl:apply-templates mode="mode-iso19115-3.2018" select="*"/>
+        </details>
       </xsl:when>
       <xsl:otherwise>
         <xsl:apply-templates mode="mode-iso19115-3.2018" select="*"/>
