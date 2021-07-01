@@ -44,8 +44,8 @@
             <cit:CI_Contact>
               <cit:address>
                 <cit:CI_Address>
-                  <cit:electronicMailAddress>
-                    <gco:CharacterString>!Manual entry</gco:CharacterString>
+                  <cit:electronicMailAddress gco:nilReason="missing">
+                    <gco:CharacterString />
                   </cit:electronicMailAddress>
                 </cit:CI_Address>
               </cit:address>
@@ -371,6 +371,26 @@
               </cit:identifier>
             </cit:CI_Citation>
           </mri:thesaurusName>
+          <mri:MD_KeywordClass>
+            <mri:className>
+              <gco:CharacterString>Continents, countries, sea regions of the world.</gco:CharacterString>
+            </mri:className>
+            <mri:conceptIdentifier>
+              <mcc:URI>http://geonetwork-opensource.org/thesaurus/naturalearth-and-seavox</mcc:URI>
+            </mri:conceptIdentifier>
+            <mri:ontology>
+              <cit:CI_Citation>
+                <cit:title>
+                  <gco:CharacterString>naturalearth-and-seavox</gco:CharacterString>
+                </cit:title>
+                <cit:onlineResource>
+                  <cit:linkage>
+                    <gco:CharacterString>http://geonetwork-opensource.org/thesaurus/naturalearth-and-seavox</gco:CharacterString>
+                  </cit:linkage>
+                </cit:onlineResource>
+              </cit:CI_Citation>
+            </mri:ontology>
+          </mri:MD_KeywordClass>
         </mri:MD_Keywords>
       </mri:descriptiveKeywords>
       <mri:resourceConstraints>
@@ -398,38 +418,56 @@
       </mri:supplementalInformation>
     </mri:MD_DataIdentification>
   </mdb:identificationInfo>
-  <mdb:distributionInfo xmlns:geonet="http://www.fao.org/geonetwork">
+  <mdb:distributionInfo>
     <mrd:MD_Distribution>
-      <mrd:transferOptions>
-        <mrd:MD_DigitalTransferOptions>
-          <mrd:onLine>
-            <cit:CI_OnlineResource>
-              <cit:linkage>
-                <gco:CharacterString>Distro URL</gco:CharacterString>
-              </cit:linkage>
-              <cit:protocol gco:nilReason="missing">
-                <gco:CharacterString />
-              </cit:protocol>
-              <cit:name>
-                <gco:CharacterString>Name of resource</gco:CharacterString>
-              </cit:name>
-              <cit:description gco:nilReason="missing">
-                <gco:CharacterString />
-              </cit:description>
-              <cit:function>
-                <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_OnLineFunctionCode" codeListValue="download" />
-              </cit:function>
-            </cit:CI_OnlineResource>
-          </mrd:onLine>
-        </mrd:MD_DigitalTransferOptions>
-      </mrd:transferOptions>
+      <mrd:distributionFormat>
+        <mrd:MD_Format>
+          <mrd:formatSpecificationCitation />
+        </mrd:MD_Format>
+      </mrd:distributionFormat>
     </mrd:MD_Distribution>
   </mdb:distributionInfo>
-  <mdb:resourceLineage xmlns:geonet="http://www.fao.org/geonetwork">
+  <mdb:dataQualityInfo>
+    <mdq:DQ_DataQuality>
+      <mdq:scope>
+        <mcc:MD_Scope>
+          <mcc:level>
+            <mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset" />
+          </mcc:level>
+        </mcc:MD_Scope>
+      </mdq:scope>
+      <mdq:report>
+        <mdq:DQ_ConceptualConsistency>
+          <mdq:result>
+            <mdq:DQ_ConformanceResult>
+              <mdq:specification>
+                <cit:CI_Citation>
+                  <cit:title>
+                    <gco:CharacterString>CAP-AU Compliance</gco:CharacterString>
+                  </cit:title>
+                </cit:CI_Citation>
+              </mdq:specification>
+              <mdq:pass>
+                <gco:Boolean />
+              </mdq:pass>
+            </mdq:DQ_ConformanceResult>
+          </mdq:result>
+        </mdq:DQ_ConceptualConsistency>
+      </mdq:report>
+    </mdq:DQ_DataQuality>
+  </mdb:dataQualityInfo>
+  <mdb:resourceLineage>
     <mrl:LI_Lineage>
       <mrl:statement>
         <gco:CharacterString>Information that lets the user understand how the dataset was created over time.</gco:CharacterString>
       </mrl:statement>
+      <mrl:scope>
+        <mcc:MD_Scope>
+          <mcc:level>
+            <mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset" />
+          </mcc:level>
+        </mcc:MD_Scope>
+      </mrl:scope>
       <mrl:source>
         <mrl:LI_Source>
           <mrl:description>
@@ -539,4 +577,3 @@
     </mco:MD_SecurityConstraints>
   </mdb:metadataConstraints>
 </mdb:MD_Metadata>
-
