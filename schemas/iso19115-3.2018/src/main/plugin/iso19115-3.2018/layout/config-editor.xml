@@ -97,7 +97,7 @@
     <for name="lan:country" use="data-gn-country-picker"/>
     <for name="cit:country" use="data-gn-country-picker"/>
 
-    <for name="mdb:referenceSystemInfo" addDirective="data-gn-crs-selector"/>
+    <for name="mrs:referenceSystemIdentifier" addDirective="data-gn-crs-selector"/>
 
     <for name="mdb:contact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
@@ -181,11 +181,11 @@
 
     <for name="srv:serviceStandard" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="true"
-              data-search-action="true"
-              data-popup-action="false"
-              data-template-type="standard"
-              data-filter='{"_root": "srv:serviceStandard"}' />
+        data-template-add-action="true"
+        data-search-action="true"
+        data-popup-action="false"
+        data-template-type="serviceStandard"
+        data-filter='{"_root": "srv:serviceStandard"}'/>
     </for>
 
     <for name="mri:descriptiveKeywords" addDirective="data-gn-thesaurus-selector">

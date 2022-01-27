@@ -177,9 +177,15 @@
 
   <xsl:template mode="index"
                 match="srv:serviceStandard">
+    <xsl:variable name="type" select="local-name(.)"/>
+    <xsl:variable name="name"
+                  select="cit:CI_Citation/cit:title/gco:CharacterString"/>
     <Field name="_title"
-           string="{cit:CI_Citation/cit:title/gco:CharacterString/text()}"
-           store="true" index="true" />
+           string="{if ($name != '')
+                    then $name
+                    else $type}"
+           store="true" index="true"/>
+    <xsl:call-template name="subtemplate-common-fields"/>
   </xsl:template>
 
   <xsl:template name="subtemplate-common-fields">
