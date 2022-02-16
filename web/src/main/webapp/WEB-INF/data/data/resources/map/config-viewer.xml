@@ -3,11 +3,38 @@
                         version="0.3.1" id="ows-context-ex-1-v3">
   <ows-context:General>
     <ows:BoundingBox crs="EPSG:3857">
-      <ows:LowerCorner>-8604130.477526832 -320097.07393612247</ows:LowerCorner>
-      <ows:UpperCorner>8948257.201654762 8720263.135408245</ows:UpperCorner>
+      <ows:LowerCorner>18195681.7092 -6045618.5421</ows:LowerCorner>
+      <ows:UpperCorner>20831230.4445 -4052059.3765</ows:UpperCorner>
     </ows:BoundingBox>
   </ows-context:General>
   <ows-context:ResourceList>
+
+    <!-- Orthophotos -->
+
+    <ows-context:Layer name="{type=tms,name=aerial}"
+                       group="Background layers"
+                       hidden="false"
+                       opacity="1">
+      <ows:Title>Aerial Imagery</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMTS">
+        <ows-context:OnlineResource xlink:href="https://basemaps.linz.govt.nz/v1/tiles/aerial/EPSG:3857/{z}/{x}/{y}.png?api=d01fbtg0ar26ppjejbbpge7btm5" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      </ows-context:Server>
+    </ows-context:Layer>
+
+    <!-- Topomap -->
+
+    <ows-context:Layer name="type=tms,name=50767"
+                       group="Background layers"
+                       hidden="false"
+                       opacity="1">
+      <ows:Title>LINZ Topo</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMTS">
+        <ows-context:OnlineResource xlink:href="http://tiles-a.koordinates.com/services;key=7bb09339b9864b3fb8e0fa8a9e98a428/tiles/v4/layer=50767/EPSG:3857/{z}/{x}/{y}.png" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      </ows-context:Server>
+    </ows-context:Layer>
+
+    <!-- Open Street Map -->
+
     <ows-context:Layer name="{type=osm}"
                        group="Background layers"
                        hidden="false"
@@ -15,6 +42,18 @@
       <ows:Title>OpenStreetMap
       </ows:Title>
     </ows-context:Layer>
+
+    <!-- Hillshade -->
+
+    <ows-context:Layer queryable="false" name="hillshadeGTiff"
+                       hidden="false" opacity="1"
+                       group="Background layers">
+      <ows:Title>Hillshade</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://ngatirarua.geodata.nz/geoserver/Basemap/wms?"/>
+      </ows-context:Server>
+    </ows-context:Layer>
+
     <!--Uncomment the code bellow to add support to MS bing maps; don't forget to add a valid bingKey on the
     settings!-->
     <!--
@@ -36,6 +75,7 @@
                        opacity="1">
       <ows:Title>Stamen Toner</ows:Title>
     </ows-context:Layer>
+
     <ows-context:Layer name="{type=stamen,name=terrain}"
                        group="Background layers"
                        hidden="true"
@@ -81,5 +121,33 @@
             <ows-context:StyleList/>
         </ows-context:Layer>
     -->
+
+    <!-- LINZ Topomaps use protobuf which do not seem to work in this map
+    <ows-context:Layer name="type=tms,name=topographic"
+                       group="Background layers"
+                       hidden="false"
+                       opacity="1">
+      <ows:Title>LINZ Topo</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMTS">
+        <ows-context:OnlineResource xlink:href="https://basemaps.linz.govt.nz/v1/tiles/topographic/EPSG:3857/{z}/{x}/{y}.pbf?api=d01fbtg0ar26ppjejbbpge7btm5" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      </ows-context:Server>
+    </ows-context:Layer>  -->
+
+
+
+    <!-- <ows-context:Layer queryable="false"
+                       name="{type=wmts,name=aerial}"
+                       hidden="true" opacity="1" group="Background layers">
+      <ows:Title xmlns:ows="http://www.opengis.net/ows">Aerial Imagery</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xlink:href="https://basemaps.linz.govt.nz/v1/tiles/aerial/EPSG:3857/WMTSCapabilities.xml?api=c01fw03tg10bjmw8f0m0wf88zgd"/>
+      </ows-context:Server>
+      <ows-context:StyleList/>
+    </ows-context:Layer>-->
+
+
   </ows-context:ResourceList>
 </ows-context:OWSContext>
+
+

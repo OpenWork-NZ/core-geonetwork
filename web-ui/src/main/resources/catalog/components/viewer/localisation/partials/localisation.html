@@ -48,5 +48,11 @@
         >
       </li>
     </ul>
+    <h5 ng-if="addresses.length>0" data-translate="">Addresses</h5>
+    <ul class="loc-addresses list-group">
+      <li data-ng-repeat="addr in addresses" class="list-group-item">
+        <a href="" data-ng-click="locCtrl.onClickAddr(addr.id, map)">{{addr.a}}</a>
+      </li>
+    </ul>
   </div>
 </div>
