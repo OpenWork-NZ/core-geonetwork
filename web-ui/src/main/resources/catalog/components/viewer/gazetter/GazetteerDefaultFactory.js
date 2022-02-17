@@ -85,11 +85,30 @@
                 .get(url, {
                   params: {
                     lang: lang,
+                    country: "NZ",
                     style: "full",
                     type: "json",
                     maxRows: 10,
                     name_startsWith: query,
                     username: "georchestra"
+                  }
+                })
+                .success(function (response) {
+                  var loc;
+                  scope.results = [];
+                  for (var i = 0; i < response.geonames.length; i++) {
+                    loc = response.geonames[i];
+                    if (loc.bbox) {
+                      scope.results.push({
+                        name: loc.name,
+                        formattedName: formatter(loc),
+                        extent: ol.proj.transformExtent(
+                          [loc.bbox.west, loc.bbox.south, loc.bbox.east, loc.bbox.north],
+                          "EPSG:4326",
+                          scope.map.getView().getProjection()
+                        )
+                      });
+                    }
                   }
                 })
                 .then(function (response) {
