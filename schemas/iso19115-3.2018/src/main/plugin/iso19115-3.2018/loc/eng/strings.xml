@@ -31,8 +31,9 @@
   <resourceLineageTab>Lineage</resourceLineageTab>
 
   <advanced>Advanced</advanced>
-  <default>Simple</default>
-  <simple>Simple</simple>
+  <icsm>Simple</icsm>
+  <default>General</default>
+  <simple>Basic</simple>
   <inspire>INSPIRE</inspire>
   <inspireTheme>INSPIRE themes</inspireTheme>
   <inspireThemeMandatory>INSPIRE themes*</inspireThemeMandatory>

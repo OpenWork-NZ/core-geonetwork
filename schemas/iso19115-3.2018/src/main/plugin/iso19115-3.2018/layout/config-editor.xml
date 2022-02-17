@@ -799,7 +799,21 @@
         <directive data-gn-validation-report=""/>
         <directive data-gn-need-help="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/"/>
       </sidePanel>
-      <tab id="general" default="true" mode="flat">
+
+      <tab id="contactsIcsm" mode="flat">
+        <section name="resourceContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact" or="pointOfContact"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty" or="citedResponsibleParty"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation"/>
+        </section>
+        <section name="metadataContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:contact" or="contact"
+                 in="/mdb:MD_Metadata"/>
+        </section>
+      </tab>
+
+      <tab id="default" default="true" mode="flat">
         <section name="generalIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title" />
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract" />
