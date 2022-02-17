@@ -74,6 +74,7 @@
               $http.get(url, {
                 params: {
                   lang: lang,
+                  country: 'NZ',
                   style: 'full',
                   type: 'json',
                   maxRows: 10,
