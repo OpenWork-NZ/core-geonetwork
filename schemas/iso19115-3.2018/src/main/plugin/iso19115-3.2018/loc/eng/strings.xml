@@ -31,7 +31,7 @@
   <resourceLineageTab>Lineage</resourceLineageTab>
 
   <advanced>Advanced</advanced>
-  <icsm>ANZLIC</icsm>
+  <icsm>Simple</icsm>
   <default>General</default>
   <simple>Basic</simple>
   <inspire>INSPIRE</inspire>
