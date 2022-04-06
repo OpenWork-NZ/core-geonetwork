@@ -117,24 +117,17 @@
       $scope.isLoadingUsers = false;
       $scope.isLoadingGroups = false;
 
-      gnConfigService.load().then(function (c) {
-        // take the bigger of the two values
-        $scope.passwordMinLength = Math.max(
-          gnConfig["system.security.passwordEnforcement.minLength"],
-          6
-        );
-        $scope.passwordMaxLength = Math.max(
-          gnConfig["system.security.passwordEnforcement.maxLength"],
-          6
-        );
-        $scope.usePattern = gnConfig["system.security.passwordEnforcement.usePattern"];
-        $scope.allowAdminReset = gnConfig["system.security.password.allowAdminReset"];
-        if ($scope.usePattern) {
-          $scope.passwordPattern = new RegExp(
-            gnConfig["system.security.passwordEnforcement.pattern"]
-          );
-        }
-      });
+      $scope.passwordMinLength =
+        Math.min(gnConfig['system.security.passwordEnforcement.minLength'], 6);
+      $scope.passwordMaxLength =
+        Math.max(gnConfig['system.security.passwordEnforcement.maxLength'], 6);
+      $scope.usePattern = gnConfig['system.security.passwordEnforcement.usePattern'];
+      $scope.allowAdminReset = gnConfig['system.security.password.allowAdminReset'];
+
+      if ($scope.usePattern) {
+        $scope.passwordPattern = new RegExp(
+          gnConfig['system.security.passwordEnforcement.pattern']);
+      }
 
       // This is to force IE11 NOT to cache json requests
       if (!$http.defaults.headers.get) {
@@ -373,10 +366,11 @@
        *
        * @returns {boolean}
        */
-      $scope.hideResetPassword = function () {
-        if (!$scope.userSelected || !$scope.userSelected.security) {
+      $scope.hideResetPassword = function() {
+        if ((!$scope.userSelected)
+            || (!$scope.userSelected.security)) {
           return true;
-        } else if ($scope.userSelected.security.authType == "LDAP") {
+        } else if ($scope.userSelected.security.authType == 'LDAP') {
           return true;
         } else if ($scope.allowAdminReset && $scope.user.isAdministratorOrMore()) {
           return false;

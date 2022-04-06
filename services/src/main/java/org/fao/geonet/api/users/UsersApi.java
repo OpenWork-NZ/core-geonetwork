@@ -620,7 +620,7 @@ public class UsersApi {
 
     private boolean isUserAllowedToResetWithoutOldPassword(Profile myProfile) {
         boolean isAdminAllowed = settingManager.getValueAsBool(SYSTEM_SECURITY_PASSWORD_ALLOWADMINRESET, false);
-        return isAdminAllowed && Profile.Administrator.equals(myProfile);
+        return isAdminAllowed && myProfile == Profile.Administrator;
     }
 
     @io.swagger.v3.oas.annotations.Operation(
@@ -667,8 +667,8 @@ public class UsersApi {
         Profile myProfile = session.getProfile();
         String myUserId = session.getUserId();
 
-        if (!Profile.Administrator.equals(myProfile) 
-            && !Profile.UserAdmin.equals(myProfile) 
+        if (myProfile != Profile.Administrator
+            && myProfile != Profile.UserAdmin
             && !myUserId.equals(Integer.toString(userIdentifier))) {
             throw new IllegalArgumentException("You don't have rights to do this");
         }
