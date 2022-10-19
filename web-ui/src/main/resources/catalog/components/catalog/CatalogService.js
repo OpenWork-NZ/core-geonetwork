@@ -307,6 +307,7 @@
     mdGetZIP: 'zip.export',
     mdGetXML19139: 'xml_iso19139',
     csv: 'csv.search',
+    //json: 'jsonld.search',
 
     publish: 'md.publish',
     unpublish: 'md.unpublish',

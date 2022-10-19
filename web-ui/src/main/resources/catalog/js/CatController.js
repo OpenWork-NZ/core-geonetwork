@@ -179,7 +179,7 @@ goog.require('gn_alert');
           },
           'downloadFormatter': [{
             'label': 'exportMEF',
-            'url': '/formatters/zip?withRelated=false',
+            'url': '/formatters/zip?withRelated=true',
             'class': 'fa-file-zip-o'
           }, {
             'label': 'exportPDF',
@@ -190,6 +190,10 @@ goog.require('gn_alert');
             // 'url' : '/formatters/xml?attachment=false',
             'url' : '/formatters/xml',
             'class': 'fa-file-code-o'
+          },{
+             'label': 'exportJSON',
+             'url' : '/formatters/jsonld',
+             'class': 'fa-file-export'
           }],
           'grid': {
             'related': ['parent', 'children', 'services', 'datasets']

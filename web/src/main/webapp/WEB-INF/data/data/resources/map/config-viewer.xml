@@ -1,16 +1,41 @@
 <ows-context:OWSContext xmlns:ows-context="http://www.opengis.net/ows-context"
                         xmlns:ows="http://www.opengis.net/ows"
                         version="0.3.1" id="ows-context-ex-1-v3">
-  <ows-context:General>
+  <!--<ows-context:General>
     <ows:BoundingBox crs="EPSG:3857">
       <ows:LowerCorner>-8604130.477526832 -320097.07393612247</ows:LowerCorner>
       <ows:UpperCorner>8948257.201654762 8720263.135408245</ows:UpperCorner>
     </ows:BoundingBox>
+  </ows-context:General>-->
+  <ows-context:General>
+    <ows:BoundingBox crs="EPSG:3031">
+      <ows:LowerCorner>-1000000 -1000000</ows:LowerCorner>031
+      <ows:UpperCorner>1000000 1000000</ows:UpperCorner>
+    </ows:BoundingBox>
   </ows-context:General>
   <ows-context:ResourceList>
-    <ows-context:Layer name="{type=osm}"
+    <!--<ows-context:Layer queryable="false"
+                       name="{type=wmts,name=Antarctica_Basemap}"
+                       hidden="true" opacity="1" group="Background layers">
+      <ows:Title xmlns:ows="http://www.opengis.net/ows">Antarctica_Basemap</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    xlink:href="https://tiles.arcgis.com/tiles/C8EMgrsFcRFL6LrL/arcgis/rest/services/Antarctic_Basemap/MapServer/WMTS/1.0.0/WMTSCapabilities.xml"/>
+      </ows-context:Server>
+      <ows-context:StyleList/>
+    </ows-context:Layer>
+    <ows-context:Layer name="type=tms,name=50767"
                        group="Background layers"
                        hidden="false"
+                       opacity="1">
+      <ows:Title>LINZ Topo</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMTS">
+        <ows-context:OnlineResource xlink:href="http://tiles-a.koordinates.com/services;key=7bb09339b9864b3fb8e0fa8a9e98a428/tiles/v4/layer=50767/EPSG:3857/{z}/{x}/{y}.png" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      </ows-context:Server>
+    </ows-context:Layer>-->
+    <ows-context:Layer name="{type=osm}"
+                       group="Background layers"
+                       hidden="true"
                        opacity="1">
       <ows:Title>OpenStreetMap
       </ows:Title>
@@ -18,6 +43,7 @@
     <!--Uncomment the code bellow to add support to MS bing maps; don't forget to add a valid bingKey on the
     settings!-->
     <!--
+
     <ows-context:Layer name="{type=bing_aerial}"
                        group="Background layers"
                        hidden="false"
@@ -38,7 +64,7 @@
     </ows-context:Layer>
     <ows-context:Layer name="{type=stamen,name=terrain}"
                        group="Background layers"
-                       hidden="true"
+                       hidden="false"
                        opacity="1">
       <ows:Title>Stamen Terrain</ows:Title>
     </ows-context:Layer>
