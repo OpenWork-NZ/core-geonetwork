@@ -193,7 +193,7 @@ goog.require('gn_alert');
           },{
              'label': 'exportJSON',
              'url' : '/formatters/jsonld',
-             'class': 'fa-file-export'
+             'class': 'fa-file-o'
           }],
           'grid': {
             'related': ['parent', 'children', 'services', 'datasets']

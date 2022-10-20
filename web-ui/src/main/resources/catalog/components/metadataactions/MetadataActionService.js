@@ -161,12 +161,7 @@
       this.exportCSV = function(bucket) {
         window.open(gnHttp.getService('csv') +
             '?bucket=' + bucket, windowName, windowOption);
-      }
-      /**this.exportJSON = function(bucket) {
-        window.open(gnHttp.getService('jsonld') +
-            '?bucket=' + bucket, windowName, windowOption);
-      }**/
-      ;
+      };
       this.validateMdLinks = function(bucket) {
         $rootScope.$broadcast('operationOnSelectionStart');
         return gnHttp.callService('../api/records/links?' +
