@@ -49,273 +49,336 @@ goog.require('gn_alert');
   module.constant('gnViewerSettings', {});
   module.constant('gnGlobalSettings', function() {
     var defaultConfig = {
-      'langDetector': {
-        'fromHtmlTag': false,
-        'regexp': '^(?:\/.+)?/.+\/([a-z]{2,3})\/.+',
-        'default': 'eng'
-      },
-      'nodeDetector': {
-        'regexp': '^(?:\/.+)?\/(.+)\/[a-z]{2,3}\/.+',
-        'default': 'srv'
-      },
-      'serviceDetector': {
-        'regexp': '^(?:\/.+)?\/.+\/[a-z]{2,3}\/(.+)',
-        'default': 'catalog.search'
-      },
-      'baseURLDetector': {
-        'regexp': '^((?:\/.+)?)+\/.+\/[a-z]{2,3}\/.+',
-        'default': '/geonetwork'
-      },
-      'mods': {
-        'global': {
-          'humanizeDates': true
-        },
-        'footer':{
-          'enabled': true,
-          'showSocialBarInFooter': true
-        },
-        'header': {
-          'enabled': true,
-          'languages': {
-            'eng': 'en',
-            'dut': 'nl',
-            'fre': 'fr',
-            'ger': 'de',
-            'kor': 'ko',
-            'spa': 'es',
-            'cze': 'cs',
-            'cat': 'ca',
-            'fin': 'fi',
-            'ice': 'is',
-            'ita': 'it',
-            'por': 'pt',
-            'rus': 'ru',
-            'chi': 'zh',
-            'slo': 'sk',
-            'swe': 'sv'
-          },
-          'isLogoInHeader': false,
-          'logoInHeaderPosition': 'left',
-          'fluidHeaderLayout': true,
-          'showGNName': true,
-          'isHeaderFixed': false,
-          'isMenubarAccessible': true
-        },
-        'cookieWarning': {
-          'enabled': true,
-          'cookieWarningMoreInfoLink': '',
-          'cookieWarningRejectLink': ''
-        },
-        'home': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.search#/home',
-          'fluidLayout': true
-        },
-        'search': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.search#/search',
-          'hitsperpageValues': [10, 50, 100],
-          'paginationInfo': {
-            'hitsPerPage': 20
-          },
-          'mapFilterCollapsed': false,
-          'facetsSummaryType': 'details',
-          'defaultSearchString': '',
-          'facetTabField': '',
-          'facetConfig': [
-            // {
-            // key: 'createDateYear',
-            // labels: {
-            //   eng: 'Published',
-            //   fre: 'Publication'
-            // }}
-          ],
-          'filters': {},
-          'sortbyValues': [{
-            'sortBy': 'relevance',
-            'sortOrder': ''
-          }, {
-            'sortBy': 'changeDate',
-            'sortOrder': ''
-          }, {
-            'sortBy': 'title',
-            'sortOrder': 'reverse'
-          }, {
-            'sortBy': 'rating',
-            'sortOrder': ''
-          }, {
-            'sortBy': 'popularity',
-            'sortOrder': ''
-          }, {
-            'sortBy': 'denominatorDesc',
-            'sortOrder': ''
-          }, {
-            'sortBy': 'denominatorAsc',
-            'sortOrder': 'reverse'
-          }],
-          'sortBy': 'relevance',
-          'resultViewTpls': [{
-            'tplUrl': '../../catalog/components/' +
-                'search/resultsview/partials/viewtemplates/grid.html',
-            'tooltip': 'Grid',
-            'icon': 'fa-th'
-          },{
-            'tplUrl': '../../catalog/components/' +
-              'search/resultsview/partials/viewtemplates/list.html',
-            'tooltip': 'List',
-            'icon': 'fa-bars'
-          }],
-          'resultTemplate': '../../catalog/components/' +
-              'search/resultsview/partials/viewtemplates/grid.html',
-          'formatter': {
-            'list': [{
-              'label': 'defaultView',
-              'url' : ''
-            }, {
-              'label': 'full',
-              'url' : '/formatters/xsl-view?root=div&view=advanced'
-            }],
-            defaultUrl: ''
-          },
-          'downloadFormatter': [{
-            'label': 'exportMEF',
-            'url': '/formatters/zip?withRelated=true',
-            'class': 'fa-file-zip-o'
-          }, {
-            'label': 'exportPDF',
-            'url' : '/formatters/xsl-view?output=pdf&language=${lang}',
-            'class': 'fa-file-pdf-o'
-          }, {
-            'label': 'exportXML',
-            // 'url' : '/formatters/xml?attachment=false',
-            'url' : '/formatters/xml',
-            'class': 'fa-file-code-o'
-          },{
-             'label': 'exportJSON',
-             'url' : '/formatters/jsonld',
-             'class': 'fa-file-o'
-          }],
-          'grid': {
-            'related': ['parent', 'children', 'services', 'datasets']
-          },
-          'linkTypes': {
-            'links': ['LINK', 'kml'],
-            'downloads': ['DOWNLOAD'],
-            'layers': ['OGC', 'ESRI:REST'],
-            'maps': ['ows']
-          },
-          'isFilterTagsDisplayedInSearch': false,
-          'usersearches': {
-            'enabled': false,
-            'displayFeaturedSearchesPanel': false
-          },
-          'savedSelection': {
-            'enabled': true
-          },
-          "addWMSLayersToMap": {
-            "urlLayerParam": ""
-          }
-        },
-        'map': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.search#/map',
-          'externalViewer': {
-            'enabled': false,
-            'enabledViewAction': false,
-            'baseUrl': 'http://www.example.com/viewer',
-            'urlTemplate': 'http://www.example.com/viewer?url=${service.url}&type=${service.type}&layer=${service.title}&lang=${iso2lang}&title=${md.defaultTitle}',
-            'openNewWindow': false,
-            'valuesSeparator': ','
-          },
-          'is3DModeAllowed': false,
-          'isSaveMapInCatalogAllowed': true,
-          'isExportMapAsImageEnabled': false,
-          'storage': 'sessionStorage',
-          'bingKey': '',
-          'listOfServices': {
-            'wms': [],
-            'wmts': []
-          },
-          'projection': 'EPSG:3857',
-          'projectionList': [{
-            'code': 'urn:ogc:def:crs:EPSG:6.6:4326',
-            'label': 'WGS84 (EPSG:4326)'
-          }, {
-            'code': 'EPSG:3857',
-            'label': 'Google mercator (EPSG:3857)'
-          }],
-          'switcherProjectionList': [{
-            'code': 'EPSG:3857',
-            'label': 'Google mercator (EPSG:3857)'
-          }],
-          'disabledTools': {
-            'processes': false,
-            'addLayers': false,
-            'projectionSwitcher': false,
-            'layers': false,
-            'legend': false,
-            'filter': false,
-            'contexts': false,
-            'print': false,
-            'mInteraction': false,
-            'graticule': false,
-            'syncAllLayers': false,
-            'drawVector': false
-          },
-          'graticuleOgcService': {},
-          'map-viewer': {
-            'context': '../../map/config-viewer.xml',
-            'extent': [0, 0, 0, 0],
-            'layers': []
-          },
-          'map-search': {
-            'context': '../../map/config-viewer.xml',
-            'extent': [0, 0, 0, 0],
-            'layers': []
-          },
-          'map-editor': {
-            'context': '',
-            'extent': [0, 0, 0, 0],
-            'layers': [{'type': 'osm'}]
-          },
-          'autoFitOnLayer': false
-        },
-        'geocoder': {
-            'enabled': true,
-            'appUrl': 'https://secure.geonames.org/searchJSON'
-        },
-        'recordview': {
-          'enabled': true,
-          'isSocialbarEnabled': true
-        },
-        'editor': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.edit',
-          'isUserRecordsOnly': false,
-          'minUserProfileToCreateTemplate': '',
-          'isFilterTagsDisplayed': false,
-          'fluidEditorLayout': true,
-          'createPageTpl':
-              '../../catalog/templates/editor/new-metadata-horizontal.html',
-          'editorIndentType': ''
-        },
-        'admin': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/admin.console'
-        },
-        'signin': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.signin'
-        },
-        'signout': {
-          'appUrl': '../../signout'
-        },
-        'page': {
-          'enabled': true,
-          'appUrl': '../../{{node}}/{{lang}}/catalog.search#/page'
-        }
-      }
-    };
+                          "langDetector": {
+                            "fromHtmlTag": false,
+                            "regexp": "^(?:/.+)?/.+/([a-z]{2,3})/.+",
+                            "default": "eng"
+                          },
+                          "nodeDetector": {
+                            "regexp": "^(?:/.+)?/(.+)/[a-z]{2,3}/.+",
+                            "default": "srv"
+                          },
+                          "serviceDetector": {
+                            "regexp": "^(?:/.+)?/.+/[a-z]{2,3}/(.+)",
+                            "default": "catalog.search"
+                          },
+                          "baseURLDetector": {
+                            "regexp": "^((?:/.+)?)+/.+/[a-z]{2,3}/.+",
+                            "default": "/geonetwork"
+                          },
+                          "mods": {
+                            "global": {
+                              "humanizeDates": true
+                            },
+                            "footer": {
+                              "enabled": true,
+                              "showSocialBarInFooter": true
+                            },
+                            "header": {
+                              "enabled": true,
+                              "languages": {
+                                "eng": "en",
+                                "dut": "nl",
+                                "fre": "fr",
+                                "ger": "de",
+                                "kor": "ko",
+                                "spa": "es",
+                                "cze": "cs",
+                                "cat": "ca",
+                                "fin": "fi",
+                                "ice": "is",
+                                "ita": "it",
+                                "por": "pt",
+                                "rus": "ru",
+                                "chi": "zh",
+                                "slo": "sk",
+                                "swe": "sv"
+                              },
+                              "isLogoInHeader": false,
+                              "logoInHeaderPosition": "left",
+                              "fluidHeaderLayout": true,
+                              "showGNName": true,
+                              "isHeaderFixed": false,
+                              "isMenubarAccessible": true
+                            },
+                            "cookieWarning": {
+                              "enabled": true,
+                              "cookieWarningMoreInfoLink": "",
+                              "cookieWarningRejectLink": ""
+                            },
+                            "home": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.search#/home",
+                              "fluidLayout": true
+                            },
+                            "search": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.search#/search",
+                              "hitsperpageValues": [
+                                10,
+                                50,
+                                100
+                              ],
+                              "paginationInfo": {
+                                "hitsPerPage": 20
+                              },
+                              "mapFilterCollapsed": false,
+                              "facetsSummaryType": "details",
+                              "defaultSearchString": "",
+                              "facetTabField": "",
+                              "facetConfig": [],
+                              "filters": {},
+                              "sortbyValues": [
+                                {
+                                  "sortBy": "relevance",
+                                  "sortOrder": ""
+                                },
+                                {
+                                  "sortBy": "changeDate",
+                                  "sortOrder": ""
+                                },
+                                {
+                                  "sortBy": "title",
+                                  "sortOrder": "reverse"
+                                },
+                                {
+                                  "sortBy": "rating",
+                                  "sortOrder": ""
+                                },
+                                {
+                                  "sortBy": "popularity",
+                                  "sortOrder": ""
+                                },
+                                {
+                                  "sortBy": "denominatorDesc",
+                                  "sortOrder": ""
+                                },
+                                {
+                                  "sortBy": "denominatorAsc",
+                                  "sortOrder": "reverse"
+                                }
+                              ],
+                              "sortBy": "relevance",
+                              "resultViewTpls": [
+                                {
+                                  "tplUrl": "../../catalog/components/search/resultsview/partials/viewtemplates/grid.html",
+                                  "tooltip": "Grid",
+                                  "icon": "fa-th"
+                                },
+                                {
+                                  "tplUrl": "../../catalog/components/search/resultsview/partials/viewtemplates/list.html",
+                                  "tooltip": "List",
+                                  "icon": "fa-bars"
+                                }
+                              ],
+                              "resultTemplate": "../../catalog/components/search/resultsview/partials/viewtemplates/grid.html",
+                              "formatter": {
+                                "list": [
+                                  {
+                                    "label": "defaultView",
+                                    "url": ""
+                                  },
+                                  {
+                                    "label": "full",
+                                    "url": "/formatters/xsl-view?root=div&view=advanced"
+                                  }
+                                ],
+                                "defaultUrl": ""
+                              },
+                              "downloadFormatter": [
+                                {
+                                  "label": "exportMEF",
+                                  "url": "/formatters/zip?withRelated=true",
+                                  "class": "fa-file-zip-o"
+                                },
+                                {
+                                  "label": "exportPDF",
+                                  "url": "/formatters/xsl-view?output=pdf&language=${lang}",
+                                  "class": "fa-file-pdf-o"
+                                },
+                                {
+                                  "label": "exportXML",
+                                  "url": "/formatters/xml",
+                                  "class": "fa-file-code-o"
+                                },
+                                {
+                                  "label": "exportJSON",
+                                  "url": "/formatters/jsonld",
+                                  "class": "fa-file-o"
+                                }
+                              ],
+                              "grid": {
+                                "related": [
+                                  "parent",
+                                  "children",
+                                  "services",
+                                  "datasets"
+                                ]
+                              },
+                              "linkTypes": {
+                                "links": [
+                                  "LINK",
+                                  "kml"
+                                ],
+                                "downloads": [
+                                  "DOWNLOAD"
+                                ],
+                                "layers": [
+                                  "OGC",
+                                  "ESRI:REST"
+                                ],
+                                "maps": [
+                                  "ows"
+                                ]
+                              },
+                              "isFilterTagsDisplayedInSearch": false,
+                              "usersearches": {
+                                "enabled": false,
+                                "displayFeaturedSearchesPanel": false
+                              },
+                              "savedSelection": {
+                                "enabled": true
+                              },
+                              "addWMSLayersToMap": {
+                                "urlLayerParam": ""
+                              }
+                            },
+                            "map": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.search#/map",
+                              "externalViewer": {
+                                "enabled": false,
+                                "enabledViewAction": false,
+                                "baseUrl": "http://www.example.com/viewer",
+                                "urlTemplate": "http://www.example.com/viewer?url=${service.url}&type=${service.type}&layer=${service.title}&lang=${iso2lang}&title=${md.defaultTitle}",
+                                "openNewWindow": false,
+                                "valuesSeparator": ","
+                              },
+                              "is3DModeAllowed": false,
+                              "isSaveMapInCatalogAllowed": true,
+                              "isExportMapAsImageEnabled": false,
+                              "storage": "sessionStorage",
+                              "bingKey": "",
+                              "listOfServices": {
+                                "wms": [],
+                                "wmts": []
+                              },
+                              "projection": "EPSG:3857",
+                              "projectionList": [
+                                {
+                                  "code": "urn:ogc:def:crs:EPSG:6.6:4326",
+                                  "label": "WGS84 (EPSG:4326)"
+                                },
+                                {
+                                  "code": "EPSG:3857",
+                                  "label": "Google mercator (EPSG:3857)"
+                                }
+                              ],
+                              "switcherProjectionList": [
+                                {
+                                  "code": "EPSG:3031",
+                                  "label": "WGS 84 / Antarctic Polar Stereographic",
+                                  "def": "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
+                                  "extent": [
+                                    -3333134.0276302765,
+                                    -3333134.0276302765,
+                                    3333134.0276302765,
+                                    3333134.0276302765
+                                  ],
+                                  "worldExtent": [
+                                    -180,
+                                    -90,
+                                    180,
+                                    -60
+                                  ]
+                                }
+                              ],
+                              "disabledTools": {
+                                "processes": false,
+                                "addLayers": false,
+                                "projectionSwitcher": false,
+                                "layers": false,
+                                "legend": false,
+                                "filter": false,
+                                "contexts": false,
+                                "print": false,
+                                "mInteraction": false,
+                                "graticule": false,
+                                "syncAllLayers": false,
+                                "drawVector": false
+                              },
+                              "graticuleOgcService": {},
+                              "map-viewer": {
+                                "context": "../../map/config-viewer.xml",
+                                "extent": [
+                                  0,
+                                  0,
+                                  0,
+                                  0
+                                ],
+                                "layers": []
+                              },
+                              "map-search": {
+                                "context": "../../map/config-viewer.xml",
+                                "extent": [
+                                  0,
+                                  0,
+                                  0,
+                                  0
+                                ],
+                                "layers": []
+                              },
+                              "map-editor": {
+                                "context": "../../map/config-viewer.xml",
+                                "extent": [
+                                  0,
+                                  0,
+                                  0,
+                                  0
+                                ],
+                                "layers": [
+                                  {
+                                    "type": "osm"
+                                  }
+                                ]
+                              },
+                              "autoFitOnLayer": false
+                            },
+                            "geocoder": {
+                              "enabled": true,
+                              "appUrl": "https://secure.geonames.org/searchJSON"
+                            },
+                            "recordview": {
+                              "enabled": true,
+                              "isSocialbarEnabled": true
+                            },
+                            "editor": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.edit",
+                              "isUserRecordsOnly": false,
+                              "minUserProfileToCreateTemplate": "",
+                              "isFilterTagsDisplayed": false,
+                              "fluidEditorLayout": true,
+                              "createPageTpl": "../../catalog/templates/editor/new-metadata-horizontal.html",
+                              "editorIndentType": ""
+                            },
+                            "admin": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/admin.console"
+                            },
+                            "signin": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.signin"
+                            },
+                            "signout": {
+                              "appUrl": "../../signout"
+                            },
+                            "page": {
+                              "enabled": true,
+                              "appUrl": "../../{{node}}/{{lang}}/catalog.search#/page"
+                            }
+                          }
+                        }
 
     return {
       proxyUrl: '',
