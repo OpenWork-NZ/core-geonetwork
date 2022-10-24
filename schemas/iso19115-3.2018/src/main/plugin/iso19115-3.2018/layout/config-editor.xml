@@ -900,36 +900,10 @@
       <tab id="spatialInfoIcsm" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope[*/@codeListValue ='attributeType']) = 0 ">
         <section name="extentIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:description" or="description"
-                 in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox" or="geographicElement"
-                   in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:verticalElement" or="verticalElement"
-                 in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent" del=".." />
-          <section name="gex:EX_TemporalExtent" >
-            <field name="Temporal extents"
-                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement"
-                   del=".."/>
-              <action type="add"
-                      btnLabel="Add Temporal Extent"
-                      or="temporalElement"
-                      in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent">
-              <template>
-                <snippet>
-                  <gex:temporalElement>
-                    <gex:EX_TemporalExtent>
-                      <gex:extent>
-                        <gml:TimePeriod gml:id="d33429e406a1051934">
-                          <gml:beginPosition/>
-                          <gml:endPosition/>
-                        </gml:TimePeriod>
-                      </gex:extent>
-                    </gex:EX_TemporalExtent>
-                  </gex:temporalElement>
-                </snippet>
-              </template>
-
-              </action>>
-          </section>
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:verticalElement" />
         </section>
         <section name="resolutionIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:spatialResolution/mri:MD_Resolution" />
