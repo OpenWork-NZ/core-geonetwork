@@ -85,7 +85,6 @@
 
     <for name="gml:duration" use="data-gn-field-duration-div"/>
     <for name="gco:TM_PeriodDuration" use="data-gn-field-duration-div"/>
-    <for name="gml:duration" use="data-gn-field-duration-div"/>
 
     <for name="gmx:FileName/src" use="data-gn-logo-selector"/>
 
@@ -292,6 +291,7 @@
     <name>cit:CI_OnlineResource</name>
     <name>srv:connectPoint</name>
     <name>srv:parameter</name>
+    <name>gml:TimePeriod</name>
   </fieldsWithFieldset>
 
   <multilingualFields>
@@ -493,6 +493,20 @@
         <col del=".." />
       </row>
     </table>
+    <table for="gml:TimePeriod">
+      <header>
+        <col label="cit:linkage" />
+        <col label="cit:protocol" />
+        <col label="cit:function" />
+        <col />
+      </header>
+      <row>
+        <col xpath="cit:linkage" />
+        <col xpath="cit:protocol" />
+        <col xpath="cit:function" />
+        <col del=".." />
+      </row>
+    </table>
   </tableFields>
 
 
@@ -565,7 +579,8 @@
       </tab>
       <tab id="qualityLineageIcsm" mode="flat">
         <section name="resourceLineageIcsm">
-          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" />
+          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" or="statement"
+            in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage"/>
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description" />
         </section>
         <!--<section xpath="/mdb:MD_Metadata/mdb:dataQualityInfo" or="dataQualityInfo"
@@ -582,7 +597,53 @@
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:description" or="description"
                   in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent" />
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod" />
+          <section name="temporalExtent">
+           <!-- <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition"
+                   or="beginPosition"
+                   in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod" />-->
+
+          <field name="temporalElement" templateModeOnly="true"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:temporalElement">
+            <template>
+              <values>
+                <!-- -Need a * for gml:TimePeriodTypeCHOICE_ELEMENT2 added by editor enumerated tree
+                      but this will make the XSLT formatter fails. Using // to access the element in both case. -->
+                <key label="beginPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/gml:beginPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:temporalElement/gex:EX_TemporalExtent">
+                  <directiveAttributes
+                    data-tag-name="gml:beginPosition"/>
+                    <!--data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:beginPosition/@indeterminatePosition"/-->
+
+                </key>
+                <key label="endPosition"
+                     xpath="gex:EX_TemporalExtent/gex:extent/gml:TimePeriod//gml:endPosition"
+                     use="gn-date-picker"
+                     tooltip="gex:extent|gex:EX_TemporalExtent">
+                  <directiveAttributes
+                    data-tag-name="gml:endPosition"/>
+                    <!--data-indeterminate-position="eval#gex:EX_TemporalExtent/gex:extent/gml:TimePeriod/*/gml:endPosition/@indeterminatePosition"/-->
+
+
+                </key>
+              </values>
+              <snippet>
+                <gex:temporalElement>
+                  <gex:EX_TemporalExtent>
+                    <gex:extent>
+                      <gml:TimePeriod id="">
+                        {{beginPosition}}
+                        {{endPosition}}
+                      </gml:TimePeriod>
+                    </gex:extent>
+                  </gex:EX_TemporalExtent>
+                </gex:temporalElement>
+              </snippet>
+            </template>
+          </field>
+          </section>
+
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:extent/gex:EX_Extent/gex:verticalElement" />
         </section>
         <section name="resolutionIcsm">
@@ -682,8 +743,10 @@
         <for name="gex:extent" />
         <for name="gml:TimePeriod" />
         <for name="gml:begin" />
+        <for name="gml:end" />
         <for name="gml:TimeInstant" />
         <for name="gml:timePosition" />
+
 
         <for name="srv:connectPoint" />
         <for name="srv:operationDescription" />
