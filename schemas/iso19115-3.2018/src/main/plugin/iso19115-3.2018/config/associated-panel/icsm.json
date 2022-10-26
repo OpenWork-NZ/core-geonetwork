@@ -61,6 +61,33 @@
             "isMultilingual": false
           }
         }
+      },
+      {
+        "group": "onlineMore",
+        "label": "onlineMoreFile",
+        "copyLabel": "name",
+        "sources": {
+          "filestore": true
+        },
+        "icon": "fa gn-icon-onlinesrc",
+        "process": "onlinesrc-add",
+        "fields": {
+          "url": {
+            "isMultilingual": false
+          },
+          "protocol": {
+            "value": "WWW:LINK",
+            "hidden": true,
+            "isMultilingual": false
+          },
+          "name": {},
+          "desc": {},
+          "function": {
+            "value": "information",
+            "hidden": true,
+            "isMultilingual": false
+          }
+        }
       }
     ]
   }
