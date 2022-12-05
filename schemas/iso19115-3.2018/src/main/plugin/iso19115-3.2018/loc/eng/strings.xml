@@ -50,6 +50,7 @@
   <qualityIcsm>Quality</qualityIcsm>
   <descriptiveKeywordsIcsm>Keywords</descriptiveKeywordsIcsm>
   <extentIcsm>Extents</extentIcsm>
+  <temporalExtent>Temporal Extent</temporalExtent>
   <spatialInfoIcsm>Spatial</spatialInfoIcsm>
   <portrayalCatalogueInfoIcsm>Portrayal</portrayalCatalogueInfoIcsm>
   <metadataConstraintsIcsm>Md. Constraints</metadataConstraintsIcsm>
@@ -115,4 +116,7 @@
   <spatialExtent>Spatial extent</spatialExtent>
   <freeTextKeywords>Other keywords</freeTextKeywords>
   <noThesaurusName>Keywords</noThesaurusName>
+
+  <beginPosition>Begin date</beginPosition>
+  <endPosition>End date</endPosition>
 </strings>
