@@ -68,6 +68,7 @@ import static org.fao.geonet.api.ApiParams.API_CLASS_CATALOG_TAG;
 @Controller("sitemap")
 public class SitemapApi {
     private static final String FORMAT_XML = "xml";
+    private static final String FORMAT_JSON = "jsonld";
     private static final String FORMAT_HTML = "html";
 
     // Max. items in page defined in spec
@@ -122,7 +123,7 @@ public class SitemapApi {
     public @ResponseBody
     ResponseEntity<Element> getSitemap(
         @Parameter(
-            description = "Format (xml or html).",
+            description = "Format (xml, jsonld or html).",
             required = false
         )
         @RequestParam(
@@ -143,7 +144,8 @@ public class SitemapApi {
             HttpServletRequest request
     ) throws Exception {
         if (!(format.equalsIgnoreCase(FORMAT_HTML) ||
-            format.equalsIgnoreCase(FORMAT_XML))) {
+            format.equalsIgnoreCase(FORMAT_XML) ||
+            format.equalsIgnoreCase(FORMAT_JSON))) {
             format = FORMAT_HTML;
         }
 
