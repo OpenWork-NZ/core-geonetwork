@@ -511,6 +511,34 @@
         <directive data-gn-need-help="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/"/>
       </sidePanel>
 
+      <tab id="default" default="true" mode="flat">
+        <section name="generalIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope" />
+
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:supplementalInformation" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:topicCategory" />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:status" or="status"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*" />
+        </section>
+        <section name="dataIdentifierIcsm" >
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
+                 or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
+        </section>
+
+      </tab>
+
+      <tab id="datesIcsm" mode="flat">
+        <section name="datesIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date"
+                 or="date" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
+        </section>
+        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" />
+
+      </tab>
+
       <tab id="contactsIcsm" mode="flat">
         <section name="resourceContactsIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact" or="pointOfContact"
@@ -524,26 +552,6 @@
         </section>
       </tab>
 
-      <tab id="default" default="true" mode="flat">
-        <section name="generalIcsm">
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:supplementalInformation" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:topicCategory" />
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:status" or="status"
-                 in="/mdb:MD_Metadata/mdb:identificationInfo/*" />
-        </section>
-        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" />
-        <section name="datesIcsm">
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date"
-                 or="date" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
-        </section>
-        <section name="dataIdentifierIcsm" >
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
-                 or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
-        </section>
-      </tab>
       <tab id="serviceIcsm" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) > 0">
         <section name="serviceIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification/srv:serviceType"/>
@@ -564,8 +572,9 @@
             in="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification"/>
       </tab>
       <tab id="qualityLineageIcsm" mode="flat">
-        <section name="resourceLineageIcsm">
-          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" />
+
+        <section xpath="/mdb:MD_Metadata/mdb:resourceLineage" or="resourceLineage" in="/mdb:MD_Metadata">
+          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement"/>
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description" />
         </section>
         <!--<section xpath="/mdb:MD_Metadata/mdb:dataQualityInfo" or="dataQualityInfo"
