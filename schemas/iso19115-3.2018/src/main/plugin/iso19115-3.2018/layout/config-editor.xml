@@ -85,6 +85,7 @@
 
     <for name="gml:duration" use="data-gn-field-duration-div"/>
     <for name="gco:TM_PeriodDuration" use="data-gn-field-duration-div"/>
+    <for name="gml:duration" use="data-gn-field-duration-div"/>
 
     <for name="gmx:FileName/src" use="data-gn-logo-selector"/>
 
@@ -547,8 +548,23 @@
         <directive data-gn-need-help="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/"/>
       </sidePanel>
 
+      <tab id="contactsIcsm" mode="flat">
+        <section name="resourceContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact" or="pointOfContact"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty" or="citedResponsibleParty"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation"/>
+        </section>
+        <section name="metadataContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:contact" or="contact"
+                 in="/mdb:MD_Metadata"/>
+        </section>
+      </tab>
+
       <tab id="default" default="true" mode="flat">
         <section name="generalIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope" />
+
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title" />
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:abstract" />
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose" />
@@ -560,8 +576,35 @@
         <section name="dataIdentifierIcsm" >
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
                  or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
+        <section name="dataIdentifierIcsm" >
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
+                 or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
+        </section>
+
+      </tab>
+
+      <tab id="datesIcsm" mode="flat">
+        <section name="datesIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date"
+                 or="date" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
+        </section>
+        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" />
+
+      </tab>
+
+      <tab id="contactsIcsm" mode="flat">
+        <section name="resourceContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact" or="pointOfContact"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty" or="citedResponsibleParty"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation"/>
+        </section>
+        <section name="metadataContactsIcsm">
+          <field xpath="/mdb:MD_Metadata/mdb:contact" or="contact"
+                 in="/mdb:MD_Metadata"/>
         </section>
       </tab>
+
       <tab id="serviceIcsm" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) > 0">
         <section name="serviceIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification/srv:serviceType"/>
@@ -605,6 +648,7 @@
       </tab>
 
       <tab id="qualityLineageIcsm" mode="flat">
+
         <section name="resourceLineageIcsm">
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" or="statement"
             in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage"/>
