@@ -345,7 +345,7 @@
 
         ]
       </xsl:when>
-      <xsl:otherwise>provider</xsl:otherwise>
+      <!--<xsl:otherwise>provider</xsl:otherwise>-->
     </xsl:choose><xsl:if test="position() != last()">,</xsl:if>
   </xsl:for-each>
     <!--
