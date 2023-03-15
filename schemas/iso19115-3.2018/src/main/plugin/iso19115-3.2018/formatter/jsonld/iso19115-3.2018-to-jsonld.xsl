@@ -208,6 +208,9 @@
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
     <!-- TODO: Add identifier, DOI if available or URL or text -->
+    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/*/gco:CharacterString[. != '']">
+      "identifier": "<xsl:value-of select="."/>",
+    </xsl:for-each>
 
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:edition/gco:CharacterString[. != '']">
       "version": "<xsl:value-of select="."/>",
@@ -247,50 +250,104 @@
       </xsl:choose>
 
     -->
-    "publisher": [
-      <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/*/cit:party">
-        {
-        <!-- TODO: Id could also be website if set -->
-        <xsl:variable name="id"
-                      select=".//cit:electronicMailAddress/*/text()[1]"/>
-        "@id":"<xsl:value-of select="$id"/>",
-        "@type":"Organization"
-        <xsl:for-each select=".//cit:CI_Organisation/cit:name">
-          ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
-                                       select="."/>
-        </xsl:for-each>
-        <xsl:if test=".//cit:electronicMailAddress">
+    <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
+
+
+    <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
+    <xsl:choose>
+
+      <xsl:when test="$role='publisher'">"publisher": [
+
+          {
+          <!-- TODO: Id could also be website if set -->
+          <xsl:variable name="id"
+                        select=".//cit:electronicMailAddress/*/text()[1]"/>
+          "@id":"<xsl:value-of select="$id"/>",
+          "@type":"Organization"
+          <xsl:for-each select=".//cit:CI_Organisation/cit:name">
+            ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
+                                         select="."/>
+          </xsl:for-each>
+          <xsl:if test=".//cit:electronicMailAddress">
+              ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
+              <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+              <xsl:if test="position() != last()">,</xsl:if>
+          </xsl:for-each>]
+          </xsl:if>
+
+          <!-- TODO: only if children available -->
+          ,"contactPoint": {
+            "@type" : "PostalAddress"
+            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:country">
+              ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                     select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:city">
+              ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                     select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:postalCode">
+              ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                     select="."/>
+            </xsl:for-each>
+            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
+              ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                     select="."/>
+            </xsl:for-each>
+            }
+          }
+
+
+      ]
+
+      </xsl:when>
+
+      <xsl:when test="$role='author'">"creator": [
+
+          {
+          <!-- TODO: Id could also be website if set -->
+          <xsl:variable name="id"
+                        select=".//cit:electronicMailAddress/*/text()[1]"/>
+          "@id":"<xsl:value-of select="$id"/>",
+          "@type":"Person"
+          <xsl:for-each select=".//cit:CI_Individual/cit:name">
+            ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
+                                          select="."/>
+          </xsl:for-each>
+          <xsl:if test=".//cit:electronicMailAddress">
             ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
             <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
             <xsl:if test="position() != last()">,</xsl:if>
-        </xsl:for-each>]
-        </xsl:if>
+          </xsl:for-each>]
+          </xsl:if>
 
-        <!-- TODO: only if children available -->
-        ,"contactPoint": {
+          <!-- TODO: only if children available -->
+          ,"contactPoint": {
           "@type" : "PostalAddress"
           <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:country">
             ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                    select="."/>
           </xsl:for-each>
           <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:city">
             ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                     select="."/>
           </xsl:for-each>
           <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:postalCode">
             ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                select="."/>
           </xsl:for-each>
           <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
             ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
           }
-        }
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>
-    ]
+          }
 
+        ]
+      </xsl:when>
+      <xsl:otherwise>provider</xsl:otherwise>
+    </xsl:choose><xsl:if test="position() != last()">,</xsl:if>
+  </xsl:for-each>
     <!--
     The overall rating, based on a collection of reviews or ratings, of the item.
     "aggregateRating": TODO
@@ -336,7 +393,7 @@
         <xsl:for-each select="gex:description[count(.//text() != '') > 0]">
           <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
           <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
-          ], 
+          ],
         "geo": [
           <xsl:for-each select="gex:geographicElement/gex:EX_GeographicBoundingBox">
               {"@type":"GeoShape",
@@ -367,8 +424,8 @@
     </xsl:for-each>]
 
 
-    <xsl:if test="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints">    
-      ,"license": [<xsl:for-each select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints"> 
+    <xsl:if test="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
+      ,"license": [<xsl:for-each select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
           <xsl:choose>
             <xsl:when test="starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'//')">
               "<xsl:value-of select="normalize-space(string-join(gco:CharacterString/text(),''))"/>"
