@@ -226,7 +226,7 @@
         </xsl:apply-templates>
         <xsl:if test="position() != last()">,</xsl:if>
       </xsl:for-each>
-    ],
+    ]
 
 
     <!--
@@ -256,7 +256,7 @@
     <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
     <xsl:choose>
 
-      <xsl:when test="$role='publisher'">"publisher": [
+      <xsl:when test="$role='publisher'">,"publisher": [
 
           {
           <!-- TODO: Id could also be website if set -->
@@ -302,7 +302,7 @@
 
       </xsl:when>
 
-      <xsl:when test="$role='author'">"creator": [
+      <xsl:when test="$role='author'">,"creator": [
 
           {
           <!-- TODO: Id could also be website if set -->
@@ -346,7 +346,7 @@
         ]
       </xsl:when>
       <!--<xsl:otherwise>provider</xsl:otherwise>-->
-    </xsl:choose><xsl:if test="position() != last()">,</xsl:if>
+    </xsl:choose>
   </xsl:for-each>
     <!--
     The overall rating, based on a collection of reviews or ratings, of the item.
