@@ -446,7 +446,34 @@
     </xsl:if>
     <!-- TODO: When a dataset derives from or aggregates several originals, use the isBasedOn property. -->
     <!-- TODO: hasPart -->
-  }
+    <!-- BC Addition - Citation string as requested by Ant-nz -->
+    , "citation": <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
+    <xsl:when test="cit:role/cit:CI_RoleCode/@codeListValue='author' or cit:role/cit:CI_RoleCode/@codeListValue='coAuthor'">
+      <xsl:value-of select=".//cit:CI_Individual/cit:name">
+        <xsl:apply-templates mode="toJsonLDLocalized"
+                             select="."/>
+        <xsl:if test="position() != last()">,</xsl:if>
+      </xsl:value-of>
+    </xsl:when>
+  </xsl:for-each> (
+    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()">
+      "<xsl:value-of select="."/>
+    </xsl:for-each>
+    ) <xsl:apply-templates mode="toJsonLDLocalized"
+                           select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>.
+    <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
+      <xsl:when test="cit:role/cit:CI_RoleCode/@codeListValue='publisher'">
+        <xsl:value-of select=".//cit:CI_Organisation/cit:name">
+          <xsl:apply-templates mode="toJsonLDLocalized"
+                               select="."/>. </xsl:value-of>
+      </xsl:when>
+    </xsl:for-each>
+    <xsl:apply-templates mode="toJsonLDLocalized"
+                         select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/mcc:code"/>
+
+    , Accessed: <xsl:value-of  select="current-date()"/>"
+
+    }
   </xsl:template>
 
 
