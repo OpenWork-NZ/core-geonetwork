@@ -119,6 +119,9 @@
               <xsl:when test="$format='xml'">
                 <xsl:value-of select="concat($nodeUrl, 'api/records/', $uuid, '/formatters/xml')"/>
               </xsl:when>
+              <xsl:when test="$format='jsonld'">
+                <xsl:value-of select="concat($nodeUrl, 'api/records/', $uuid, '/formatters/jsonld')"/>
+              </xsl:when>
               <xsl:otherwise>
                 <xsl:value-of select="util:getPermalink($uuid, $lang)"/>
               </xsl:otherwise>
