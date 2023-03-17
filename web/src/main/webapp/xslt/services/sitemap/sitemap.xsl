@@ -119,7 +119,9 @@
               <xsl:when test="$format='xml'">
                 <xsl:value-of select="concat($nodeUrl, 'api/records/', $uuid, '/formatters/xml')"/>
               </xsl:when>
-
+              <xsl:when test="$format='jsonld'">
+                <xsl:value-of select="concat($nodeUrl, 'api/records/', $uuid, '/formatters/jsonld')"/>
+              </xsl:when>
               <xsl:otherwise>
                 <xsl:value-of select="concat($nodeUrl, 'api/records/', $uuid, '?language=all')"/>
               </xsl:otherwise>
@@ -128,7 +130,7 @@
           <lastmod>
             <xsl:value-of select="substring($changedate,1,10)"/>
           </lastmod>
-          
+
           <!--
           <dct:format>
               <xsl:value-of select="$schemaid"/>
