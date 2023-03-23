@@ -299,8 +299,19 @@
 
     See https://schema.org/DataDownload
     -->
-    <xsl:for-each select="mdb:distributionInfo">
     ,"distribution": [
+    <xsl:for-each select="//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource">
+    <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
+    {
+    "@type":"DataDownload",
+    "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
+    "encodingFormat": "<xsl:value-of select="gn-fn-index:json-escape(if ($d != '') then $d else cit:protocol/*/@xlink:href)"/>",
+    "name": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:name"/>
+    <xsl:if test="cit:description">
+      , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
+    </xsl:for-each>
+    <xsl:for-each select="mdb:distributionInfo">
+    ,"additionalType":
       <xsl:for-each select=".//mrd:onLine/*[cit:linkage/gco:CharacterString != '']">
         <xsl:variable name="p" select="normalize-space(cit:protocol/*/text())"/>
         {
@@ -318,7 +329,7 @@
         }
         <xsl:if test="position() != last()">,</xsl:if>
       </xsl:for-each>
-    ]
+    }]
     </xsl:for-each>
 
     <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat) > 0">
