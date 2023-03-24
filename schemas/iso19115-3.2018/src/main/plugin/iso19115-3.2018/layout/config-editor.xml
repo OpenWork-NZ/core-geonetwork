@@ -589,8 +589,11 @@
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date"
                  or="date" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
         </section>
-        <section xpath="/mdb:MD_Metadata/mdb:metadataMaintenance" or="metadataMaintenance"
-                 in="/mdb:MD_Metadata"/>
+        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" />
+        <!--<section name="resourceMaintenance"/>
+        <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" or="MD_MaintenanceInformation"
+                 in="/mdb:MD_Metadatamdb:identificationInfo/*/mri:resourceMaintenance"/>
+         </section>-->
       </tab>
       <tab id="contactsIcsm" mode="flat">
         <section name="resourceContactsIcsm">
@@ -606,11 +609,15 @@
       </tab>
 
       <tab id="qualityLineageIcsm" mode="flat">
-        <section name="resourceLineageIcsm">
+        <section xpath="/mdb:MD_Metadata/mdb:resourceLineage" or="resourceLineage"
+                 in="/mdb:MD_Metadata">
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" or="statement"
             in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage"/>
-          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description" />
+          <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"
+                 or="description" in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source"/>
         </section>
+        <!--<section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:credit" or="credit"
+                 in="/mdb:MD_Metadatamdb:identificationInfo/*"/>-->
         <!--<section xpath="/mdb:MD_Metadata/mdb:dataQualityInfo" or="dataQualityInfo"
                  in="/mdb:MD_Metadata"/>-->
       </tab>
