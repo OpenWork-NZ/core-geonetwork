@@ -358,12 +358,23 @@
 
     See https://schema.org/DataDownload
     -->
-    <xsl:for-each select="mdb:distributionInfo">
     ,"distribution": [
+    <xsl:for-each select="//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource">
+    <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
+    {
+    "@type":"DataDownload",
+    "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
+    "encodingFormat": "<xsl:value-of select="gn-fn-index:json-escape(if ($d != '') then $d else cit:protocol/*/@xlink:href)"/>",
+    "name": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:name"/>
+    <xsl:if test="cit:description">
+      , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
+    </xsl:for-each>
+    <xsl:for-each select="mdb:distributionInfo">
+    ,"additionalType":
       <xsl:for-each select=".//mrd:onLine/*[cit:linkage/gco:CharacterString != '']">
         <xsl:variable name="p" select="normalize-space(cit:protocol/*/text())"/>
         {
-        "@type":"DataDownload",
+        "@type":"DataLink",
         "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
         "encodingFormat": "<xsl:value-of select="gn-fn-index:json-escape(if ($p != '') then $p else cit:protocol/*/@xlink:href)"/>",
         "name": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:name"/>
@@ -372,7 +383,7 @@
         }
         <xsl:if test="position() != last()">,</xsl:if>
       </xsl:for-each>
-    ]
+    }]
     </xsl:for-each>
 
     <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat) > 0">
@@ -447,31 +458,26 @@
     <!-- TODO: When a dataset derives from or aggregates several originals, use the isBasedOn property. -->
     <!-- TODO: hasPart -->
     <!-- BC Addition - Citation string as requested by Ant-nz -->
-    , "citation": <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
-    <xsl:when test="cit:role/cit:CI_RoleCode/@codeListValue='author' or cit:role/cit:CI_RoleCode/@codeListValue='coAuthor'">
-      <xsl:value-of select=".//cit:CI_Individual/cit:name">
-        <xsl:apply-templates mode="toJsonLDLocalized"
-                             select="."/>
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:value-of>
-    </xsl:when>
-  </xsl:for-each> (
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()">
-      "<xsl:value-of select="."/>
-    </xsl:for-each>
-    ) <xsl:apply-templates mode="toJsonLDLocalized"
-                           select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>.
-    <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
-      <xsl:when test="cit:role/cit:CI_RoleCode/@codeListValue='publisher'">
-        <xsl:value-of select=".//cit:CI_Organisation/cit:name">
-          <xsl:apply-templates mode="toJsonLDLocalized"
-                               select="."/>. </xsl:value-of>
-      </xsl:when>
-    </xsl:for-each>
-    <xsl:apply-templates mode="toJsonLDLocalized"
-                         select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/mcc:code"/>
 
-    , Accessed: <xsl:value-of  select="current-date()"/>"
+    , "citation": "<xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author' or 'coAuthor']">
+
+        <xsl:value-of select=".//cit:CI_Individual/cit:name/gco:CharacterString"/>
+
+    <xsl:if test="position() != last()">, </xsl:if>
+  </xsl:for-each> (
+    <xsl:variable name="pubDate" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()"/>
+    <xsl:value-of select="format-dateTime($pubDate,'[Y0001]')"/>
+    ) <xsl:value-of select="mdb:identificationInfo/*/mri:citation/*/cit:title/gco:CharacterString"/>.
+    <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
+      <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
+      <xsl:choose>
+      <xsl:when test="$role='publisher'">
+          <xsl:value-of select=".//cit:CI_Organisation/cit:name/gco:CharacterString"/>.
+      </xsl:when>
+      </xsl:choose>
+    </xsl:for-each>
+    <xsl:value-of select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString|gcx:Anchor"/>,
+     Accessed: <xsl:value-of  select="current-date()"/>"
 
     }
   </xsl:template>

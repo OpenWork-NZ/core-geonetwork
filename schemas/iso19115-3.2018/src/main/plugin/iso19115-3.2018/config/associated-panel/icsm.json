@@ -24,7 +24,7 @@
       },
       {
         "group": "onlineDownload",
-        "label": "onlineDownloadFile",
+        "label": "onlineWWWLink",
         "copyLabel": "name",
         "sources": {
           "filestore": true
@@ -49,6 +49,7 @@
           }
         }
       },
+
       {
         "group": "onlineDiscover",
         "label": "onlineDiscoverWMS",
