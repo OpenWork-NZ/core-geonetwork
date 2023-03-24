@@ -73,7 +73,7 @@
   <metadataContactsIcsm>Metadata Contacts</metadataContactsIcsm>
   <resourceContactsIcsm>Resource Contacts</resourceContactsIcsm>
   <resourceLineageIcsm>Resource Lineage</resourceLineageIcsm>
-
+  <pointOfTruthMD>Metadata Source</pointOfTruthMD>
   <identificationInfo>Identification</identificationInfo>
   <distributionInfo>Distribution</distributionInfo>
   <dataQualityInfo>Quality</dataQualityInfo>

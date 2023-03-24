@@ -109,7 +109,7 @@
 
     <for name="mdb:contact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="true"
+              data-template-add-action="false"
               data-search-action="true"
               data-popup-action="true"
               data-template-type="contact"
@@ -118,7 +118,7 @@
     </for>
     <for name="mri:pointOfContact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="true"
+              data-template-add-action="false"
               data-template-type="contact"
               data-search-action="true"
               data-popup-action="true"
@@ -137,7 +137,7 @@
     </for>
     <for name="mrd:distributorContact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="true"
+        data-template-add-action="false"
         data-template-type="contact"
         data-search-action="true"
         data-filter='{"_root": "cit:CI_Responsibility"}'
@@ -145,7 +145,7 @@
     </for>
     <for name="mrl:processor" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="true"
+        data-template-add-action="false"
         data-template-type="contact"
         data-search-action="true"
         data-filter='{"_root": "cit:CI_Responsibility"}'
@@ -153,7 +153,7 @@
     </for>
     <for name="cit:citedResponsibleParty" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="true"
+        data-template-add-action="false"
         data-template-type="contact"
         data-search-action="true"
         data-popup-action="true"
@@ -184,17 +184,14 @@
 
     <for name="mri:resourceConstraints" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="true"
               data-search-action="true"
               data-popup-action="true"
               data-template-type="resourceConstraints"
               data-insert-modes="text"
-              data-filter='{"_root": "mco:MD_*" }'
-              data-variables="mco:constraintApplicationScope/mcc:MD_Scope/mcc:level/mcc:MD_ScopeCode/@codeListValue~{scope}"/>
+              data-filter='{"_root": "mco:MD_*" }'/>
     </for>
     <for name="mdb:metadataConstraints" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="true"
         data-search-action="true"
         data-popup-action="true"
         data-template-type="resourceConstraints"
@@ -479,7 +476,7 @@
         <col />
       </header>
       <row>
-        <col xpath="mco:reference/cit:CI_Citation/cit:title" />
+        <col xpath="mco:useLimitation"/>
         <col xpath="mco:accessConstraints" />
         <col xpath="mco:useConstraints" />
         <col xpath="mco:constraintApplicationScope/mcc:MD_Scope/mcc:level" />
@@ -561,6 +558,9 @@
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
                  or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
         </section>
+        <section name="pointOfTruthMD">
+          <field xpath="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage" />
+        </section>
       </tab>
       <tab id="serviceIcsm" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) > 0">
         <section name="serviceIcsm">
@@ -589,7 +589,8 @@
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date"
                  or="date" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
         </section>
-        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceMaintenance/mmi:MD_MaintenanceInformation" />
+        <section xpath="/mdb:MD_Metadata/mdb:metadataMaintenance" or="metadataMaintenance"
+                 in="/mdb:MD_Metadata"/>
       </tab>
       <tab id="contactsIcsm" mode="flat">
         <section name="resourceContactsIcsm">
