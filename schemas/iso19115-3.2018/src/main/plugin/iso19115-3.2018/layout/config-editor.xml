@@ -559,7 +559,10 @@
                  or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
         </section>
         <section name="pointOfTruthMD">
-          <field xpath="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage" />
+          <field xpath="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource/cit:linkage"
+                 or="linkage" in="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource" />
+          <field xpath="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource/cit:description"
+                 or="description" in="/mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource" />
         </section>
       </tab>
       <tab id="serviceIcsm" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) > 0">
@@ -734,6 +737,7 @@
         <for name="cit:date"/>
         <for name="mdb:dateInfo"/>
         <for name="cit:identifier"/>
+        <for name="cit:description"/>
         <for name="srv:serviceType"/>
         <for name="srv:serviceTypeVersion"/>
         <for name="srv:coupledResource"/>
