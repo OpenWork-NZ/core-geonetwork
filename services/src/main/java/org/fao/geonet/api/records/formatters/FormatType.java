@@ -36,7 +36,7 @@ public enum FormatType {
     html("text/html"),
     xml("application/xml"),
     json("application/json"),
-    jsonld("application/vnd.schemaorg.ld+json"),
+    jsonld("application/ld+json"),
     pdf("application/pdf"),
     testpdf("application/test-pdf");
     public final String contentType;

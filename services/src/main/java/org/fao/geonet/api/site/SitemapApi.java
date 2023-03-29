@@ -145,7 +145,7 @@ public class SitemapApi {
         )
         @RequestParam(
             required = false,
-            defaultValue = FORMAT_HTML
+            defaultValue = FORMAT_JSON
         )
             String format,
         @ApiParam(
@@ -163,7 +163,7 @@ public class SitemapApi {
         if (!(format.equalsIgnoreCase(FORMAT_HTML) ||
             format.equalsIgnoreCase(FORMAT_XML) ||
             format.equalsIgnoreCase(FORMAT_JSON))) {
-            format = FORMAT_HTML;
+            format = FORMAT_JSON;
         }
 
         Integer allgroup = 1;
