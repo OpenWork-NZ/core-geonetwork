@@ -261,8 +261,8 @@
           {
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
-                        select=".//cit:electronicMailAddress/*/text()[1]"/>
-          "@id":"<xsl:value-of select="$id"/>",
+                        select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
+          <xsl:if test="$id">"@id":"<xsl:value-of select="$id"/>",</xsl:if>
           "@type":"Organization"
           <xsl:for-each select=".//cit:CI_Organisation/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
@@ -307,8 +307,8 @@
           {
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
-                        select=".//cit:electronicMailAddress/*/text()[1]"/>
-          "@id":"<xsl:value-of select="$id"/>",
+                        select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
+          <xsl:if test="$id">"@id":"<xsl:value-of select="$id"/>",</xsl:if>
           "@type":"Person"
           <xsl:for-each select=".//cit:CI_Individual/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
