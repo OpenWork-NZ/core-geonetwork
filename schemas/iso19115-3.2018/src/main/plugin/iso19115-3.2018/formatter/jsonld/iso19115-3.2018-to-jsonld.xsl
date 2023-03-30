@@ -256,9 +256,10 @@
 
           {
           <!-- TODO: Id could also be website if set -->
+
           <xsl:variable name="id"
-                        select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
-          <xsl:if test="$id">"@id":"<xsl:value-of select="$id"/>",</xsl:if>
+                        select=".//cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:onlineResource/cit:CI_OnlineResource/cit:linkage"/>
+          <xsl:if test="$id">"@id":"<xsl:value-of select="gn-fn-index:json-escape($id/*/text())"/>",</xsl:if>
           "@type":"Organization"
           <xsl:for-each select=".//cit:CI_Organisation/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
@@ -274,19 +275,19 @@
           <!-- TODO: only if children available -->
           ,"contactPoint": {
             "@type" : "PostalAddress"
-            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:country">
+            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:country">
               ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
                                                      select="."/>
             </xsl:for-each>
-            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:city">
+            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:city">
               ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
                                                      select="."/>
             </xsl:for-each>
-            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:postalCode">
+            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:postalCode">
               ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
                                                      select="."/>
             </xsl:for-each>
-            <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
+            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
               ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
                                                      select="."/>
             </xsl:for-each>
@@ -304,7 +305,7 @@
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
                         select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
-          <xsl:if test="$id">"@id":"<xsl:value-of select="$id"/>",</xsl:if>
+          <xsl:if test="$id">"@id":<xsl:apply-templates mode="toJsonLDLocalized" select="$id"/>,</xsl:if>
           "@type":"Person"
           <xsl:for-each select=".//cit:CI_Individual/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
@@ -320,19 +321,19 @@
         <!-- TODO: only if children available -->
         ,"contactPoint": {
           "@type" : "PostalAddress"
-          <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:country">
+          <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:country">
             ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
-          <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:city">
+          <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:city">
             ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
-          <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:postalCode">
+          <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:postalCode">
             ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
-          <xsl:for-each select="cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
+          <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
             ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
