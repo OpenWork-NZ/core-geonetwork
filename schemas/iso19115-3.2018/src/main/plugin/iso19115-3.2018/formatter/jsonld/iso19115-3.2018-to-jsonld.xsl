@@ -305,7 +305,7 @@
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
                         select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
-          <xsl:if test="$id">"@id":<xsl:apply-templates mode="toJsonLDLocalized" select="$id"/>,</xsl:if>
+        <xsl:if test="not($id/@gco:nilReason='missing')">"@id":<xsl:apply-templates mode="toJsonLDLocalized" select="$id"/>,</xsl:if>
           "@type":"Person"
           <xsl:for-each select=".//cit:CI_Individual/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
