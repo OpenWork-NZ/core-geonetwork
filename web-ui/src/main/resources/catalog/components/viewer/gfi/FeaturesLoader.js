@@ -74,6 +74,7 @@
     geonetwork.GnFeaturesLoader.call(this, config, $injector);
 
     this.coordinates = config.coordinates;
+    this.bbox = config.bbox;
   };
 
   geonetwork.inherits(geonetwork.GnFeaturesGFILoader,
@@ -92,52 +93,72 @@
     }
 
     var infoFormat = false;
+    var uri = false;
+    if (this.bbox === undefined) {
+		//check if infoFormat is available in getCapabilities
+	    if(layer.get('capRequest') &&
+	      layer.get('capRequest').GetFeatureInfo &&
+	      angular.isArray(layer.get('capRequest').GetFeatureInfo.Format) &&
+	      layer.get('capRequest').GetFeatureInfo.Format.length > 0) {
+	      if($.inArray(infoFormat,
+	          layer.get('capRequest').GetFeatureInfo.Format) == -1) {
+	
+	        // Search for available formats friendly to us
+	        // using plain standard EMACS Javascript
+	        var friendlyFormats = layer.get('capRequest').GetFeatureInfo.Format
+	            .filter(function (el) {
+	              return el.toLowerCase().localeCompare('application/json') == 0
+	              || el.toLowerCase().localeCompare('application/geojson') == 0
+	              || el.toLowerCase().localeCompare('application/vnd.ogc.gml') == 0
+	              || el.toLowerCase().localeCompare('text/xml') == 0;
+	            });
+	
+	        if(friendlyFormats.length > 0) {
+	          //take any of them
+	          infoFormat = friendlyFormats[0];
+	        }
+	
+	        //Heavy failback: take any available format
+	        //we will deal later with this unknown and
+	        //trust OpenLayers know how to deal with it
+	        if(!infoFormat
+	            && layer.get('capRequest').GetFeatureInfo.Format.length
+	            && layer.get('capRequest').GetFeatureInfo.Format.length > 0) {
+	          layer.infoFormat = layer.get('capRequest').GetFeatureInfo.Format[0];
+	        }
+	      }
+	    }
+	
+	    //Did we get anything from getCapabilities?
+	    if(infoFormat) {
+	      layer.infoFormat = infoFormat;
+	    }
 
-    //check if infoFormat is available in getCapabilities
-    if(layer.get('capRequest') &&
-      layer.get('capRequest').GetFeatureInfo &&
-      angular.isArray(layer.get('capRequest').GetFeatureInfo.Format) &&
-      layer.get('capRequest').GetFeatureInfo.Format.length > 0) {
-      if($.inArray(infoFormat,
-          layer.get('capRequest').GetFeatureInfo.Format) == -1) {
-
-        // Search for available formats friendly to us
-        // using plain standard EMACS Javascript
-        var friendlyFormats = layer.get('capRequest').GetFeatureInfo.Format
-            .filter(function (el) {
-              return el.toLowerCase().localeCompare('application/json') == 0
-              || el.toLowerCase().localeCompare('application/geojson') == 0
-              || el.toLowerCase().localeCompare('application/vnd.ogc.gml') == 0
-              || el.toLowerCase().localeCompare('text/xml') == 0;
-            });
-
-        if(friendlyFormats.length > 0) {
-          //take any of them
-          infoFormat = friendlyFormats[0];
-        }
-
-        //Heavy failback: take any available format
-        //we will deal later with this unknown and
-        //trust OpenLayers know how to deal with it
-        if(!infoFormat
-            && layer.get('capRequest').GetFeatureInfo.Format.length
-            && layer.get('capRequest').GetFeatureInfo.Format.length > 0) {
-          layer.infoFormat = layer.get('capRequest').GetFeatureInfo.Format[0];
-        }
-      }
-    }
-
-    //Did we get anything from getCapabilities?
-    if(infoFormat) {
-      layer.infoFormat = infoFormat;
-    }
-
-    var uri = layer.getSource().getFeatureInfoUrl(
-        coordinates,
-        map.getView().getResolution(),
-        map.getView().getProjection(),
-        { INFO_FORMAT: infoFormat });
-    uri += '&FEATURE_COUNT=2147483647';
+		uri = layer.getSource().getFeatureInfoUrl(
+	        coordinates,
+	        map.getView().getResolution(),
+	        map.getView().getProjection(),
+	        { INFO_FORMAT: infoFormat });
+        uri += '&FEATURE_COUNT=2147483647';
+	} else {
+		infoFormat = "application/vnd.ogc.gml";
+		var params = {
+			'SERVICE': 'WFS',
+			'VERSION': '1.1.0',
+			'REQUEST': 'GetFeature',
+			'TYPENAMES': layer.getSource().params_['LAYERS'],
+			'srsName': map.getView().getProjection().getCode(),
+			'BBOX': this.bbox.join(',') + ",urn:ogc:def:crs:" + map.getView().getProjection().getCode(),
+			'count': '2147483647'
+		};
+		uri = layer.getSource().getUrl();
+		function stripSuffix(str, suffix) {
+			if (str.endsWith(suffix)) return str.slice(0, str.length - suffix.length);
+			else return str;
+		}
+		uri = stripSuffix(stripSuffix(uri, "?SERVICE=WMS&"), "?SERVICE=WMS")
+		uri = appendParams(uri, params);
+	}
 
     this.loading = true;
     this.promise = this.$http.get(uri,{
@@ -200,6 +221,22 @@
         }
 
   };
+
+  function appendParams(uri, params) {
+	  var keyParams = [];
+	  // Skip any null or undefined parameter values
+	  Object.keys(params).forEach(function (k) {
+	    if (params[k] !== null && params[k] !== undefined) {
+	      keyParams.push(k + '=' + encodeURIComponent(params[k]));
+	    }
+	  });
+	  var qs = keyParams.join('&');
+	  // remove any trailing ? or &
+	  uri = uri.replace(/[?&]$/, '');
+	  // append ? or & depending on whether uri has existing parameters
+	  uri += uri.includes('?') ? '&' : '?';
+	  return uri + qs;
+  }
 
   geonetwork.GnFeaturesGFILoader.prototype.formatUrlValues_ = function(url) {
     return '<a href="' + url + '" target="_blank">' + linkTpl + '</a>';

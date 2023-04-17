@@ -120,7 +120,7 @@
       };
     }]);
 
-  geonetwork.GnGfiController = function($scope, gnFeaturesTableManager) {
+  geonetwork.GnGfiController = function($scope, gnFeaturesTableManager, gnSearchSettings, olDecorateInteraction) {
 
     this.gnFeaturesTableManager = gnFeaturesTableManager;
 
@@ -154,6 +154,25 @@
       }.bind(this));
     }.bind(this));
 
+    var dragbox = new ol.interaction.DragBox({
+		style: gnSearchSettings.olStyles.drawBbox,
+		condition: ol.events.condition.platformModifierKeyOnly
+    });
+    olDecorateInteraction(dragbox, map);
+    map.addInteraction(dragbox);
+    dragbox.on('boxend', function() {
+		if (!this.canApply()) return;
+		
+		var layers = map.getLayers().getArray().filter(function(layer) {
+          return (layer.getSource() instanceof ol.source.ImageWMS ||
+              layer.getSource() instanceof ol.source.TileWMS ||
+              layer.getSource() instanceof ol.source.ImageArcGISRest) &&
+              layer.getVisible();
+        }).reverse();
+        bbox = dragbox.getGeometry().getExtent();
+		this.registerTables(layers, ol.extent.getCenter(bbox), bbox);
+	}.bind(this));
+
     $scope.$watch(function() {
       return this.gnFeaturesTableManager.getCount();
     }.bind(this), function(newVal, oldVal) {
@@ -177,7 +196,7 @@
   };
 
   geonetwork.GnGfiController.prototype.registerTables =
-      function(layers, coordinates) {
+      function(layers, coordinates, bbox) {
 
     this.gnFeaturesTableManager.clear();
     layers.forEach(function(layer) {
@@ -198,7 +217,8 @@
         map: this.map,
         indexObject: indexObject,
         layer: layer,
-        coordinates: coordinates
+        coordinates: coordinates,
+        bbox: bbox
       });
     }.bind(this));
   };
@@ -207,6 +227,8 @@
   module.controller('gnGfiController', [
     '$scope',
     'gnFeaturesTableManager',
+    'gnSearchSettings',
+    'olDecorateInteraction',
     geonetwork.GnGfiController]);
 
 
