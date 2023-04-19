@@ -181,6 +181,17 @@
           <label>{{'LayerKML' | translate}}</label>
           <div gn-kml-import="" gn-kml-import-map="map"></div>
         </tab>
+        <tab heading="{{'addCatchmentLayers' | translate }}"
+        	 active="addLayerTabs.catchments"
+        	 role="tab">
+          <br/>
+          <select ng-model="selectedCatchment">
+          	<!--  FIXME It's "Wairau" not "Wairua" -->
+          	<option value="WairuaCatchment">Wairau</option>
+          	<option value="MahiTahiCatchment">Mahi Tahi</option>
+          </select>
+          <div data-gn-search-layer-for-map="map" data-cat="['TopicalData', selectedCatchment]"></div>
+        </tab>
       </tabset>
     </div>
   </div>

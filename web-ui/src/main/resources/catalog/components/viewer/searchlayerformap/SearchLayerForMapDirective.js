@@ -51,7 +51,8 @@
             'partials/searchlayerformap.html',
         scope: {
           map: '=gnSearchLayerForMap',
-          mode: '@'
+          mode: '@',
+          cat: '='
         },
         controller: ['$scope',
           function($scope) {
@@ -69,6 +70,10 @@
             } else {
               $scope.searchObj.params.protocol = 'OGC:WMS*';
             }
+            $scope.searchObj.params._cat = $scope.cat;
+            $scope.$watch('cat', function() {
+				$scope.searchObj.params._cat = $scope.cat;
+			});
             $scope.modelOptions = angular.copy(gnGlobalSettings.modelOptions);
 
             $scope.paginationInfo = {

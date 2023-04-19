@@ -61,8 +61,10 @@
                 search: true,
                 wms: false,
                 wmts: false,
-                kml: false
+                kml: false,
+                catchments: false
               };
+              scope.selectedCatchment = "WairuaCatchment";
 
               /** these URL can be set by the viewer service **/
               scope.addLayerUrl = {

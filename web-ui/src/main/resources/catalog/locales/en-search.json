@@ -181,6 +181,7 @@
   "addLayerFromMaps": "Maps",
   "addLayerFromServices": "Services",
   "addLayerFromFiles": "Files",
+  "addCatchmentLayers": "Catchments",
   "chooseAservice": "Choose a service",
   "chooseAserviceHelp": "All services registered in the catalogue are presented here.",
   "orTypeAServiceUrl": "type a {{type}} service URL",

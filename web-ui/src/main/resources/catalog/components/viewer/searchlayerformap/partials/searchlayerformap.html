@@ -3,7 +3,7 @@
     <input type="hidden" name="_csrf" value="{{csrf}}"/>
     <div class="form-group">
       <div class="input-group">
-        <span class="input-group-addon"><i
+        <span class="input-group-addon" data-ng-click="triggerSearch()"><i
           class="fa fa-search"/></span>
         <input class="form-control"
                data-ng-change="triggerSearch()"
