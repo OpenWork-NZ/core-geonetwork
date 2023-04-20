@@ -43,21 +43,21 @@
       <span class="label" ng-show="showToolLabels" translate="">mapLegend</span>
       <span role="tooltip" translate="">mapLegend</span>
     </button>
-    <button class="btn btn-default" ng-model="activeTools.filter"
+    <!-- <button class="btn btn-default" ng-model="activeTools.filter"
             type="submit" gi-btn="active" ng-hide="disabledTools.filter"
             aria-label="{{'filterData' | translate}}">
       <span class="fa fa-filter"></span>
       <span class="label" ng-show="showToolLabels" translate="">filterData</span>
       <span role="tooltip" translate="">filterData</span>
     </button>
-
+    
     <button class="btn btn-default" ng-model="activeTools.processes"
             type="submit" gi-btn="active" ng-hide="disabledTools.processes"
             aria-label="{{'processesTool' | translate}}">
       <span class="fa fa-cogs"></span>
       <span class="label" ng-show="showToolLabels" translate="">processesTool</span>
       <span role="tooltip" translate="">processesTool</span>
-    </button>
+    </button> -->
 
     <button class="btn btn-default" ng-model="activeTools.contexts"
             type="submit" gi-btn="active" ng-hide="disabledTools.contexts"
@@ -89,12 +89,12 @@
       <span role="tooltip" translate="">Annotations</span>
     </button>
 
-    <button class="btn btn-default" type="submit" ng-click="syncMod()" ng-hide="disabledTools.syncAllLayers"
+    <!-- <button class="btn btn-default" type="submit" ng-click="syncMod()" ng-hide="disabledTools.syncAllLayers"
             aria-label="{{'syncAllLayers' | translate}}">
       <span class="fa fa-sync" ng-class="synAllLayers ? 'fa-lock' : 'fa-unlock'"/>
       <span class="label" ng-show="showToolLabels" translate="">syncAllLayers</span>
       <span role="tooltip" translate="">syncAllLayers</span>
-    </button>
+    </button> -->
   </div>
   <!--Bottom right buttons - Navigation-->
   <div class="tools control-tools">
@@ -143,14 +143,7 @@
     <div class="panel-body">
       <tabset class="info-tabset">
 
-        <tab heading="{{'addLayerFromMaps' | translate}}"
-             active="addLayerTabs.maps"
-             role="tab">
-          <br/>
-          <div data-gn-search-layer-for-map="map" data-mode="map"></div>
-        </tab>
-
-        <tab heading="{{'SearchLayer' | translate}}"
+        <!-- <tab heading="{{'SearchLayer' | translate}}"
              active="addLayerTabs.search"
              role="tab">
           <br/>
@@ -180,17 +173,37 @@
              role="tab">
           <label>{{'LayerKML' | translate}}</label>
           <div gn-kml-import="" gn-kml-import-map="map"></div>
-        </tab>
+        </tab> -->
         <tab heading="{{'addCatchmentLayers' | translate }}"
-        	 active="addLayerTabs.catchments"
-        	 role="tab">
+             active="addLayerTabs.catchments"
+             role="tab">
           <br/>
           <select ng-model="selectedCatchment">
-          	<!--  FIXME It's "Wairau" not "Wairua" -->
-          	<option value="WairuaCatchment">Wairau</option>
-          	<option value="MahiTahiCatchment">Mahi Tahi</option>
+            <!--  FIXME It's "Wairau" not "Wairua" -->
+            <option value="WairauCatchment">Wairau</option>
+            <option value="MahiTahiCatchment">Mahi Tahi</option>
           </select>
+          <br/>
           <div data-gn-search-layer-for-map="map" data-cat="['TopicalData', selectedCatchment]"></div>
+        </tab>
+        <tab heading="{{'addReferenceLayers' | translate}}"
+             active="addLayerTabs.reference"
+             role="tab">
+           <br/>
+           <select ng-model="selectedCatchment">
+             <!-- FIXME It's "Wairau" not "Wairua" -->
+             <option value="WairauCatchment">Wairau</option>
+             <option value="MahiTahiCatchment">Mahi Tahi</option>
+           </select>
+           <br />
+           <div data-gn-search-layer-for-map="map" data-cat="['ReferenceData', selectedCatchment]"></div>
+         </tab>
+         
+         <tab heading="{{'addLayerFromMaps' | translate}}"
+             active="addLayerTabs.maps"
+             role="tab">
+          <br/>
+          <div data-gn-search-layer-for-map="map" data-mode="map"></div>
         </tab>
       </tabset>
     </div>
