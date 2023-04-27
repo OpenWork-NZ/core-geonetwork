@@ -43,17 +43,6 @@
       </ows:Title>
     </ows-context:Layer>
 
-    <!-- Hillshade -->
-
-    <ows-context:Layer queryable="false" name="hillshadeGTiff"
-                       hidden="false" opacity="1"
-                       group="Background layers">
-      <ows:Title>Hillshade</ows:Title>
-      <ows-context:Server service="urn:ogc:serviceType:WMS">
-        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://ngatirarua.geodata.nz/geoserver/Basemap/wms?"/>
-      </ows-context:Server>
-    </ows-context:Layer>
-
     <!--Uncomment the code bellow to add support to MS bing maps; don't forget to add a valid bingKey on the
     settings!-->
     <!--
