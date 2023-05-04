@@ -112,7 +112,7 @@
                   select="$map[@key = $type]/@value"/>
 
     <xsl:variable name="prefixedBy"
-                  select="if ($prefix = '') then 'http://schema.org/' else $prefix"/>
+                  select="if ($prefix = '') then '' else $prefix"/>
 
     <xsl:value-of select="if ($match != '')
                           then concat($prefixedBy, $match)
@@ -169,10 +169,10 @@
     <xsl:variable name="hierarchyLevels"
                   select="distinct-values(mdb:metadataScope/*/mdb:resourceScope/*/@codeListValue[. != ''])"/>
     <xsl:for-each select="$hierarchyLevels">
-      "@type": "<xsl:value-of select="schema-org-fn:getType(., 'schema:')"/>",
+      "@type": "<xsl:value-of select="schema-org-fn:getType(., '')"/>",
     </xsl:for-each>
     <xsl:if test="count($hierarchyLevels) = 0">
-      "@type": "schema:Dataset",
+      "@type": "Dataset",
     </xsl:if>
     <!-- TODO: Use the identifier property to attach any relevant Digital Object identifiers (DOIs). -->
     "@id": "<xsl:value-of select="concat($baseUrl, 'api/records/', mdb:metadataIdentifier[1]/*/mcc:code/*/text())"/>",

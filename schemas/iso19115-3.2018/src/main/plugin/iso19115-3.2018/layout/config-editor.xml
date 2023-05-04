@@ -109,7 +109,7 @@
 
     <for name="mdb:contact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="false"
+              data-template-add-action="true"
               data-search-action="true"
               data-popup-action="true"
               data-template-type="contact"
@@ -118,7 +118,7 @@
     </for>
     <for name="mri:pointOfContact" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-              data-template-add-action="false"
+              data-template-add-action="true"
               data-template-type="contact"
               data-search-action="true"
               data-popup-action="true"
@@ -153,7 +153,7 @@
     </for>
     <for name="cit:citedResponsibleParty" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="false"
+        data-template-add-action="true"
         data-template-type="contact"
         data-search-action="true"
         data-popup-action="true"
