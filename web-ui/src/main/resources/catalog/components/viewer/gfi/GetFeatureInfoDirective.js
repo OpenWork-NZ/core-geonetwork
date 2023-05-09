@@ -151,8 +151,19 @@
         coordinates = e.coordinate;
         this.registerTables(layers, e.coordinate);
 
+		selectionLayer.setVisible(false);
       }.bind(this));
     }.bind(this));
+
+	var selectionFeature = new ol.Feature();
+	var selectionLayer = new ol.layer.Vector({
+		style: gnSearchSettings.olStyles.drawBbox,
+		source: new ol.source.Vector({
+			features: [selectionFeature]
+		}),
+		visible: false,
+		map: map
+	});
 
     var dragbox = new ol.interaction.DragBox({
 		style: gnSearchSettings.olStyles.drawBbox,
@@ -171,6 +182,9 @@
         }).reverse();
         bbox = dragbox.getGeometry().getExtent();
 		this.registerTables(layers, ol.extent.getCenter(bbox), bbox);
+
+		selectionFeature.setGeometry(dragbox.getGeometry());
+		selectionLayer.setVisible(true);
 	}.bind(this));
 
     $scope.$watch(function() {
