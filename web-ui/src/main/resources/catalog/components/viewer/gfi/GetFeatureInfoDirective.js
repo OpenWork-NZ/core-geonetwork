@@ -132,7 +132,7 @@
     this.overlay = new ol.Overlay({
       positioning: 'center-center',
       position: undefined,
-      element: $('<span class="marker">+</span>')[0]
+      element: $('<img src="/geonetwork/images/crosshair.svg" alt="crosshair map marker" />')[0]
     });
     map.addOverlay(this.overlay);
 
