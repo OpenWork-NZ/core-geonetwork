@@ -178,11 +178,11 @@
              active="addLayerTabs.catchments"
              role="tab">
           <br/>
-          <select ng-model="selectedCatchment">
+          <label>Catchment: <select ng-model="selectedCatchment">
             <!--  FIXME It's "Wairau" not "Wairua" -->
             <option value="WairauCatchment">Wairau</option>
             <option value="MahiTahiCatchment">Mahi Tahi</option>
-          </select>
+          </select></label>
           <br/>
           <div data-gn-search-layer-for-map="map" data-cat="['TopicalData', selectedCatchment]"></div>
         </tab>
@@ -190,11 +190,11 @@
              active="addLayerTabs.reference"
              role="tab">
            <br/>
-           <select ng-model="selectedCatchment">
+           <label>Catchment: <select ng-model="selectedCatchment">
              <!-- FIXME It's "Wairau" not "Wairua" -->
              <option value="WairauCatchment">Wairau</option>
              <option value="MahiTahiCatchment">Mahi Tahi</option>
-           </select>
+           </select></label>
            <br />
            <div data-gn-search-layer-for-map="map" data-cat="['ReferenceData', selectedCatchment]"></div>
          </tab>

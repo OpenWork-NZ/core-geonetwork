@@ -64,7 +64,7 @@
                 kml: false,
                 catchments: false
               };
-              scope.selectedCatchment = "WairuaCatchment";
+              scope.selectedCatchment = "WairauCatchment";
 
               /** these URL can be set by the viewer service **/
               scope.addLayerUrl = {
