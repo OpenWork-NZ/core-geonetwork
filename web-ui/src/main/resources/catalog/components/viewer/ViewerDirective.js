@@ -39,7 +39,7 @@
     'gnSearchLocation',
     'gnMetadataManager',
     'gnSearchSettings',
-    'gnViewerSettings',
+    'ngnViewerSettings',
     'gnAlertService',
     'gnMeasure',
     'gnViewerService',
@@ -101,7 +101,7 @@
               if(gnViewerSettings.mapConfig.switcherProjectionList.length < 2) {
                 scope.disabledTools.projectionSwitcher = true;
               }
-              
+
               /** wps process tabs */
               scope.wpsTabs = {
                 byUrl: true,

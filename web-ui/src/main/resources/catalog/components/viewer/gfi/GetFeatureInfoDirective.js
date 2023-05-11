@@ -173,7 +173,7 @@
     map.addInteraction(dragbox);
     dragbox.on('boxend', function() {
 		if (!this.canApply()) return;
-		
+
 		var layers = map.getLayers().getArray().filter(function(layer) {
           return (layer.getSource() instanceof ol.source.ImageWMS ||
               layer.getSource() instanceof ol.source.TileWMS ||
@@ -181,6 +181,7 @@
               layer.getVisible();
         }).reverse();
         bbox = dragbox.getGeometry().getExtent();
+        coordinates = ol.extent.getCenter(bbox);
 		this.registerTables(layers, ol.extent.getCenter(bbox), bbox);
 
 		selectionFeature.setGeometry(dragbox.getGeometry());
