@@ -39,7 +39,7 @@
     'gnSearchLocation',
     'gnMetadataManager',
     'gnSearchSettings',
-    'ngnViewerSettings',
+    'gnViewerSettings',
     'gnAlertService',
     'gnMeasure',
     'gnViewerService',
