@@ -138,6 +138,7 @@
 
     map.on('singleclick', function(e) {
       this.$scope.$apply(function() {
+		map.removeLayer(selectionLayer);
         if (!this.canApply()) {
           return;
         }
@@ -150,8 +151,6 @@
 
         coordinates = e.coordinate;
         this.registerTables(layers, e.coordinate);
-
-		map.removeLayer(selectionLayer);
       }.bind(this));
     }.bind(this));
 
