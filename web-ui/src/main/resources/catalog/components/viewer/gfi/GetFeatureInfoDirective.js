@@ -151,7 +151,7 @@
         coordinates = e.coordinate;
         this.registerTables(layers, e.coordinate);
 
-		selectionLayer.setVisible(false);
+		map.removeLayer(selectionLayer);
       }.bind(this));
     }.bind(this));
 
@@ -161,8 +161,7 @@
 		source: new ol.source.Vector({
 			features: [selectionFeature]
 		}),
-		visible: false,
-		map: map
+		visible: true
 	});
 
     var dragbox = new ol.interaction.DragBox({
@@ -185,7 +184,7 @@
 		this.registerTables(layers, ol.extent.getCenter(bbox), bbox);
 
 		selectionFeature.setGeometry(dragbox.getGeometry());
-		selectionLayer.setVisible(true);
+		map.addLayer(selectionLayer);
 	}.bind(this));
 
     $scope.$watch(function() {
