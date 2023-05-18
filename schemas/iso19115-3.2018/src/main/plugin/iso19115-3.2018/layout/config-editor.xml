@@ -532,6 +532,70 @@
   <!-- View configuration -->
   <views>
 
+    <view name="default" disabled="true">
+      <sidePanel>
+        <directive data-gn-validation-report=""/>
+        <directive data-gn-onlinesrc-list=""/>
+        <directive gn-geo-publisher=""
+                   data-ng-if="gnCurrentEdit.geoPublisherConfig"
+                   data-config="{{gnCurrentEdit.geoPublisherConfig}}"
+                   data-lang="lang"/>
+        <directive data-gn-suggestion-list=""/>
+        <directive data-gn-need-help="user-guide/describing-information/creating-metadata.html"/>
+      </sidePanel>
+
+      <tab id="defaultSimple" default="true" >
+        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:contentInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:distributionInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:dataQualityInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:resourceLineage"/>
+        <section xpath="/mdb:MD_Metadata/mdb:spatialRepresentationInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:referenceSystemInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:acquisitionInformation"/>
+        <section xpath="/mdb:MD_Metadata/mdb:portrayalCatalogueInfo"/>
+        <section xpath="/mdb:MD_Metadata/mdb:metadataConstraints"/>
+        <section xpath="/mdb:MD_Metadata/mdb:metadataMaintenance"/>
+        <section xpath="/mdb:MD_Metadata/mdb:applicationSchemaInfo"/>
+        <section name="metadata">
+          <field xpath="/mdb:MD_Metadata/mdb:metadataIdentifier"/>
+          <field xpath="/mdb:MD_Metadata/mdb:defaultLocale" or="defaultLocale"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:otherLocale" or="otherLocale"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:contact" or="contact" in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:parentMetadata" or="parentMetadata"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:metadataScope" or="metadataScope"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:alternativeMetadataReference" or="alternativeMetadataReference"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:metadataLinkage" or="metadataLinkage"
+                 in="/mdb:MD_Metadata"/>
+          <field xpath="/mdb:MD_Metadata/mdb:dateInfo"/>
+          <field xpath="/mdb:MD_Metadata/mdb:metadataStandard"/>
+          <field xpath="/mdb:MD_Metadata/mdb:metadataProfile"/>
+        </section>
+      </tab>
+      <!-- Elements that should not use the "flat" mode -->
+      <flatModeExceptions>
+        <for name="mri:descriptiveKeywords"/>
+        <for name="mri:pointOfContact"/>
+        <for name="mrd:distributor"/>
+        <for name="mdb:contact"/>
+        <for name="mcc:processor"/>
+        <for name="cit:party"/>
+        <for name="cit:CI_Individual"/>
+        <for name="cit:CI_Organisation"/>
+      </flatModeExceptions>
+      <thesaurusList>
+        <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme" transformations="to-iso19115-3.2018-keyword-with-anchor"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeumetadatacodelistSpatialScope-SpatialScope" transformations="to-iso19115-3.2018-keyword-with-anchor"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeumetadatacodelistPriorityDataset-PriorityDataset" transformations="to-iso19115-3.2018-keyword-with-anchor"/>
+        <thesaurus key="external.theme.httpinspireeceuropaeufeatureconcept-featureconcept" transformations="to-iso19115-3.2018-keyword-with-anchor"/>
+      </thesaurusList>
+    </view>
+
     <view name="icsm" class="gn-label-above-input" displayTooltips="true" hideTimeInCalendar="true" >
       <sidePanel>
         <directive data-gn-onlinesrc-list="" data-config-id="icsm" data-menu="false" />
