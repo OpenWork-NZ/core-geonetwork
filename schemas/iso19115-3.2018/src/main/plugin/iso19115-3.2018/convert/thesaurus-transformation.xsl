@@ -415,6 +415,7 @@
 
       <!-- BC Mod 28-2-21 - Gives the name of the Thesaurus when it shold give a class name? -->
     <!--<xsl:if test="test="$keywordClassInfo">-->
+    <mri:keywordClass>
       <mri:MD_KeywordClass>
         <mri:className>
           <gco:CharacterString>
@@ -439,7 +440,7 @@
           </cit:CI_Citation>
         </mri:ontology>
       </mri:MD_KeywordClass>
-
+    </mri:keywordClass>
   </xsl:function>
 
 
