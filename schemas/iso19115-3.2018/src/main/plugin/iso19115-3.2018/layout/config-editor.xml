@@ -734,7 +734,7 @@
                 <gex:temporalElement>
                   <gex:EX_TemporalExtent>
                     <gex:extent>
-                      <gml:TimePeriod id="">
+                      <gml:TimePeriod>
                         {{beginPosition}}
                         {{endPosition}}
                       </gml:TimePeriod>
