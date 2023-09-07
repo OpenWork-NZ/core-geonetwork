@@ -230,7 +230,7 @@
       <!-- If no keyword, add one to avoid invalid metadata -->
       <xsl:if test="count(//keyword[thesaurus/key = $currentThesaurus]) = 0">
         <mri:keyword gco:nilReason="missing">
-          <gcx:Anchor></gcx:Anchor>
+          <gco:CharacterString></gco:CharacterString>
         </mri:keyword>
       </xsl:if>
 
