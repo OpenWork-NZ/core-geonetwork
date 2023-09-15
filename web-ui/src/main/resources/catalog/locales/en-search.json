@@ -159,7 +159,7 @@
   "exportcheXML": "Export (XML)",
   "exportGM03": "Export (GM03)",
   "exportRDF": "Export (RDF)",
-  "exportCSV": "Export (CSV)",
+  "exportCSV": "Export (ONDC)",
   "exportPDF": "Export (PDF)",
   "exportMEF": "Export (ZIP)",
   "welcomeText": "Here you will find data, services and maps and more.",
