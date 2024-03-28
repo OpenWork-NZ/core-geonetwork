@@ -50,7 +50,6 @@
     <xsl:variable name="geometryCollection"
                   select="concat('GEOMETRYCOLLECTION(',
                               string-join($points/concat('POINT(', @east, '%20', @south, ')'), ','),
-                              if (count($points) > 0 and count($boxes) > 0) then ',' else '',
                               string-join($boxes/concat('POLYGON((',
                                 @east, '%20', @south, ',',
                                 @east, '%20', @north, ',',
