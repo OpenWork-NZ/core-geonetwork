@@ -67,6 +67,7 @@
           regexp: "^((?:/.+)?)+/.+/[a-z]{2,3}/.+",
           default: "/geonetwork"
         },
+		helpPage: "",
         mods: {
           global: {
             humanizeDates: true,
