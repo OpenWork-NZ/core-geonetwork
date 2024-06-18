@@ -2,19 +2,35 @@
                         xmlns:ows="http://www.opengis.net/ows"
                         version="0.3.1" id="ows-context-ex-1-v3">
   <ows-context:General>
+    <ows:BoundingBox crs="EPSG:3031">
+      <ows:LowerCorner>-4000000 -4000000</ows:LowerCorner>031
+      <ows:UpperCorner>4000000 4000000</ows:UpperCorner>
+    </ows:BoundingBox>
+  </ows-context:General>
+  <!-- <ows-context:General>
     <ows:BoundingBox crs="EPSG:3857">
       <ows:LowerCorner>-8604130.477526832 -320097.07393612247</ows:LowerCorner>
       <ows:UpperCorner>8948257.201654762 8720263.135408245</ows:UpperCorner>
     </ows:BoundingBox>
-  </ows-context:General>
+  </ows-context:General>-->
   <ows-context:ResourceList>
-    <ows-context:Layer name="{type=osm}"
+    <ows-context:Layer queryable="false"
+                       name="{type=wmts,name=ada_basemap_combined_jpeng-HDPI}"
+                       hidden="false" opacity="1" group="Background layers">
+      <ows:Title xmlns:ows="http://www.opengis.net/ows">Antarctica</ows:Title>
+      <ows-context:Server service="urn:ogc:serviceType:WMS">
+        <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://prod-ada-3.landcareresearch.co.nz/mapcache/atda/wmts/?Service%3DWMTS%26Request%3DGetCapabilities%26Version%3D1.0.0"/>
+      </ows-context:Server>
+      <ows-context:StyleList/>
+    </ows-context:Layer>
+
+    <!--<ows-context:Layer name="{type=osm}"
                        group="Background layers"
                        hidden="false"
                        opacity="1">
       <ows:Title>OpenStreetMap
       </ows:Title>
-    </ows-context:Layer>
+    </ows-context:Layer> -->
     <!--Uncomment the code bellow to add support to MS bing maps; don't forget to add a valid bingKey on the
     settings!-->
     <!--
