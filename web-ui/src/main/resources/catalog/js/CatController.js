@@ -800,8 +800,14 @@
             ],
             switcherProjectionList: [
               {
-                code: "EPSG:3857",
-                label: "Google mercator (EPSG:3857)"
+                code: "EPSG:3031",
+                label: "WGS 84 / Antarctic Polar Stereographic",
+                def: "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
+                extent: [
+                  -3333134.0276302765, -3333134.0276302765, 3333134.0276302765,
+                  3333134.0276302765
+                ],
+                worldExtent: [-180, -90, 180, -60]
               }
             ],
             disabledTools: {
