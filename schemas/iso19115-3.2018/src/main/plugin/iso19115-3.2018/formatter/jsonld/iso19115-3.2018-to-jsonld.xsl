@@ -392,7 +392,29 @@
     </xsl:if>
     <!-- TODO: When a dataset derives from or aggregates several originals, use the isBasedOn property. -->
     <!-- TODO: hasPart -->
-  }
+    <!-- BC Addition - Citation string as requested by Ant-nz -->
+
+    , "citation": "<xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author' or 'coAuthor']">
+
+        <xsl:value-of select=".//cit:CI_Individual/cit:name/gco:CharacterString"/>
+
+    <xsl:if test="position() != last()">, </xsl:if>
+  </xsl:for-each> (
+    <xsl:variable name="pubDate" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()"/>
+    <xsl:value-of select="format-dateTime($pubDate,'[Y0001]')"/>
+    ) <xsl:value-of select="mdb:identificationInfo/*/mri:citation/*/cit:title/gco:CharacterString"/>.
+    <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
+      <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
+      <xsl:choose>
+      <xsl:when test="$role='publisher'">
+          <xsl:value-of select=".//cit:CI_Organisation/cit:name/gco:CharacterString"/>.
+      </xsl:when>
+      </xsl:choose>
+    </xsl:for-each>
+    <xsl:value-of select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString|gcx:Anchor"/>,
+     Accessed: <xsl:value-of  select="current-date()"/>"
+
+    }
   </xsl:template>
 
 

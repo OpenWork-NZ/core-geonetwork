@@ -224,7 +224,8 @@
     If the request is for EPSG:4326, the request bbox (AOI) will be flipped from XY to YX.
   -->
   <util:map id="regionGetMapBackgroundLayers">
-    <!--<entry key="osm"
+
+   <!-- <entry key="osm"
            value="\${map.bbox.background.service}"/>-->
     <entry key="MWLR-WMTS"
            value='{
