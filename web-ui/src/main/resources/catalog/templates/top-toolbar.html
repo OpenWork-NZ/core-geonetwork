@@ -46,9 +46,14 @@
       <li gn-contribute-menu="" />
       <li gn-admin-menu="" />
       <li>
-      	<a data-ng-if="gnCfg.helpPage" href="{{ gnCfg.helpPage }}" class="gn-menuheader-xs" role="button">
-      	  <i class="fa fa-fw fa-question"></i>&nbsp;<span translate>about</span>
-      	</a>
+        <a
+          data-ng-if="gnCfg.helpPage"
+          href="{{ gnCfg.helpPage }}"
+          class="gn-menuheader-xs"
+          role="button"
+        >
+          <i class="fa fa-fw fa-question"></i>&nbsp;<span translate>about</span>
+        </a>
       </li>
       <li gn-static-pages-list-viewer data-section="top" data-language="{{lang}}" />
     </ul>
