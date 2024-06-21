@@ -824,24 +824,24 @@
             graticuleOgcService: {},
             "map-viewer": {
               context: "../../map/config-viewer.xml",
-              extent: [0, 0, 0, 0],
-              layers: []
+              extent: [18687324, -6007338, 20076644, -3972279],
+              layers: [{ type: "osm" }]
             },
             "map-search": {
               context: "../../map/config-viewer.xml",
-              extent: [0, 0, 0, 0],
-              layers: [],
+              extent: [18687324, -6007338, 20076644, -3972279],
+              layers: [{ type: "osm" }],
               geodesicExtents: false
             },
             "map-editor": {
-              context: "",
-              extent: [0, 0, 0, 0],
+              context: "../../map/config-viewer.xml",
+              extent: [18687324, -6007338, 20076644, -3972279],
               layers: [{ type: "osm" }]
             },
             "map-thumbnail": {
               context: "../../map/config-viewer.xml",
-              extent: [0, 0, 0, 0],
-              layers: []
+              extent: [18687324, -6007338, 20076644, -3972279],
+              layers: [{ type: "osm" }]
             },
             autoFitOnLayer: false
           },
