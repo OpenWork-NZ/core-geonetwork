@@ -126,7 +126,7 @@
           },
           home: {
             enabled: true,
-            appUrl: "../../{{node}}/{{lang}}/catalog.search#/home",
+            appUrl: "../../{{node}}/{{lang}}/catalog.signin#/home",
             showSocialBarInFooter: true,
             showMosaic: true,
             showMaps: true,
