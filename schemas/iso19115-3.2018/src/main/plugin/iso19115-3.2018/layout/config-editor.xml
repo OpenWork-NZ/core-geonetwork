@@ -125,6 +125,13 @@
                             &lt;/cit:address&gt;
                           &lt;/cit:CI_Contact&gt;
                         &lt;/cit:contactInfo&gt;
+                         &lt;cit:individual&gt;
+                          &lt;cit:CI_Individual&gt;
+                             &lt;cit:name&gt;
+                                &lt;gco:CharacterString&gt;myname&lt;/gco:CharacterString&gt;
+                             &lt;/cit:name&gt;
+                          &lt;/cit:CI_Individual&gt;
+                        &lt;/cit:individual&gt;
                       &lt;/cit:CI_Organisation&gt;
                     &lt;/cit:party&gt;
                   &lt;/cit:CI_Responsibility&gt;"
@@ -171,6 +178,13 @@
                             &lt;/cit:address&gt;
                           &lt;/cit:CI_Contact&gt;
                         &lt;/cit:contactInfo&gt;
+                         &lt;cit:individual&gt;
+                          &lt;cit:CI_Individual&gt;
+                             &lt;cit:name&gt;
+                                &lt;gco:CharacterString&gt;myname&lt;/gco:CharacterString&gt;
+                             &lt;/cit:name&gt;
+                          &lt;/cit:CI_Individual&gt;
+                        &lt;/cit:individual&gt;
                       &lt;/cit:CI_Organisation&gt;
                     &lt;/cit:party&gt;
                   &lt;/cit:CI_Responsibility&gt;"
@@ -206,6 +220,13 @@
                             &lt;/cit:address&gt;
                           &lt;/cit:CI_Contact&gt;
                         &lt;/cit:contactInfo&gt;
+                         &lt;cit:individual&gt;
+                          &lt;cit:CI_Individual&gt;
+                             &lt;cit:name&gt;
+                                &lt;gco:CharacterString&gt;myname&lt;/gco:CharacterString&gt;
+                             &lt;/cit:name&gt;
+                          &lt;/cit:CI_Individual&gt;
+                        &lt;/cit:individual&gt;
                       &lt;/cit:CI_Organisation&gt;
                     &lt;/cit:party&gt;
                   &lt;/cit:CI_Responsibility&gt;"
@@ -241,6 +262,13 @@
                             &lt;/cit:address&gt;
                           &lt;/cit:CI_Contact&gt;
                         &lt;/cit:contactInfo&gt;
+                        &lt;cit:individual&gt;
+                          &lt;cit:CI_Individual&gt;
+                             &lt;cit:name&gt;
+                                &lt;gco:CharacterString&gt;myname&lt;/gco:CharacterString&gt;
+                             &lt;/cit:name&gt;
+                          &lt;/cit:CI_Individual&gt;
+                        &lt;/cit:individual&gt;
                       &lt;/cit:CI_Organisation&gt;
                     &lt;/cit:party&gt;
                   &lt;/cit:CI_Responsibility&gt;"
@@ -276,6 +304,13 @@
                             &lt;/cit:address&gt;
                           &lt;/cit:CI_Contact&gt;
                         &lt;/cit:contactInfo&gt;
+                         &lt;cit:individual&gt;
+                          &lt;cit:CI_Individual&gt;
+                             &lt;cit:name&gt;
+                                &lt;gco:CharacterString&gt;myname&lt;/gco:CharacterString&gt;
+                             &lt;/cit:name&gt;
+                          &lt;/cit:CI_Individual&gt;
+                        &lt;/cit:individual&gt;
                       &lt;/cit:CI_Organisation&gt;
                     &lt;/cit:party&gt;
                   &lt;/cit:CI_Responsibility&gt;"
@@ -566,12 +601,14 @@
       <header>
         <col label="cit:role"/>
         <col label="cit:CI_Organisation"/>
+        <col label="cit:CI_Individual"/>
         <col label="cit:electronicMailAddress"/>
         <col/>
       </header>
       <row>
         <col xpath="cit:role"/>
         <col xpath="cit:party/cit:CI_Organisation/cit:name"/>
+        <col xpath="cit:party//cit:CI_Individual/cit:name"/>
         <col xpath="cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress"/>
         <col del=".."/>
       </row>
