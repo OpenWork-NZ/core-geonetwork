@@ -30,7 +30,6 @@
     "gn-site-name-menu",
     "gn-portal-switcher",
     "gn-search-menu",
-    "gn-map-menu",
     "gn-contribute-menu",
     "gn-admin-menu",
     "gn-static-pages-list-viewer"
