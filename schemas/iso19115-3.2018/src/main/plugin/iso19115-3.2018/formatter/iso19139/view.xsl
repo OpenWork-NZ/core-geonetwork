@@ -32,7 +32,7 @@
                 xmlns:gsr="http://www.isotc211.org/2005/gsr"
                 xmlns:gss="http://www.isotc211.org/2005/gss"
                 xmlns:gts="http://www.isotc211.org/2005/gts"
-                xmlns:srv="http://www.isotc211.org/2005/srv"
+
                 xmlns:gml="http://www.opengis.net/gml"
                 xmlns:cat="http://standards.iso.org/iso/19115/-3/cat/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
