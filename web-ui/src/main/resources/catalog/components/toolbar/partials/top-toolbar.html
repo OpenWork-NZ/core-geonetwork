@@ -41,6 +41,11 @@
     <ul class="nav navbar-nav gn-menu-xs" role="menu">
       <li data-ng-repeat-start="menu in toolbarMenu"></li>
       <li data-ng-if="menu == 'gn-site-name-menu'" gn-site-name-menu=""></li>
+      <li data-ng-if="menu == 'gn-site-name-menu' && gnCfg.helpPage">
+        <a href="{{ gnCfg.helpPage }}" class="gn-menuheader-xs" role="button">
+          <i class="fa fa-fw fa-question"></i>&nbsp;<span translate>about</span>
+        </a>
+      </li>
       <li data-ng-if="menu == 'gn-portal-switcher'" gn-portal-switcher=""></li>
       <li data-ng-if="menu == 'gn-search-menu'" gn-search-menu=""></li>
       <li data-ng-if="menu == 'gn-map-menu'" gn-map-menu=""></li>
@@ -60,11 +65,6 @@
         class="nav navbar-nav gn-menu-xs"
       ></ul>
       <li data-ng-repeat-end=""></li>
-      <li data-ng-if="gnCfg.helpPage">
-        <a href="{{ gnCfg.helpPage }}" class="gn-menuheader-xs" role="button">
-          <i class="fa fa-fw fa-question"></i>&nbsp;<span translate>about</span>
-        </a>
-      </li>
     </ul>
     <div class="navbar-right">
       <ul gn-signin-menu=""></ul>

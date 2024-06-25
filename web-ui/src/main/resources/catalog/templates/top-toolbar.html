@@ -40,16 +40,16 @@
   <div id="navbar" class="navbar-accessible navbar-collapse collapse">
     <ul class="nav navbar-nav gn-menu-xs" role="menu">
       <li gn-site-name-menu="" />
-      <li gn-portal-switcher="" />
-      <li gn-search-menu="" />
-      <li gn-map-menu="" />
-      <li gn-contribute-menu="" />
-      <li gn-admin-menu="" />
       <li data-ng-if="gnCfg.helpPage">
         <a href="{{ gnCfg.helpPage }}" class="gn-menuheader-xs" role="button">
           <i class="fa fa-fw fa-question"></i>&nbsp;<span translate>about</span>
         </a>
       </li>
+      <li gn-portal-switcher="" />
+      <li gn-search-menu="" />
+      <li gn-map-menu="" />
+      <li gn-contribute-menu="" />
+      <li gn-admin-menu="" />
       <li gn-static-pages-list-viewer data-section="top" data-language="{{lang}}" />
     </ul>
 

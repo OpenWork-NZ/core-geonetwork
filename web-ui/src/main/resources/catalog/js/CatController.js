@@ -67,7 +67,7 @@
           regexp: "^((?:/.+)?)+/.+/[a-z]{2,3}/.+",
           default: "/geonetwork"
         },
-        helpPage: "https://antarcticanz.github.io/antcat",
+        helpPage: "https://antarcticanz.github.io/antcat_docs",
         mods: {
           global: {
             humanizeDates: true,
