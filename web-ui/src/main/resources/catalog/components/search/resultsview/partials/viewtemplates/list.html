@@ -9,6 +9,25 @@
       class="panel-heading gn-card-heading"
       data-ng-class="{'gn-record-selected': md.selected}"
     >
+      <a
+        class="pull-left"
+        ng-if="md.groupWebsite"
+        href="{{md.groupWebsite}}"
+        target="_blank"
+      >
+        <img
+          ng-src="../..{{md.logo}}"
+          alt="{{'siteLogo' | translate}}"
+          style="margin-top: 5px; width: 75px; display: block; border: thin solid black"
+        />
+      </a>
+      <a class="pull-left" ng-if="!md.groupWebsite">
+        <img
+          ng-src="../..{{md.logo}}"
+          alt="{{'siteLogo' | translate}}"
+          style="margin-top: 5px; width: 75px; display: block; border: thin solid black"
+        />
+      </a>
       <div class="gn-md-select" data-ng-if="showBatchDropdown">
         <input
           data-gn-selection-md="md"
@@ -57,7 +76,12 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
           <div class="gn-md-abstract text-muted">
-            <p title="{{md.resourceAbstract}}">
+            <p
+              dd-text-collapse
+              dd-text-collapse-max-length="350"
+              dd-text-collapse-text="{{md.resourceAbstract || md.defaultAbstract}}"
+              title="{{md.resourceAbstract}}"
+            >
               {{md.resourceAbstract.split('\n')[0] | striptags}}
             </p>
 
