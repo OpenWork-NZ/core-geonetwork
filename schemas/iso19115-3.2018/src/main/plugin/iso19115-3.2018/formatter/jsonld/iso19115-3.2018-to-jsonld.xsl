@@ -41,27 +41,29 @@
                 version="2.0"
                 extension-element-prefixes="saxon"
                 exclude-result-prefixes="#all">
-<!--
-  Convert an ISO19139 records in JSON-LD format
+  <!--
+    Convert an ISO19139 records in JSON-LD format
 
 
-  This JSON-LD can be embeded in an HTML page using
-  ```
-  <html>
-    <script type="application/ld+json">
-     {json-ld}
-    </script>
-  </html>
-  ```
+    This JSON-LD can be embeded in an HTML page using
+    ```
+    <html>
+      <script type="application/ld+json">
+       {json-ld}
+      </script>
+    </html>
+    ```
 
 
-   Based on https://schema.org/Dataset
+     Based on https://schema.org/Dataset
 
 
-   Tested with https://search.google.com/structured-data/testing-tool
+     Tested with https://search.google.com/structured-data/testing-tool
 
-   TODO: Add support to translation https://bib.schema.org/workTranslation
-   -->
+     TODO: Add support to translation https://bib.schema.org/workTranslation
+     -->
+
+
 
   <!-- Used for json escape string -->
   <xsl:import href="common/index-utils.xsl"/>
@@ -162,7 +164,7 @@
 
   <xsl:template name="getJsonLD"
                 mode="getJsonLD" match="mdb:MD_Metadata">
-  {
+    {
     "@context": "http://schema.org/",
     <xsl:variable name="hierarchyLevels"
                   select="distinct-values(mdb:metadataScope/*/mdb:resourceScope/*/@codeListValue[. != ''])"/>
@@ -184,15 +186,15 @@
     <!-- An alias for the item. -->
     "alternateName": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle">
-       <xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
+      <xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>],
     "dateCreated": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='creation']/*/cit:date/*/text()">
-       "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
+      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>],
     "dateModified": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='revision']/*/cit:date/*/text()">
-    "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
+      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>],
     "datePublished": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()">
@@ -200,12 +202,15 @@
     </xsl:for-each>],
     "thumbnailUrl": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:graphicOverview/*/mcc:fileName/*[. != '']">
-    "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
+      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>],
     "description": <xsl:apply-templates mode="toJsonLDLocalized" select="mdb:identificationInfo/*/mri:abstract"/>,
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
     <!-- TODO: Add identifier, DOI if available or URL or text -->
+    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/*/gco:CharacterString[. != '']">
+      "identifier": "<xsl:value-of select="."/>",
+    </xsl:for-each>
 
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:edition/gco:CharacterString[. != '']">
       "version": "<xsl:value-of select="."/>",
@@ -214,14 +219,14 @@
 
     <!-- Build a flat list of all keywords even if grouped in thesaurus. -->
     "keywords":[
-      <xsl:for-each select="mdb:identificationInfo/*/mri:descriptiveKeywords/*/mri:keyword">
-        <xsl:apply-templates mode="toJsonLDLocalized"
-                             select=".">
-          <xsl:with-param name="asArray" select="false()"/>
-        </xsl:apply-templates>
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>
-    ],
+    <xsl:for-each select="mdb:identificationInfo/*/mri:descriptiveKeywords/*/mri:keyword">
+      <xsl:apply-templates mode="toJsonLDLocalized"
+                           select=".">
+        <xsl:with-param name="asArray" select="false()"/>
+      </xsl:apply-templates>
+      <xsl:if test="position() != last()">,</xsl:if>
+    </xsl:for-each>
+    ]
 
 
     <!--
@@ -245,14 +250,13 @@
       </xsl:choose>
 
     -->
-
     <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
 
 
-    <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
-    <xsl:choose>
+      <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
+      <xsl:choose>
 
-      <xsl:when test="$role='publisher'">,"publisher": [
+        <xsl:when test="$role='publisher'">,"publisher": [
 
           {
           <!-- TODO: Id could also be website if set -->
@@ -263,49 +267,49 @@
           "@type":"Organization"
           <xsl:for-each select=".//cit:CI_Organisation/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
-                                         select="."/>
+                                          select="."/>
           </xsl:for-each>
           <xsl:if test=".//cit:electronicMailAddress">
-              ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
-              <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
-              <xsl:if test="position() != last()">,</xsl:if>
+            ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
+            <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+            <xsl:if test="position() != last()">,</xsl:if>
           </xsl:for-each>]
           </xsl:if>
 
           <!-- TODO: only if children available -->
           ,"contactPoint": {
-            "@type" : "PostalAddress"
-            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:country">
-              ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
+          "@type" : "PostalAddress"
+          <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:country">
+            ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                    select="."/>
+          </xsl:for-each>
+          <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:city">
+            ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
                                                      select="."/>
-            </xsl:for-each>
-            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:city">
-              ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                     select="."/>
-            </xsl:for-each>
-            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:postalCode">
-              ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                     select="."/>
-            </xsl:for-each>
-            <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
-              ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                     select="."/>
-            </xsl:for-each>
-            }
+          </xsl:for-each>
+          <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:postalCode">
+            ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                select="."/>
+          </xsl:for-each>
+          <xsl:for-each select=".//cit:CI_Organisation/cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
+            ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
+                                                   select="."/>
+          </xsl:for-each>
+          }
           }
 
 
-      ]
+          ]
 
-      </xsl:when>
+        </xsl:when>
 
-      <xsl:when test="$role='author'">,"creator": [
+        <xsl:when test="$role='author'">,"creator": [
 
           {
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
                         select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
-        <xsl:if test="not($id/@gco:nilReason='missing')">"@id":<xsl:apply-templates mode="toJsonLDLocalized" select="$id"/>,</xsl:if>
+          <xsl:if test="not($id/@gco:nilReason='missing')">"@id":<xsl:apply-templates mode="toJsonLDLocalized" select="$id"/>,</xsl:if>
           "@type":"Person"
           <xsl:for-each select=".//cit:CI_Individual/cit:name">
             ,"name": <xsl:apply-templates mode="toJsonLDLocalized"
@@ -315,34 +319,36 @@
             ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
             <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
             <xsl:if test="position() != last()">,</xsl:if>
-        </xsl:for-each>]
-        </xsl:if>
+          </xsl:for-each>]
+          </xsl:if>
 
-        <!-- TODO: only if children available -->
-        ,"contactPoint": {
+          <!-- TODO: only if children available -->
+          ,"contactPoint": {
           "@type" : "PostalAddress"
           <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:country">
             ,"addressCountry": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                    select="."/>
           </xsl:for-each>
           <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:city">
             ,"addressLocality": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                     select="."/>
           </xsl:for-each>
           <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:postalCode">
             ,"postalCode": <xsl:apply-templates mode="toJsonLDLocalized"
-                                                   select="."/>
+                                                select="."/>
           </xsl:for-each>
           <xsl:for-each select=".//cit:CI_Individual/cit:contactInfo/*/cit:address/*/cit:deliveryPoint">
             ,"streetAddress": <xsl:apply-templates mode="toJsonLDLocalized"
                                                    select="."/>
           </xsl:for-each>
           }
-        }
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>
-    ]
+          }
 
+          ]
+        </xsl:when>
+        <!--<xsl:otherwise>provider</xsl:otherwise>-->
+      </xsl:choose>
+    </xsl:for-each>
     <!--
     The overall rating, based on a collection of reviews or ratings, of the item.
     "aggregateRating": TODO
@@ -355,37 +361,32 @@
     -->
     ,"distribution": [
     <xsl:for-each select="//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource">
-    <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
-    {
-    "@type":"DataDownload",
-    "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
-    "encodingFormat": "WWW:LINK-1.0-http--link",
-    "name": "Distribution Metadata"
-    <xsl:if test="cit:description">
-      , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
+      <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
+      {
+      "@type":"DataDownload",
+      "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
+      "encodingFormat": "WWW:LINK-1.0-http--link",
+      "name": "Distribution Metadata"
+      <xsl:if test="cit:description">
+        , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
     </xsl:for-each>
     <xsl:for-each select="mdb:distributionInfo">
       <xsl:if test="count(.//mrd:onLine/*[cit:linkage/gco:CharacterString != '']) > 0">
         , "additionalType": [
-      <xsl:for-each select=".//mrd:onLine/*[cit:linkage/gco:CharacterString != '']">
-        <xsl:variable name="p" select="normalize-space(cit:protocol/*/text())"/>
-        {
-        "@type":"DataDownload",
-        "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape((cit:linkage/*/text())[1])" />"
-        <xsl:if test="cit:protocol">,
-          "encodingFormat": "<xsl:value-of select="gn-fn-index:json-escape(if ($p != '') then $p else cit:protocol/*/@xlink:href)"/>"
-        </xsl:if>
-        <xsl:if test="cit:name">,
+        <xsl:for-each select=".//mrd:onLine/*[cit:linkage/gco:CharacterString != '']">
+          <xsl:variable name="p" select="normalize-space(cit:protocol/*/text())"/>
+          {
+          "@type":"DataLink",
+          "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
+          "encodingFormat": "<xsl:value-of select="gn-fn-index:json-escape(if ($p != '') then $p else cit:protocol/*/@xlink:href)"/>",
           "name": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:name"/>
-        </xsl:if>
-        <xsl:if test="cit:description">,
-          "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/>
-        </xsl:if>
-        }
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>]
+          <xsl:if test="cit:description">
+            , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
+          }
+          <xsl:if test="position() != last()">,</xsl:if>
+        </xsl:for-each>]
       </xsl:if>
-    }]
+      }]
     </xsl:for-each>
 
     <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat) > 0">
@@ -403,29 +404,29 @@
     ,"spatialCoverage": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
       {"@type":"Place",
-        "description": [
-        <xsl:for-each select="gex:description[count(.//text() != '') > 0]">
-          <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
-          <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
-          ],
-        "geo": [
-          <xsl:for-each select="gex:geographicElement/gex:EX_GeographicBoundingBox">
-              {"@type":"GeoShape",
-              "box": "<xsl:value-of select="string-join((
+      "description": [
+      <xsl:for-each select="gex:description[count(.//text() != '') > 0]">
+        <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+        <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
+      ],
+      "geo": [
+      <xsl:for-each select="gex:geographicElement/gex:EX_GeographicBoundingBox">
+        {"@type":"GeoShape",
+        "box": "<xsl:value-of select="string-join((
                                               gex:southBoundLatitude/gco:Decimal,
                                               gex:westBoundLongitude/gco:Decimal,
                                               gex:northBoundLatitude/gco:Decimal,
                                               gex:eastBoundLongitude/gco:Decimal
                                               ), ' ')"/>"
-              }<xsl:if test="position() != last()">,</xsl:if>
-          </xsl:for-each>
-        ]
+        }<xsl:if test="position() != last()">,</xsl:if>
+      </xsl:for-each>
+      ]
       }<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
 
     ,"temporalCoverage": [
     <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent">
-       "<xsl:value-of select="concat(
+      "<xsl:value-of select="concat(
                                                   gml:TimePeriod/gml:beginPosition,
                                                   '/',
                                                   gml:TimePeriod/gml:endPosition
@@ -438,24 +439,24 @@
     </xsl:for-each>]
 
 
-    <xsl:if test="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints">
-      ,"license": [<xsl:for-each select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:otherConstraints">
-          <xsl:choose>
-            <xsl:when test="starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'//')">
-              "<xsl:value-of select="normalize-space(string-join(gco:CharacterString/text(),''))"/>"
-            </xsl:when>
-            <xsl:when test="starts-with(string-join(gcx:Anchor/@xlink:href,''),'http') or starts-with(./@xlink:href,'//')">
-              "<xsl:value-of select="string-join(gcx:Anchor/@xlink:href,'')"/>"
-            </xsl:when>
-            <xsl:otherwise>
-              {
-                "@type": "CreativeWork",
-                "name": <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
-              }
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>]
+    <xsl:if test="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
+      ,"license": [<xsl:for-each select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
+      <xsl:choose>
+        <xsl:when test="starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'//')">
+          "<xsl:value-of select="normalize-space(string-join(gco:CharacterString/text(),''))"/>"
+        </xsl:when>
+        <xsl:when test="starts-with(string-join(gcx:Anchor/@xlink:href,''),'http') or starts-with(./@xlink:href,'//')">
+          "<xsl:value-of select="string-join(gcx:Anchor/@xlink:href,'')"/>"
+        </xsl:when>
+        <xsl:otherwise>
+          {
+          "@type": "CreativeWork",
+          "name": <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+          }
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="position() != last()">,</xsl:if>
+    </xsl:for-each>]
     </xsl:if>
     <!-- TODO: When a dataset derives from or aggregates several originals, use the isBasedOn property. -->
     <!-- TODO: hasPart -->
@@ -463,7 +464,7 @@
 
     , "citation": "<xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author' or 'coAuthor']">
 
-        <xsl:value-of select=".//cit:CI_Individual/cit:name/gco:CharacterString"/>
+    <xsl:value-of select=".//cit:CI_Individual/cit:name/gco:CharacterString"/>
 
     <xsl:if test="position() != last()">, </xsl:if>
   </xsl:for-each> (
@@ -473,13 +474,13 @@
     <xsl:for-each select="mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility">
       <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
       <xsl:choose>
-      <xsl:when test="$role='publisher'">
+        <xsl:when test="$role='publisher'">
           <xsl:value-of select=".//cit:CI_Organisation/cit:name/gco:CharacterString"/>.
-      </xsl:when>
+        </xsl:when>
       </xsl:choose>
     </xsl:for-each>
     <xsl:value-of select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString|gcx:Anchor"/>,
-     Accessed: <xsl:value-of  select="current-date()"/>"
+    Accessed: <xsl:value-of  select="current-date()"/>"
 
     }
   </xsl:template>
