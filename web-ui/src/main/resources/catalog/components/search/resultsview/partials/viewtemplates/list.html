@@ -18,14 +18,14 @@
         <img
           ng-src="../..{{md.logo}}"
           alt="{{'siteLogo' | translate}}"
-          style="margin-top: 5px; width: 75px; display: block; border: thin solid black"
+          style="margin-top: 5px; width: 75px; display: block; border: thin solid grey"
         />
       </a>
       <a class="pull-right" ng-if="!md.groupWebsite">
         <img
           ng-src="../..{{md.logo}}"
           alt="{{'siteLogo' | translate}}"
-          style="margin-top: 5px; width: 75px; display: block; border: thin solid black"
+          style="margin-top: 5px; width: 75px; display: block; border: thin solid grey"
         />
       </a>
       <div class="gn-md-select" data-ng-if="showBatchDropdown">
@@ -74,11 +74,10 @@
             />
           </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-6 col-md-6 col-sm-6" style="width: 65%">
           <div class="gn-md-abstract text-muted">
             <p
-              dd-text-collapse
-              dd-text-collapse-max-length="350"
+              dd-text-collapse-max-length="650"
               dd-text-collapse-text="{{md.resourceAbstract || md.defaultAbstract}}"
               title="{{md.resourceAbstract}}"
             >
@@ -93,7 +92,7 @@
             ></div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-3 col-sm-3">
+        <!--<div class="col-lg-4 col-md-3 col-sm-3">
           <div class="gn-md-contact">
             <p
               data-ng-repeat="c in ::md.getAllContacts().resource | limitTo: 4 track by $index"
@@ -134,7 +133,7 @@
               {{::c.organisation}} ({{::c.role | translate}})
             </p>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
     <!-- /.gn-card-body -->
