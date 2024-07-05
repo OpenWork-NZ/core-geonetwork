@@ -10,7 +10,7 @@
       data-ng-class="{'gn-record-selected': md.selected}"
     >
       <a
-        class="pull-left"
+        class="pull-right"
         ng-if="md.groupWebsite"
         href="{{md.groupWebsite}}"
         target="_blank"
@@ -21,7 +21,7 @@
           style="margin-top: 5px; width: 75px; display: block; border: thin solid black"
         />
       </a>
-      <a class="pull-left" ng-if="!md.groupWebsite">
+      <a class="pull-right" ng-if="!md.groupWebsite">
         <img
           ng-src="../..{{md.logo}}"
           alt="{{'siteLogo' | translate}}"
@@ -155,7 +155,7 @@
       </div>
       <div class="gn-toolbar">
         <div
-          class="pull-left gn-md-category"
+          class="pull-right gn-md-category"
           title="{{'listOfCategories' | translate}}"
           data-ng-class="md.cat.length > 0 ||
                             md.cl_topic.length > 0 ||
