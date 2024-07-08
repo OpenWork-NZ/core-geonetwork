@@ -81,6 +81,23 @@
         </div>
 
         <div class="pull-right">
+          <div
+            class="btn-group pull-left"
+            role="group"
+            data-ng-repeat="f in recordFormatterList"
+          >
+            <a
+              class="btn btn-default"
+              data-ng-show="f.label == 'full'"
+              href=""
+              gn-metadata-open="mdView.current.record"
+              gn-records="mdView.records"
+              gn-formatter="f && f.url"
+            >
+              <span class="fa fa-fw fa-eye"></span>
+              {{f.label | translate}}
+            </a>
+          </div>
           <!-- edit -->
           <div class="btn-group pull-left" role="group">
             <a
