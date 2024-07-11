@@ -2947,8 +2947,8 @@
     <skos:altLabel>NZL</skos:altLabel>
     <gml:BoundedBy>
       <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
-        <gml:lowerCorner>-177.96 -52.600</gml:lowerCorner>
-        <gml:upperCorner>178.84 -8.5432</gml:upperCorner>
+        <gml:lowerCorner>160.96 -49.600</gml:lowerCorner>
+        <gml:upperCorner>180 -33.5432</gml:upperCorner>
       </gml:Envelope>
     </gml:BoundedBy>
     <skos:broader rdf:resource="http://www.naturalearthdata.com/ne_admin#Country"/>
