@@ -103,10 +103,10 @@
       example, the DCMI Type Vocabulary). To describe the physical or digital manifestation of the
       resource, use the Format element.
     </example>
-    <helper>
-      <option value="dataset">Dataset</option>
+    <!--<helper>
+      <option value="">Dataset</option>
       <option value="service">Service</option>
-    </helper>
+    </helper>-->
   </element>
   <!-- ==================================================== -->
   <element name="dc:format">
