@@ -95,6 +95,10 @@
           templateUrl: tplFolder + "directory.html",
           controller: "GnDirectoryController"
         })
+        .when("/import2", {
+          templateUrl: tplFolder + "import-simple.html",
+          controller: "GnImportController"
+        })
         .when("/import", {
           templateUrl: tplFolder + "import.html",
           controller: "GnImportController"
