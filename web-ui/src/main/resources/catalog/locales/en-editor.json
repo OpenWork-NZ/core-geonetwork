@@ -111,7 +111,7 @@
     "createCopyOf": "Create copy",
     "createMetadata": "Create",
     "createMetadataError": "Create metadata error",
-    "createMetadataForGroup": "Create and publish for group editors",
+    "createMetadataForGroup": "Create and publish to my group",
     "createMetadataForGroup-help": "The record will be editable by all members of the group",
     "createMetadataUniformResourceName": "Metadata Uniform Resource Name",
     "createNewMetadata": "Add a new record",
