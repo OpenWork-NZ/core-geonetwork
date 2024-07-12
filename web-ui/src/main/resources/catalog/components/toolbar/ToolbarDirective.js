@@ -47,6 +47,11 @@
             gnGlobalSettings.gnCfg.mods.header.topCustomMenu.length > 0
               ? gnGlobalSettings.gnCfg.mods.header.topCustomMenu
               : GN_DEFAULT_MENU;
+          function toTitleCase(str) {
+            // Hackish means of getting a title.
+            return str.slice(0, 1).toUpperCase() + str.slice(1);
+          }
+          $scope.pageName = toTitleCase(window.location.hash.slice(2));
 
           $scope.isPage = function (page) {
             return angular.isObject(page) || page.indexOf("gn-") === -1;
