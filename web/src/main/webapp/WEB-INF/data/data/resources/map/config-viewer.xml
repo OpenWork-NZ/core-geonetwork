@@ -11,7 +11,7 @@
 
   <ows-context:General>
     <ows:BoundingBox crs="EPSG:3031">
-      <ows:LowerCorner>-4000000 -4000000</ows:LowerCorner>031
+      <ows:LowerCorner>-4000000 -4000000</ows:LowerCorner>
       <ows:UpperCorner>4000000 4000000</ows:UpperCorner>
     </ows:BoundingBox>
   </ows-context:General>
