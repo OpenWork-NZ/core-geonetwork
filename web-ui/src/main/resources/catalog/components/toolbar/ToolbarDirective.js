@@ -63,6 +63,7 @@
           else if (name in BETTER_TITLES) name = BETTER_TITLES[name];
           else if (name.split(".").length == 2) {
             name = name.split(".");
+            if (name[0] == "catalog") name[0] = "catalogue"; // Nit-picky...
             name = toTitleCase(name[0]) + " " + toTitleCase(name[1]);
           } else name = toTitleCase(name);
           $scope.pageName = toTitleCase(name);
