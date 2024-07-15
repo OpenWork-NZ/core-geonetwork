@@ -51,7 +51,10 @@
             // Hackish means of getting a title.
             return str.slice(0, 1).toUpperCase() + str.slice(1);
           }
-          var BETTER_TITLES = {};
+          var BETTER_TITLES = {
+            "catalog.edit#/board": "Editor Board",
+            "catalog.edit#/metadata": "Metadata Edit"
+          };
           var path = location.pathname.split("/");
           var name = path[path.length - 1];
 

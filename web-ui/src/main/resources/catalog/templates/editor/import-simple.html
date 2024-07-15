@@ -171,26 +171,6 @@
                 </div>
               </div>
 
-              <div id="gn-import-xslt-row" class="form-group">
-                <label
-                  id="gn-import-xslt-label"
-                  for="gn-import-xslt-input"
-                  class="col-sm-4 control-label"
-                  data-translate=""
-                  >xsltToApply</label
-                >
-                <div class="col-sm-8">
-                  <div data-gn-import-xsl="params.transformWith" />
-                  <input
-                    id="gn-import-xslt-input"
-                    type="text"
-                    data-ng-model="params.transformWith"
-                    name="transformWith"
-                    class="form-control hidden"
-                  />
-                </div>
-              </div>
-
               <div id="gn-import-validate-row" class="form-group gn-no">
                 <div class="col-sm-offset-4 col-sm-8">
                   <div class="checkbox">
@@ -295,29 +275,48 @@
                   />
                 </div>
               </div>
+            </div>
 
-              <div id="gn-import-assigncategory-row" class="form-group">
-                <label
-                  id="gn-import-assigncategory-label"
-                  class="col-sm-4 control-label"
-                  for="gn-import-assigncategory-input"
-                  data-translate=""
-                  >assignToCategory</label
-                >
-                <div class="col-sm-8">
-                  <div
-                    id="gn-import-assigncategory-list"
-                    data-gn-category="params.category"
-                    data-lang="{{lang}}"
-                  />
-                  <input
-                    id="gn-import-assigncategory-input"
-                    type="text"
-                    data-ng-model="params.category"
-                    name="category"
-                    class="form-control hidden"
-                  />
-                </div>
+            <div id="gn-import-assigncategory-row" class="form-group">
+              <label
+                id="gn-import-assigncategory-label"
+                class="col-sm-4 control-label"
+                for="gn-import-assigncategory-input"
+                data-translate=""
+                >assignToCategory</label
+              >
+              <div class="col-sm-8">
+                <div
+                  id="gn-import-assigncategory-list"
+                  data-gn-category="params.category"
+                  data-lang="{{lang}}"
+                />
+                <input
+                  id="gn-import-assigncategory-input"
+                  type="text"
+                  data-ng-model="params.category"
+                  name="category"
+                  class="form-control hidden"
+                />
+              </div>
+            </div>
+
+            <div id="gn-import-xslt-row" class="form-group">
+              <label
+                id="gn-import-xslt-label"
+                for="gn-import-xslt-input"
+                class="col-sm-4 control-label"
+                >Import from</label
+              >
+              <div class="col-sm-8">
+                <div data-gn-import-xsl="params.transformWith" />
+                <input
+                  id="gn-import-xslt-input"
+                  type="text"
+                  data-ng-model="params.transformWith"
+                  name="transformWith"
+                  class="form-control hidden"
+                />
               </div>
             </div>
 
