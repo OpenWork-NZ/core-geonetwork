@@ -51,7 +51,18 @@
             // Hackish means of getting a title.
             return str.slice(0, 1).toUpperCase() + str.slice(1);
           }
-          $scope.pageName = toTitleCase(window.location.hash.slice(2));
+          var BETTER_TITLES = {};
+          var path = location.pathname.split("/");
+          var name = path[path.length - 1];
+
+          var hash = location.hash.split("?")[0];
+          if (name + hash in BETTER_TITLES) name = BETTER_TITLES[name + hash];
+          else if (name in BETTER_TITLES) name = BETTER_TITLES[name];
+          else if (name.split(".").length == 2) {
+            name = name.split(".");
+            name = toTitleCase(name[0]) + " " + toTitleCase(name[1]);
+          } else name = toTitleCase(name);
+          $scope.pageName = toTitleCase(name);
 
           $scope.isPage = function (page) {
             return angular.isObject(page) || page.indexOf("gn-") === -1;
