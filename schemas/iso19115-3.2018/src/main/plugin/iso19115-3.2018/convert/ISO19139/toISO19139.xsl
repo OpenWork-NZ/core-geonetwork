@@ -205,13 +205,13 @@
 
   <xsl:template match="mdb:metadataStandard" priority="5">
     <gmd:metadataStandardName>
-      <gco:CharacterString>
-        <xsl:value-of select="cit:CI_Citation/cit:title/*"/>
+      <gco:CharacterString>ISO 19115
+        <!--<xsl:value-of select="cit:CI_Citation/cit:title/*"/>-->
       </gco:CharacterString>
     </gmd:metadataStandardName>
     <gmd:metadataStandardVersion>
-      <gco:CharacterString>
-        <xsl:value-of select="cit:CI_Citation/cit:edition/*"/>
+      <gco:CharacterString>2003
+        <!--<xsl:value-of select="cit:CI_Citation/cit:edition/*"/>-->
       </gco:CharacterString>
     </gmd:metadataStandardVersion>
   </xsl:template>
