@@ -1,5 +1,66 @@
 <div class="gallery">
-  <div data-ng-repeat="i in images">
+  <style>
+    .gallery dl dt {
+      margin-top: 20px;
+    }
+    .gallery dl {
+      column-count: 2;
+    }
+  </style>
+  <section
+    style="
+      margin: 20px auto;
+      padding: 10px;
+      background: #fffb;
+      text-align: center;
+      width: 50%;
+      min-width: 100ch;
+      border-radius: 20px;
+    "
+  >
+    <h2>Welcome to ANZ MetLite v2 Metadata Editor</h2>
+    <p>
+      The primary purpose of ANZmetLite v2 is designed to provide z simplified tool for
+      creating ISO 19115-3 complete metadata for spatial resource that adheres to the Best
+      Practice guidance provided by the ICSM Metadata Working Group.
+    </p>
+    <p>ANZMetLite v2 currently provides templates for the following:</p>
+    <dl>
+      <dt>ANZMetLiute Template</dt>
+      <dd>
+        Generic ISO19115-3 following the advice of ISCM Metadata Best Practices for
+        Datasets and Services
+      </dd>
+      <dt>Emergency Management Template</dt>
+      <dd>
+        Modified ANZMetLite template to suit Australian Climate Services requirements for
+        metadata for spatial Datasets and Services
+      </dd>
+      <dt>ACS Template</dt>
+      <dd>
+        Modified ANZMetLite template to suit ENSIMA requirements for metadata for spatial
+        Datasets
+      </dd>
+      <dt><em>(Beta)</em> GNSS Metadata Profile support</dt>
+      <dd>
+        This ANZ MetLite v2 editor also provides support for the beta version of the
+        ISO19115-3 GNSS metadata profile as developed by Geoscience Australia and Curtin
+        University.
+      </dd>
+    </dl>
+    <p>
+      <a
+        href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/GettingStarted.html"
+        >Getting Started</a
+      >
+    </p>
+    <p>
+      <small style="font-style: italic">
+        This ANZ MetLite v2 Editor is build on GeoNetwork 4.2.5
+      </small>
+    </p>
+  </section>
+  <!--<div data-ng-repeat="i in images">
     <img data-ng-src="{{i.data || (i.url | thumbnailUrlSize: imageSize)}}" />
-  </div>
+  </div>-->
 </div>

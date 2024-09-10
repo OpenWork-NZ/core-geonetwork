@@ -40,7 +40,7 @@
   <xml>XML</xml>
   <metadata>Metadata</metadata>
 
-  !-- Added ICMS element names BC 20-07-23 -->
+  <!-- Added ICMS element names BC 20-07-23 -->
   <icsm>ICSM</icsm>  <!-- New tab -->
   <general>General Info</general>
   <dateTabICSM>Dates</dateTabICSM>
