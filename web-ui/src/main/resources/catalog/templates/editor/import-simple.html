@@ -285,6 +285,7 @@
                 >Import from</label
               >
               <div class="col-sm-8">
+                <!--<div data-gn-import-xsl="params.transformWith" />-->
                 <label>
                   <input
                     type="radio"
@@ -300,10 +301,26 @@
                     type="radio"
                     data-ng-model="params.transformWith"
                     name="transformWith"
+                    value="schema:iso19115-3.2018:convert/fromISO19139"
+                  />
+                  ISO19139
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    data-ng-model="params.transformWith"
+                    name="transformWith"
                     value="schema:iso19115-3.2018:convert/fromSPARQL-DC"
                   />
                   Dublin Core
                 </label>
+                <!--<input
+                  id="gn-import-xslt-input"
+                  type="text"
+                  data-ng-model="params.transformWith"
+                  name="transformWith"
+                  class="form-control"
+                />-->
               </div>
             </div>
 
