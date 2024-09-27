@@ -285,14 +285,25 @@
                 >Import from</label
               >
               <div class="col-sm-8">
-                <div data-gn-import-xsl="params.transformWith" />
-                <input
-                  id="gn-import-xslt-input"
-                  type="text"
-                  data-ng-model="params.transformWith"
-                  name="transformWith"
-                  class="form-control hidden"
-                />
+                <label>
+                  <input
+                    type="radio"
+                    data-ng-model="params.transformWith"
+                    checked
+                    name="transformWith"
+                    value=""
+                  />
+                  ISO19115-3.2018
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    data-ng-model="params.transformWith"
+                    name="transformWith"
+                    value="schema:iso19115-3.2018:convert/fromSPARQL-DC"
+                  />
+                  Dublin Core
+                </label>
               </div>
             </div>
 
