@@ -58,14 +58,16 @@
     </div>
 
     <div class="row" ng-show="concept && thesaurusKey != 'external.none.allThesaurus'">
-      <div class="col-sm-9 col-md-offset-2">
-        <skos-browser
-          class="tmpl-border"
-          concept="concept"
-          add-concept="addThesaurusConcept"
-          language="langs"
-        ></skos-browser>
-      </div>
+      <details>
+        <div class="col-sm-9 col-md-offset-2">
+          <skos-browser
+            class="tmpl-border"
+            concept="concept"
+            add-concept="addThesaurusConcept"
+            language="langs"
+          ></skos-browser>
+        </div>
+      </details>
     </div>
 
     <!-- The thesaurus snippet to insert once received -->
