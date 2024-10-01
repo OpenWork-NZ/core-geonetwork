@@ -50,7 +50,7 @@
         <xsl:call-template name="add-iso19115-3.2018-namespaces"/>
 
 
-        <xsl:variable name="uuid" select="dct:identifier"/>
+        <xsl:variable name="uuid" select=".//dct:identifier"/>
 
         <mdb:metadataIdentifier>
           <mcc:MD_Identifier>
@@ -62,7 +62,7 @@
           </mcc:MD_Identifier>
         </mdb:metadataIdentifier>
 
-        <xsl:for-each select="dct:language|dc:language">
+        <xsl:for-each select=".//(dct:language|dc:language)">
           <xsl:call-template name="build-language">
             <xsl:with-param name="element" select="'mdb:defaultLocale'"/>
             <xsl:with-param name="languageUri" select="."/>
@@ -113,28 +113,28 @@
           </cit:CI_Responsibility>
         </mdb:contact>
 
-        <xsl:for-each select="dct:created">
+        <xsl:for-each select=".//dct:created">
           <xsl:call-template name="build-date">
             <xsl:with-param name="element" select="'mdb:dateInfo'" />
             <xsl:with-param name="date" select="." />
             <xsl:with-param name="dateType" select="'creation'" />
           </xsl:call-template>
         </xsl:for-each>
-        <xsl:for-each select="dct:modified">
+        <xsl:for-each select=".//dct:modified">
           <xsl:call-template name="build-date">
             <xsl:with-param name="element" select="'mdb:dateInfo'" />
             <xsl:with-param name="date" select="." />
             <xsl:with-param name="dateType" select="'revision'" />
           </xsl:call-template>
         </xsl:for-each>
-        <xsl:for-each select="dct:issued">
+        <xsl:for-each select=".//dct:issued">
           <xsl:call-template name="build-date">
             <xsl:with-param name="element" select="'mdb:dateInfo'" />
             <xsl:with-param name="date" select="." />
             <xsl:with-param name="dateType" select="'publication'" />
           </xsl:call-template>
         </xsl:for-each>
-        <xsl:for-each select="dct:dateSubmitted">
+        <xsl:for-each select=".//dct:dateSubmitted">
           <xsl:call-template name="build-date">
             <xsl:with-param name="element" select="'mdb:dateInfo'" />
             <xsl:with-param name="date" select="." />
@@ -169,39 +169,39 @@
 
           <mdb:identificationInfo>
             <xsl:choose>
-              <xsl:when test="dc:type = 'service'"></xsl:when>
+              <xsl:when test=".//dc:type = 'service'"></xsl:when>
               <xsl:otherwise>
                 <mri:MD_DataIdentification>
                   <mri:citation>
                     <cit:CI_Citation>
                       <cit:title>
                         <gco:CharacterString>
-                          <xsl:value-of select="dct:title|dc:title"/>
+                          <xsl:value-of select=".//(dct:title|dc:title)"/>
                         </gco:CharacterString>
                       </cit:title>
 
-			          <xsl:for-each select="dct:created">
+			          <xsl:for-each select=".//dct:created">
 			            <xsl:call-template name="build-date">
 			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
                           <xsl:with-param name="date" select="." />
                           <xsl:with-param name="dateType" select="'creation'" />
                         </xsl:call-template>
                       </xsl:for-each>
-                      <xsl:for-each select="dct:modified">
+                      <xsl:for-each select=".//dct:modified">
                         <xsl:call-template name="build-date">
                           <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
 			              <xsl:with-param name="dateType" select="'revision'" />
 			            </xsl:call-template>
 			          </xsl:for-each>
-			          <xsl:for-each select="dct:issued">
+			          <xsl:for-each select=".//dct:issued">
 			            <xsl:call-template name="build-date">
 			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
 			              <xsl:with-param name="dateType" select="'publication'" />
 			            </xsl:call-template>
 			          </xsl:for-each>
-			          <xsl:for-each select="dct:dateSubmitted">
+			          <xsl:for-each select=".//dct:dateSubmitted">
 			            <xsl:call-template name="build-date">
 			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
@@ -210,7 +210,7 @@
 			          </xsl:for-each>
 
 
-                      <xsl:variable name="identifier" select="dct:identifier|dc:identifier"/>
+                      <xsl:variable name="identifier" select=".//(dct:identifier|dc:identifier)"/>
                       <xsl:if test="$identifier != ''">
                         <cit:identifier>
                           <mcc:MD_Identifier>
@@ -223,7 +223,7 @@
                         </cit:identifier>
                       </xsl:if>
                     </cit:CI_Citation>
-                    <xsl:for-each select="dc:creator">
+                    <xsl:for-each select=".//dc:creator">
                       <cit:citedResponsibleParty>
                         <cit:CI_Responsibility>
                           <cit:role>
@@ -240,7 +240,7 @@
                         </cit:CI_Responsibility>
                       </cit:citedResponsibleParty>
                     </xsl:for-each>
-                    <xsl:for-each select="dc:publisher">
+                    <xsl:for-each select=".//dc:publisher">
                       <cit:citedResponsibleParty>
                         <cit:CI_Responsibility>
                           <cit:role>
@@ -261,7 +261,7 @@
                   </mri:citation>
                   <mri:abstract>
                     <gco:CharacterString>
-                      <xsl:value-of select="dct:description|dc:description"/>
+                      <xsl:value-of select=".//(dct:description|dc:description)"/>
                     </gco:CharacterString>
                   </mri:abstract>
 
@@ -312,7 +312,7 @@
                       </xsl:if>
                     </xsl:for-each>
                   </xsl:for-each>-->
-                  <xsl:for-each select="dc:coverage[. != '']">
+                  <xsl:for-each select=".//dc:coverage[. != '']">
                   	<mri:extent>
                   	  <gex:EX_Extent>
                   	    <gex:geographicElement>
@@ -348,7 +348,7 @@
                   	</mri:extent>
                   </xsl:for-each>
 
-                  <xsl:for-each select="dct:accrualPeriodicity">
+                  <xsl:for-each select=".//dct:accrualPeriodicity">
 
                     <xsl:variable name="euPrefix"
                                   select="'http://publications.europa.eu/resource/authority/frequency/'"/>
@@ -367,14 +367,14 @@
                   </xsl:for-each>
 
                   <mri:descriptiveKeywords>
-                    <xsl:for-each select="dc:subject">
+                    <xsl:for-each select=".//dc:subject">
                       <mri:keyword>
                         <gco:CharacterString><xsl:value-of select="." /></gco:CharacterString>
                       </mri:keyword>
                     </xsl:for-each>
                   </mri:descriptiveKeywords>
 
-                  <xsl:for-each select="dc:rights">
+                  <xsl:for-each select=".//dc:rights">
                     <mri:resourceConstraints>
                       <mco:MD_LegalConstraints>
                         <mco:useConstraints>
@@ -389,7 +389,7 @@
                   </xsl:for-each>
 
 
-                  <xsl:for-each select="dct:language">
+                  <xsl:for-each select=".//dct:language">
                     <xsl:call-template name="build-language">
                       <xsl:with-param name="element" select="'mri:defaultLocale'"/> <!-- FIXME: This appropriate? -->
                       <xsl:with-param name="languageUri" select="."/>
@@ -403,7 +403,7 @@
 
 
           <xsl:variable name="lineage"
-                        select="dct:provenance"/>
+                        select=".//dct:provenance"/>
 
           <xsl:if test="$lineage != ''">
             <mdb:resourceLineage>
@@ -426,7 +426,7 @@
           <mds:distributionInfo>
             <mrd:MD_Distribution>
               <mrd:transferOptions>
-                <xsl:for-each select="dc:references">
+                <xsl:for-each select=".//dc:references">
                   <mrd:MD_DigitalTransferOptions>
                     <mrd:onLine>
                       <cit:CI_OnlineResource>
@@ -438,8 +438,9 @@
                   </mrd:MD_DigitalTransferOptions>
                 </xsl:for-each>
               </mrd:transferOptions>
-              <mrd:distributionFormat>
-                <xsl:for-each select="references">
+              <!-- What's "references"? -->
+              <!--<mrd:distributionFormat>
+                <xsl:for-each select="references"> 
                   <mrd:MD_Format>
                     <mrd:formatSpecificationCitation>
                       <cit:CI_Citation>
@@ -450,8 +451,8 @@
                     </mrd:formatSpecificationCitation>
                   </mrd:MD_Format>
                 </xsl:for-each>
-              </mrd:distributionFormat>
-              <xsl:for-each select="dc:format">
+              </mrd:distributionFormat>-->
+              <xsl:for-each select=".//dc:format">
                 <mrd:distributionFormat>
                   <mrd:MD_Format>
                     <mrd:name>
