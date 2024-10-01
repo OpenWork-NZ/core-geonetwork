@@ -919,8 +919,8 @@
           <!--Relation (populate from sidebar?)-->
           <!--Is part of (Series info)-->
           <section name="Is part of">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:series/cit:CI_Series/cit:name"
-                   or="name" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:series/cit:CI_Series" del=".."/>
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:series"
+                   or="series" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" del=".."/>
           </section>
           <!--Contributor-->
           <section name="Contributor">
@@ -1046,6 +1046,9 @@
 
       <!-- Elements that should not use the "flat" mode -->
       <flatModeExceptions>
+        <for name="cit:alternateTitle"/>
+        <for name="cit:CI_Series"/>
+        <for name="cit:series"/>
         <for name="mri:descriptiveKeywords"/>
         <for name="mrl:processor"/>
         <for name="cit:citedResponsibleParty"/>
