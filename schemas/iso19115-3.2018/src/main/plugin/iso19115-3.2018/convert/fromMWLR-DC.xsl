@@ -72,7 +72,9 @@
         <mdb:metadataScope>
           <mdb:MD_MetadataScope>
             <mdb:resourceScope>
-              <mcc:MD_ScopeCode codeList="" codeListValue="dc:type"/>
+              <mcc:MD_ScopeCode codeList="">
+                <xsl:attribute name="codeListValue" select=".//dc:type" />
+              </mcc:MD_ScopeCode>
             </mdb:resourceScope>
           </mdb:MD_MetadataScope>
         </mdb:metadataScope>
@@ -222,42 +224,43 @@
                           </mcc:MD_Identifier>
                         </cit:identifier>
                       </xsl:if>
-                    </cit:CI_Citation>
-                    <xsl:for-each select=".//dc:creator">
-                      <cit:citedResponsibleParty>
-                        <cit:CI_Responsibility>
-                          <cit:role>
-                            <cit:CI_RoleCode codeList="https://schemas.isotc211.org/Resources/codelists.xml#ISO19115-1.1.cit.CI_RoleCode" codeListValue="originator"/>
-                          </cit:role>
-                          <cit:party>
-                            <!-- This mapping to a CI_Organization name, if the name is an individual it must be corrected post-important as it can't be determined programmatically. -->
-                            <cit:CI_Organisation>
-                              <cit:name>
-                                <gco:CharacterString><xsl:value-of select="." /></gco:CharacterString>
-                              </cit:name>
-                            </cit:CI_Organisation>
-                          </cit:party>
-                        </cit:CI_Responsibility>
-                      </cit:citedResponsibleParty>
-                    </xsl:for-each>
-                    <xsl:for-each select=".//dc:publisher">
-                      <cit:citedResponsibleParty>
-                        <cit:CI_Responsibility>
-                          <cit:role>
-                            <cit:CI_RoleCode codeList="https://schemas.isotc211.org/Resources/codelists.xml#ISO19115-1.1.cit.CI_RoleCode" codeListValue="publisher"/>
-                          </cit:role>
-                          <cit:party>
-                            <!-- This mapping to a CI_Organization name, if the name is an individual it must be corrected post-important as it can't be determined programmatically. -->
-                            <cit:CI_Organisation>
-                              <cit:name>
-                                <gco:CharacterString><xsl:value-of select="." /></gco:CharacterString>
-                              </cit:name>
-                            </cit:CI_Organisation>
-                          </cit:party>
-                        </cit:CI_Responsibility>
-                      </cit:citedResponsibleParty>
-                    </xsl:for-each>
-                    
+                   
+                      <xsl:for-each select=".//dc:creator">
+                        <cit:citedResponsibleParty>
+                          <cit:CI_Responsibility>
+                            <cit:role>
+                              <cit:CI_RoleCode codeList="https://schemas.isotc211.org/Resources/codelists.xml#ISO19115-1.1.cit.CI_RoleCode" codeListValue="originator"/>
+                            </cit:role>
+                            <cit:party>
+                              <!-- This mapping to a CI_Organization name, if the name is an individual it must be corrected post-important as it can't be determined programmatically. -->
+                              <cit:CI_Organisation>
+                                <cit:name>
+                                  <gco:CharacterString><xsl:value-of select="." /></gco:CharacterString>
+                                </cit:name>
+                              </cit:CI_Organisation>
+                            </cit:party>
+                          </cit:CI_Responsibility>
+                        </cit:citedResponsibleParty>
+                      </xsl:for-each>
+                      <xsl:for-each select=".//dc:publisher">
+                        <cit:citedResponsibleParty>
+                          <cit:CI_Responsibility>
+                            <cit:role>
+                              <cit:CI_RoleCode codeList="https://schemas.isotc211.org/Resources/codelists.xml#ISO19115-1.1.cit.CI_RoleCode" codeListValue="publisher"/>
+                            </cit:role>
+                            <cit:party>
+                              <!-- This mapping to a CI_Organization name, if the name is an individual it must be corrected post-important as it can't be determined programmatically. -->
+                              <cit:CI_Organisation>
+                                <cit:name>
+                                  <gco:CharacterString><xsl:value-of select="." /></gco:CharacterString>
+                                </cit:name>
+                              </cit:CI_Organisation>
+                            </cit:party>
+                          </cit:CI_Responsibility>
+                        </cit:citedResponsibleParty>
+                      </xsl:for-each>
+
+                    </cit:CI_Citation>                    
                   </mri:citation>
                   <mri:abstract>
                     <gco:CharacterString>
