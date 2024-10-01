@@ -154,28 +154,24 @@
 
 			          <xsl:for-each select=".//dct:created">
 			            <xsl:call-template name="build-date">
-			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
                           <xsl:with-param name="date" select="." />
                           <xsl:with-param name="dateType" select="'creation'" />
                         </xsl:call-template>
                       </xsl:for-each>
                       <xsl:for-each select=".//dct:modified">
                         <xsl:call-template name="build-date">
-                          <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
 			              <xsl:with-param name="dateType" select="'revision'" />
 			            </xsl:call-template>
 			          </xsl:for-each>
 			          <xsl:for-each select=".//dct:issued">
 			            <xsl:call-template name="build-date">
-			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
 			              <xsl:with-param name="dateType" select="'publication'" />
 			            </xsl:call-template>
 			          </xsl:for-each>
 			          <xsl:for-each select=".//dct:dateSubmitted">
 			            <xsl:call-template name="build-date">
-			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
 			              <xsl:with-param name="date" select="." />
 			              <xsl:with-param name="dateType" select="'published'" />
 			            </xsl:call-template>
@@ -370,6 +366,21 @@
                     </xsl:call-template>
                   </xsl:for-each>
 
+
+                  <mri:defaultLocale>
+                    <lan:PT_Locale>
+                      <lan:language>
+                        <lan:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
+                      </lan:language>
+                      <lan:characterEncoding>
+                        <lan:MD_CharacterSetCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_CharacterSetCode"
+                                                 codeListValue="utf8"/>
+                      </lan:characterEncoding>
+                    </lan:PT_Locale>
+                  </mri:defaultLocale>
+                  <mri:supplementalInformation>
+                    <gco:CharacterString>Any additional comments about this dataset</gco:CharacterString>
+                  </mri:supplementalInformation>
                 </mri:MD_DataIdentification>
               </xsl:otherwise>
             </xsl:choose>
@@ -442,28 +453,24 @@
 
 
   <xsl:template name="build-date">
-    <xsl:param name="element" as="xs:string"/>
     <xsl:param name="date" as="xs:string"/>
     <xsl:param name="dateType" as="xs:string"/>
 
-    <xsl:element name="{$element}">
-      <cit:date>
-        <cit:CI_Date>
-          <cit:date>
-            <gco:DateTime><xsl:value-of select="$date"/></gco:DateTime>
-          </cit:date>
-          <cit:dateType>
-            <cit:CI_DateTypeCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
-                                 codeListValue="{$dateType}"></cit:CI_DateTypeCode>
-          </cit:dateType>
-        </cit:CI_Date>
-      </cit:date>
-    </xsl:element>
+    <cit:date>
+      <cit:CI_Date>
+        <cit:date>
+          <gco:DateTime><xsl:value-of select="$date"/></gco:DateTime>
+        </cit:date>
+        <cit:dateType>
+          <cit:CI_DateTypeCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
+                               codeListValue="{$dateType}"></cit:CI_DateTypeCode>
+        </cit:dateType>
+      </cit:CI_Date>
+    </cit:date>
   </xsl:template>
 
 
   <xsl:template name="build-language">
-    <xsl:param name="element" as="xs:string"/>
     <xsl:param name="languageUri" as="xs:string"/>
 
     <xsl:variable name="euPrefix"
