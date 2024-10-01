@@ -286,11 +286,12 @@
                     </xsl:for-each>
                   </xsl:for-each>-->
                   <xsl:for-each select=".//dc:coverage[. != '']">
+                    
                   	<mri:extent>
                   	  <gex:EX_Extent>
                   	    <gex:geographicElement>
                   	      <gex:EX_GeographicBoundingBox>
-                  	        <xsl:for-each select="tokenize(., ',|\..*')">
+                  	        <xsl:for-each select="tokenize(., ',|\.\s+.*')">
                   	          <xsl:variable name="component" select="normalize-space(.)" />
                   	          <xsl:choose>
                   	            <xsl:when test="starts-with($component, 'North')">
