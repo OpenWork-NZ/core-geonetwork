@@ -282,7 +282,7 @@
                         </dct:Location>
                     </dct:spatial>
                    -->
-                  <xsl:for-each select="dct:spatial[. != '']">
+                  <!--<xsl:for-each select="dct:spatial[. != '']">
                     <xsl:for-each select="locn:geometry">
                       <xsl:variable name="coordByPipe"
                                     select="util:geoJsonGeomToBbox(string(.))"/>
@@ -311,7 +311,7 @@
                         </mri:extent>
                       </xsl:if>
                     </xsl:for-each>
-                  </xsl:for-each>
+                  </xsl:for-each>-->
                   <xsl:for-each select="dc:coverage[. != '']">
                   	<mri:extent>
                   	  <gex:EX_Extent>
