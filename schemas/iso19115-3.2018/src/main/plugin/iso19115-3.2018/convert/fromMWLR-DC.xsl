@@ -471,6 +471,7 @@
 
 
   <xsl:template name="build-language">
+    <xsl:param name="element" as="xs:string"/>
     <xsl:param name="languageUri" as="xs:string"/>
 
     <xsl:variable name="euPrefix"
