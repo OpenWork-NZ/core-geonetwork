@@ -181,6 +181,16 @@
               >
             </a>
             <a
+              href="#/import2"
+              data-ng-if="user.canImportMetadata()"
+              class="btn btn-default btn-block gn-margin-bottom"
+              title="Import Record (simplified)"
+            >
+              <i class="fa fa-fw fa-upload" /><span class="hidden-xs hidden-sm hidden-md"
+                >Import Record</span
+              >
+            </a>
+            <a
               href="#/import"
               data-ng-if="user.canImportMetadata()"
               class="btn btn-default btn-block gn-margin-bottom"
