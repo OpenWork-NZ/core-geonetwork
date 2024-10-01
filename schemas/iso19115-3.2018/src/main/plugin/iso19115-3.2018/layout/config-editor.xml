@@ -863,6 +863,32 @@
         <!--Rights Holder-->
         <section name="Rights Holder">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='rightsHolder']/cit:party/cit:CI_Organisation/cit:name"/>
+          <action type="add"
+                  btnLabel="Add rights holder"
+                  name="citedResponsibleParty"
+                  or="citedResponsibleParty"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
+
+            <template>
+              <snippet label="addRightsHolder">
+                <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeListValue="rightsHolder"/>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString/>
+                        </cit:name>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </cit:citedResponsibleParty>
+              </snippet>
+            </template>
+
+          </action>
         </section>
 
         <!--Subject-->
@@ -881,8 +907,10 @@
         <!--Type-->
         <section name="Resource Type" xpath="/mdb:MD_Metadata/mdb:metadataScope"/>
         <!--Point of Contact (contact details)-->
-        <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact" or="pointOfContact"
-               in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+        <section name="Point of cantact">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
+                 or="pointOfContact" in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+        </section>
         <!--Licence-->
         <section xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints" or="resourceConstraints"
                  in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
@@ -904,28 +932,47 @@
       </tab>
       <tab id="Extended Metadata" mode="flat">
         <!--Extended Metadata-->
-        <section name="Extended Metadata" >
+
           <!--Alternate Title-->
           <section name="Alternative Title">
             <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:alternateTitle"
-                   or="alternateTitle" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" del=".." />
+                   or="alternateTitle" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation"  />
           </section>
           <section name="Date Modified">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='lastUpdate']"
-                   or="date"
-                   in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation"
-                   del=".."/>
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='lastUpdate']"/>
+            <action type="add"
+                    btnLabel="Add Modification Date"
+                    name="date"
+                    or="date"
+                    in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
+
+              <template>
+                <snippet label="addModDate">
+                  <cit:date>
+                    <cit:CI_Date>
+                      <cit:date>
+                        <gco:DateTime></gco:DateTime>
+                      </cit:date>
+                      <cit:dateType>
+                        <cit:CI_DateTypeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
+                                             codeListValue="lastUpdate"/>
+                      </cit:dateType>
+                    </cit:CI_Date>
+                  </cit:date>
+                </snippet>
+              </template>
+
+            </action>
           </section>
           <!--Relation (populate from sidebar?)-->
           <!--Is part of (Series info)-->
           <section name="Is part of">
             <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:series"
-                   or="series" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" del=".."/>
+                   or="series" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" />
           </section>
           <!--Contributor-->
           <section name="Contributor">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party/cit:CI_Organisation/cit:name"
-                   del="../../../.."  />
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party/cit:CI_Organisation/cit:name"/>
             <action type="add"
                     btnLabel="Add contributor"
                     name="citedResponsibleParty"
@@ -933,7 +980,7 @@
                     in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
 
               <template>
-                <snippet label="addAuthor">
+                <snippet label="addContributor">
                   <cit:citedResponsibleParty>
                     <cit:CI_Responsibility>
                       <cit:role>
@@ -955,7 +1002,7 @@
           </section>
           <!--Funder-->
           <section name="Funder">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party/cit:CI_Organisation/cit:name"
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='funder']/cit:party/cit:CI_Organisation/cit:name"
                    del="../../../.."  />
             <action type="add"
                     btnLabel="Add funder"
@@ -964,7 +1011,7 @@
                     in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
 
               <template>
-                <snippet label="addAuthor">
+                <snippet label="addFunder">
                   <cit:citedResponsibleParty>
                     <cit:CI_Responsibility>
                       <cit:role>
@@ -990,12 +1037,13 @@
           <!--Access rights-->
           <!--Derived from-->
           <section name="Derived from">
-            <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description" or="decription"
-                   in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source"/>
+            <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"
+                   or="description" in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source"/>
           </section>
           <!--Bibliogrraphical note-->
           <section name="Bibliogrraphical note">
-              <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:supplementalInformation"/>
+              <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:supplementalInformation"
+                     or="supplementalInformation" in="/mdb:MD_Metadata/mdb:identificationInfo/*" />
           </section>
           <!--Source-->
           <section name="Location of data">
@@ -1004,9 +1052,11 @@
           </section>
           <!--Audience-->
           <section name="Audience">
-            <field name="Who is expected to use the data?" xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"/>
+            <field name="Who is expected to use the data?"
+                   xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:purpose"
+                   or="purpose" in="/mdb:MD_Metadata/mdb:identificationInfo/*" del=".."/>
           </section>
-        </section>
+
       </tab>
 
 
@@ -1046,6 +1096,10 @@
 
       <!-- Elements that should not use the "flat" mode -->
       <flatModeExceptions>
+        <for name="mrl:LI_Source"/>
+        <for name="mrl:description"/>
+        <for name="mri:purpose"/>
+        <for name="mri:supplementalInformation"/>
         <for name="cit:alternateTitle"/>
         <for name="cit:CI_Series"/>
         <for name="cit:series"/>
