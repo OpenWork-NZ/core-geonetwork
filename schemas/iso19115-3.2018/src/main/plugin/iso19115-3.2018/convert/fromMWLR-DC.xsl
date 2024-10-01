@@ -115,36 +115,6 @@
           </cit:CI_Responsibility>
         </mdb:contact>
 
-        <xsl:for-each select=".//dct:created">
-          <xsl:call-template name="build-date">
-            <xsl:with-param name="element" select="'mdb:dateInfo'" />
-            <xsl:with-param name="date" select="." />
-            <xsl:with-param name="dateType" select="'creation'" />
-          </xsl:call-template>
-        </xsl:for-each>
-        <xsl:for-each select=".//dct:modified">
-          <xsl:call-template name="build-date">
-            <xsl:with-param name="element" select="'mdb:dateInfo'" />
-            <xsl:with-param name="date" select="." />
-            <xsl:with-param name="dateType" select="'revision'" />
-          </xsl:call-template>
-        </xsl:for-each>
-        <xsl:for-each select=".//dct:issued">
-          <xsl:call-template name="build-date">
-            <xsl:with-param name="element" select="'mdb:dateInfo'" />
-            <xsl:with-param name="date" select="." />
-            <xsl:with-param name="dateType" select="'publication'" />
-          </xsl:call-template>
-        </xsl:for-each>
-        <xsl:for-each select=".//dct:dateSubmitted">
-          <xsl:call-template name="build-date">
-            <xsl:with-param name="element" select="'mdb:dateInfo'" />
-            <xsl:with-param name="date" select="." />
-            <xsl:with-param name="dateType" select="'published'" />
-          </xsl:call-template>
-        </xsl:for-each>
-
-
 
         <mdb:metadataStandard>
           <cit:CI_Citation>
@@ -476,15 +446,17 @@
     <xsl:param name="dateType" as="xs:string"/>
 
     <xsl:element name="{$element}">
-      <cit:CI_Date>
-        <cit:date>
-          <gco:DateTime><xsl:value-of select="$date"/></gco:DateTime>
-        </cit:date>
-        <cit:dateType>
-          <cit:CI_DateTypeCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
-                               codeListValue="{$dateType}"></cit:CI_DateTypeCode>
-        </cit:dateType>
-      </cit:CI_Date>
+      <cit:date>
+        <cit:CI_Date>
+          <cit:date>
+            <gco:DateTime><xsl:value-of select="$date"/></gco:DateTime>
+          </cit:date>
+          <cit:dateType>
+            <cit:CI_DateTypeCode codeList="https://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_DateTypeCode"
+                                 codeListValue="{$dateType}"></cit:CI_DateTypeCode>
+          </cit:dateType>
+        </cit:CI_Date>
+      </cit:date>
     </xsl:element>
   </xsl:template>
 
