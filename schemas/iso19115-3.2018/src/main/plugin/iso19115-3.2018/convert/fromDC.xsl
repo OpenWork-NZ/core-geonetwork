@@ -44,9 +44,6 @@
 
   <xsl:param name="uuid" as="xs:string?"/>
 
-  <xsl:variable name="root"
-                select="/sr:sparql/sr:results"/>
-
   <xsl:template match="/">
   
       <mdb:MD_Metadata>
@@ -65,8 +62,7 @@
           </mcc:MD_Identifier>
         </mdb:metadataIdentifier>
 
-        <xsl:variable name="languages" select="dct:language|dc:language"/>
-        <xsl:for-each select="$languages">
+        <xsl:for-each select="dct:language|dc:language">
           <xsl:call-template name="build-language">
             <xsl:with-param name="element" select="'mdb:defaultLocale'"/>
             <xsl:with-param name="languageUri" select="."/>
@@ -117,23 +113,33 @@
           </cit:CI_Responsibility>
         </mdb:contact>
 
-        <xsl:variable name="dateTypes" as="node()*">
-          <type dcatType="created" isoType="creation"/>
-          <type dcatType="modified" isoType="revision"/>
-          <type dcatType="issued" isoType="publication"/>
-          <type dcatType="dateSubmitted" isoType="published" />
-        </xsl:variable>
-        <xsl:for-each select="$dateTypes">
-          <xsl:variable name="dcatType" select="@dcatType"/>
-          <xsl:variable name="dates" select="//dct:*[local-name(.) = $dcatType]"/>
-          <xsl:variable name="isoType" select="@isoType"/>
-          <xsl:for-each select="$dates">
-            <xsl:call-template name="build-date">
-              <xsl:with-param name="element" select="'mdb:dateInfo'"/>
-              <xsl:with-param name="date" select="."/>
-              <xsl:with-param name="dateType" select="$isoType"/>
-            </xsl:call-template>
-          </xsl:for-each>
+        <xsl:for-each select="dct:created">
+          <xsl:call-template name="build-date">
+            <xsl:with-param name="element" select="'mdb:dateInfo'" />
+            <xsl:with-param name="date" select="." />
+            <xsl:with-param name="dateType" select="'creation'" />
+          </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="dct:modified">
+          <xsl:call-template name="build-date">
+            <xsl:with-param name="element" select="'mdb:dateInfo'" />
+            <xsl:with-param name="date" select="." />
+            <xsl:with-param name="dateType" select="'revision'" />
+          </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="dct:issued">
+          <xsl:call-template name="build-date">
+            <xsl:with-param name="element" select="'mdb:dateInfo'" />
+            <xsl:with-param name="date" select="." />
+            <xsl:with-param name="dateType" select="'publication'" />
+          </xsl:call-template>
+        </xsl:for-each>
+        <xsl:for-each select="dct:dateSubmitted">
+          <xsl:call-template name="build-date">
+            <xsl:with-param name="element" select="'mdb:dateInfo'" />
+            <xsl:with-param name="date" select="." />
+            <xsl:with-param name="dateType" select="'published'" />
+          </xsl:call-template>
         </xsl:for-each>
 
 
@@ -174,18 +180,34 @@
                         </gco:CharacterString>
                       </cit:title>
 
-                      <xsl:for-each select="$dateTypes">
-			            <xsl:variable name="dcatType" select="@dcatType"/>
-			            <xsl:variable name="dates" select="//dct:*[local-name(.) = $dcatType]"/>
-                        <xsl:variable name="isoType" select="@isoType"/>
-                        <xsl:for-each select="$dates">
-                          <xsl:call-template name="build-date">
-                            <xsl:with-param name="element" select="'cit:date'"/>
-                            <xsl:with-param name="date" select="."/>
-                            <xsl:with-param name="dateType" select="$isoType"/>
-                          </xsl:call-template>
-                        </xsl:for-each>
+			          <xsl:for-each select="dct:created">
+			            <xsl:call-template name="build-date">
+			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
+                          <xsl:with-param name="date" select="." />
+                          <xsl:with-param name="dateType" select="'creation'" />
+                        </xsl:call-template>
                       </xsl:for-each>
+                      <xsl:for-each select="dct:modified">
+                        <xsl:call-template name="build-date">
+                          <xsl:with-param name="element" select="'mdb:dateInfo'" />
+			              <xsl:with-param name="date" select="." />
+			              <xsl:with-param name="dateType" select="'revision'" />
+			            </xsl:call-template>
+			          </xsl:for-each>
+			          <xsl:for-each select="dct:issued">
+			            <xsl:call-template name="build-date">
+			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
+			              <xsl:with-param name="date" select="." />
+			              <xsl:with-param name="dateType" select="'publication'" />
+			            </xsl:call-template>
+			          </xsl:for-each>
+			          <xsl:for-each select="dct:dateSubmitted">
+			            <xsl:call-template name="build-date">
+			              <xsl:with-param name="element" select="'mdb:dateInfo'" />
+			              <xsl:with-param name="date" select="." />
+			              <xsl:with-param name="dateType" select="'published'" />
+			            </xsl:call-template>
+			          </xsl:for-each>
 
 
                       <xsl:variable name="identifier" select="dct:identifier|dc:identifier"/>
@@ -367,8 +389,7 @@
                   </xsl:for-each>
 
 
-                  <xsl:variable name="resourceLanguages" select="dct:language"/>
-                  <xsl:for-each select="$resourceLanguages">
+                  <xsl:for-each select="dct:language">
                     <xsl:call-template name="build-language">
                       <xsl:with-param name="element" select="'mri:defaultLocale'"/> <!-- FIXME: This appropriate? -->
                       <xsl:with-param name="languageUri" select="."/>
