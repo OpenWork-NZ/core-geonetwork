@@ -94,10 +94,10 @@
 
         <xsl:for-each select=".//mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
           <dc:coverage>
-            <xsl:value-of select="concat('North ', gex:northBoundLatitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('South ', gex:southBoundLatitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('East ' , gex:eastBoundLongitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('West ' , gex:westBoundLongitude/gco:Decimal, '.')"/>
+            <xsl:value-of select="concat('North ', .//gex:northBoundLatitude/gco:Decimal, ', ')"/>
+            <xsl:value-of select="concat('South ', .//gex:southBoundLatitude/gco:Decimal, ', ')"/>
+            <xsl:value-of select="concat('East ' , .//gex:eastBoundLongitude/gco:Decimal, ', ')"/>
+            <xsl:value-of select="concat('West ' , .//gex:westBoundLongitude/gco:Decimal, '.')"/>
           </dc:coverage>
         </xsl:for-each>
       </xsl:for-each>
