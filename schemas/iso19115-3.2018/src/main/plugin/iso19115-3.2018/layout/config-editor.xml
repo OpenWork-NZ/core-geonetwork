@@ -900,7 +900,7 @@
           </field>
         </section>
         <!--Language-->
-        <section name="Langauage">
+        <section name="Language">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:defaultLocale/lan:PT_Locale/lan:language"
                  or="language" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:defaultLocale/lan:PT_Locale" />
         </section>

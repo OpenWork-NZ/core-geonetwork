@@ -19,7 +19,7 @@
                 xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
                 xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
-                xmlns:gml="http://www.opengis.net/gml"
+                xmlns:gml="http://www.opengis.net/gml/3.2"
                 exclude-result-prefixes="#all">
 
   <!-- ============================================================================================ -->
@@ -55,8 +55,8 @@
           </xsl:for-each>
         </xsl:for-each>
         <xsl:for-each select=".//mri:extent/gex:EX_Extent">
-          <xsl:for-each select="gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod">
-            <dct:temporal><xsl:value-of select="gml:beginPosition"/> - <xsl:value-of select="gml:endPosition"/></dct:temporal>
+          <xsl:for-each select=".//gex:temporalElement/gex:EX_TemporalExtent/gex:extent">
+            <dct:temporal><xsl:value-of select=".//gml:beginPosition"/> - <xsl:value-of select=".//gml:endPosition"/></dct:temporal>
           </xsl:for-each>
           <!-- bounding box -->
           <xsl:for-each select=".//gex:geographicElement/gex:EX_GeographicBoundingBox">
@@ -88,42 +88,34 @@
         </xsl:for-each>
         <!-- subject -->
 
-        <xsl:for-each select=".//mri:descriptiveKeywords/mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gco:CharacterString">
+        <xsl:for-each select=".//mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/(gco:CharacterString|gcx:Anchor)">
           <dc:subject><xsl:value-of select="."/></dc:subject>
         </xsl:for-each>
 
         <!-- language -->
-
-        <xsl:for-each select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:languageCode">
-          <dc:language><xsl:value-of select="."/></dc:language>
-        </xsl:for-each>
+        <dc:language><xsl:value-of select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:LanguageCode/@codeListValue"/></dc:language>
+        
 
         <!-- Type - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-        <xsl:for-each select=".//mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
+        <xsl:for-each select="../../mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
           <dc:type><xsl:value-of select="."/></dc:type>
         </xsl:for-each>
 
         <!--Contact-->
 
-        <xsl:for-each select=".//mri:pointOfContact/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='pointOfContact']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+        <xsl:for-each select=".//mri:pointOfContact/cit:CI_Responsibility">
           <dc:creator>
-            <xsl:value-of select=".//cit:role/cit:CI_RoleCode/@codeListValue"/>
-            <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:name/gco:CharacterString"/>
-            <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address>/cit:electronicMailAddress/gco:CharacterString"/>
+            <xsl:value-of select=".//cit:role/cit:CI_RoleCode/@codeListValue"
+            /> - <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:name/gco:CharacterString"
+            /> - <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address/cit:electronicMailAddress/gco:CharacterString"/>
           </dc:creator>
         </xsl:for-each>
 
         <!-- rights -->
 
         <xsl:for-each select=".//mri:resourceConstraints/mco:MD_LegalConstraints">
-          <xsl:for-each select=".//mco:MD_RestrictionCode/@codeListValue">
-            <dc:rights><xsl:value-of select="."/></dc:rights>
-          </xsl:for-each>
-
-          <xsl:for-each select=".//mco:otherConstraints/gco:CharacterString">
-            <dc:rights><xsl:value-of select="."/></dc:rights>
-          </xsl:for-each>
+            <dc:rights><xsl:value-of select=".//mco:MD_RestrictionCode/@codeListValue"/> - <xsl:value-of select="./*/gco:CharacterString"/></dc:rights>
         </xsl:for-each>
 
 
