@@ -40,59 +40,59 @@
 
       <!-- DataIdentification - - - - - - - - - - - - - - - - - - - - - -->
 
-      <xsl:for-each select="mdb:identificationInfo/mri:MD_DataIdentification">
+      <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification">
 
-        <xsl:for-each select="mri:citation/cit:CI_Citation">
-          <xsl:for-each select="cit:title/gco:CharacterString">
+        <xsl:for-each select=".//mri:citation/cit:CI_Citation">
+          <xsl:for-each select=".//cit:title/gco:CharacterString">
             <dc:title><xsl:value-of select="."/></dc:title>
           </xsl:for-each>
 
-          <xsl:for-each select="cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:creator><xsl:value-of select="."/></dc:creator>
           </xsl:for-each>
 
-          <xsl:for-each select="cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:publisher><xsl:value-of select="."/></dc:publisher>
           </xsl:for-each>
 
-          <xsl:for-each select="cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:contributor><xsl:value-of select="."/></dc:contributor>
           </xsl:for-each>
         </xsl:for-each>
 
         <!-- subject -->
 
-        <xsl:for-each select="mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gco:CharacterString">
+        <xsl:for-each select=".//mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gco:CharacterString">
           <dc:subject><xsl:value-of select="."/></dc:subject>
         </xsl:for-each>
 
         <!-- description -->
 
-        <xsl:for-each select="mri:abstract/gco:CharacterString">
+        <xsl:for-each select=".//mri:abstract/gco:CharacterString">
           <dc:description><xsl:value-of select="."/></dc:description>
         </xsl:for-each>
 
         <!-- rights -->
 
-        <xsl:for-each select="mri:resourceConstraints/mco:MD_LegalConstraints">
-          <xsl:for-each select="*/mco:MD_RestrictionCode/@codeListValue">
+        <xsl:for-each select=".//mri:resourceConstraints/mco:MD_LegalConstraints">
+          <xsl:for-each select=".//mco:MD_RestrictionCode/@codeListValue">
             <dc:rights><xsl:value-of select="."/></dc:rights>
           </xsl:for-each>
 
-          <xsl:for-each select="mco:otherConstraints/gco:CharacterString">
+          <xsl:for-each select=".//mco:otherConstraints/gco:CharacterString">
             <dc:rights><xsl:value-of select="."/></dc:rights>
           </xsl:for-each>
         </xsl:for-each>
 
         <!-- language -->
 
-        <xsl:for-each select="mri:defaultLocale/lan:PT_Locale/lan:language/lan:languageCode">
+        <xsl:for-each select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:languageCode">
           <dc:language><xsl:value-of select="."/></dc:language>
         </xsl:for-each>
 
         <!-- bounding box -->
 
-        <xsl:for-each select="mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
+        <xsl:for-each select=".//mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
           <dc:coverage>
             <xsl:value-of select="concat('North ', gex:northBoundLatitude/gco:Decimal, ', ')"/>
             <xsl:value-of select="concat('South ', gex:southBoundLatitude/gco:Decimal, ', ')"/>
@@ -104,14 +104,14 @@
 
       <!-- Type - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <xsl:for-each select="mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
+      <xsl:for-each select=".//mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
         <dc:type><xsl:value-of select="."/></dc:type>
       </xsl:for-each>
 
       <!-- Distribution - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-      <xsl:for-each select="mdb:distributionInfo/mrd:MD_Distribution">
-        <xsl:for-each select="mrd:distributionFormat/mrd:MD_Format/mrd:name/gco:CharacterString">
+      <xsl:for-each select=".//mdb:distributionInfo/mrd:MD_Distribution">
+        <xsl:for-each select=".//mrd:distributionFormat/mrd:MD_Format/mrd:name/gco:CharacterString">
           <dc:format><xsl:value-of select="."/></dc:format>
         </xsl:for-each>
       </xsl:for-each>
