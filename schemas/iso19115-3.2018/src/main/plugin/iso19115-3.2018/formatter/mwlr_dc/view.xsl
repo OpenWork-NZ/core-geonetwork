@@ -171,8 +171,8 @@
       </xsl:for-each>
 
       <!--Description (Bibliographic Note)-->
-      <xsl:for-each select=".//mdb:identificationInfo/*/mri:supplementalInformation">
-        <dc:description><xsl:value-of select=".//gco.characterString"/> </dc:description>
+      <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification/mri:supplementalInformation/gco:CharacterString">
+        <dc:description><xsl:value-of select="."/> </dc:description>
       </xsl:for-each>
 
       <!--Source (Location of data)-->
@@ -183,8 +183,8 @@
 
 
       <!--Audience-->
-      <xsl:for-each select="..//mdb:identificationInfo/*/mri:purpose">
-        <dct:audience><xsl:value-of select=".//gco.characterString"/></dct:audience>
+      <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification/mri:purpose/gco:CharacterString">
+        <dct:audience><xsl:value-of select="."/></dct:audience>
       </xsl:for-each>
 
 
