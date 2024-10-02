@@ -18,6 +18,8 @@
                 xmlns:gex="http://standards.iso.org/iso/19115/-3/gex/1.0"
                 xmlns:dqm="http://standards.iso.org/iso/19157/-2/dqm/1.0"
                 xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0"
+                xmlns:mrl="http://standards.iso.org/iso/19115/-3/mrl/2.0"
+                xmlns:gml="http://www.opengis.net/gml"
                 exclude-result-prefixes="#all">
 
   <!-- ============================================================================================ -->
@@ -29,16 +31,9 @@
   <xsl:template match="/">
     <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
                xmlns:dc   ="http://purl.org/dc/elements/1.1/"
+               xmlns:dct  ="http://purl.org/dc/terms/"
                xmlns:xsi  ="http://www.w3.org/2001/XMLSchema-instance"
                xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
-
-      <dc:title><xsl:value-of select=".//mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:title"/></dc:title>
-      <dc:description><xsl:value-of select=".//mdb:identificationInfo/*/mri:abstract"/></dc:description>
-      <dc:identifier><xsl:value-of select=".//mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code/gco:CharacterString"/></dc:identifier>
-
-      <dc:date></dc:date>
-
-      <!-- DataIdentification - - - - - - - - - - - - - - - - - - - - - -->
 
       <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification">
 
@@ -46,30 +41,77 @@
           <xsl:for-each select=".//cit:title/gco:CharacterString">
             <dc:title><xsl:value-of select="."/></dc:title>
           </xsl:for-each>
-
+        </xsl:for-each>
+        <dc:description><xsl:value-of select=".//mri:abstract"/></dc:description>
+        <xsl:for-each select=".//mri:citation/cit:CI_Citation">
           <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:creator><xsl:value-of select="."/></dc:creator>
           </xsl:for-each>
-
+          <xsl:for-each select=".//cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='creation']">
+            <dct:created><xsl:value-of select="."/></dct:created>
+          </xsl:for-each>
+          <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+            <dc:creator><xsl:value-of select="."/></dc:creator>
+          </xsl:for-each>
+        </xsl:for-each>
+        <xsl:for-each select=".//mri:extent/gex:EX_Extent">
+          <xsl:for-each select="gex:temporalElement/gex:EX_TemporalExtent/gex:extent/gml:TimePeriod">
+            <dct:temporal><xsl:value-of select="gml:beginPosition"/> - <xsl:value-of select="gml:endPosition"/></dct:temporal>
+          </xsl:for-each>
+          <!-- bounding box -->
+          <xsl:for-each select=".//gex:geographicElement/gex:EX_GeographicBoundingBox">
+            <dc:coverage>
+              <xsl:value-of select="concat('North ', .//gex:northBoundLatitude/gco:Decimal, ', ')"/>
+              <xsl:value-of select="concat('South ', .//gex:southBoundLatitude/gco:Decimal, ', ')"/>
+              <xsl:value-of select="concat('East ' , .//gex:eastBoundLongitude/gco:Decimal, ', ')"/>
+              <xsl:value-of select="concat('West ' , .//gex:westBoundLongitude/gco:Decimal, '.')"/>
+            </dc:coverage>
+          </xsl:for-each>
+        </xsl:for-each>
+        <xsl:for-each select=".//mri:citation/cit:CI_Citation">
           <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:publisher><xsl:value-of select="."/></dc:publisher>
           </xsl:for-each>
-
-          <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
-            <dc:contributor><xsl:value-of select="."/></dc:contributor>
+          <!-- DataIdentification - - - - - - - - - - - - - - - - - - - - - -->
+          <xsl:for-each select="//cit:identifier/mcc:MD_Identifier/mcc:code/gco:CharacterString">
+            <dc:identifier><xsl:value-of select="."/></dc:identifier>
           </xsl:for-each>
         </xsl:for-each>
+      </xsl:for-each>
 
+      <!--provenance-->
+      <dct:provenance><xsl:value-of select=".//mdb:resourceLineage/mrl:LI_Lineage/mrl:statement"/></dct:provenance>
+      <!--Rights holder -->
+      <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification">
+        <xsl:for-each select=".//mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='rightsHolder']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <dc:creator><xsl:value-of select="."/></dc:creator>
+        </xsl:for-each>
         <!-- subject -->
 
-        <xsl:for-each select=".//mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gco:CharacterString">
+        <xsl:for-each select=".//mri:descriptiveKeywords/mri:descriptiveKeywords/mri:MD_Keywords/mri:keyword/gco:CharacterString">
           <dc:subject><xsl:value-of select="."/></dc:subject>
         </xsl:for-each>
 
-        <!-- description -->
+        <!-- language -->
 
-        <xsl:for-each select=".//mri:abstract/gco:CharacterString">
-          <dc:description><xsl:value-of select="."/></dc:description>
+        <xsl:for-each select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:languageCode">
+          <dc:language><xsl:value-of select="."/></dc:language>
+        </xsl:for-each>
+
+        <!-- Type - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+        <xsl:for-each select=".//mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
+          <dc:type><xsl:value-of select="."/></dc:type>
+        </xsl:for-each>
+
+        <!--Contact-->
+
+        <xsl:for-each select=".//mri:pointOfContact/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='pointOfContact']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <dc:creator>
+            <xsl:value-of select=".//cit:role/cit:CI_RoleCode/@codeListValue"/>
+            <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:name/gco:CharacterString"/>
+            <xsl:value-of select=".//cit:party/cit:CI_Organisation/cit:contactInfo/cit:CI_Contact/cit:address/cit:CI_Address>/cit:electronicMailAddress/gco:CharacterString"/>
+          </dc:creator>
         </xsl:for-each>
 
         <!-- rights -->
@@ -84,29 +126,10 @@
           </xsl:for-each>
         </xsl:for-each>
 
-        <!-- language -->
 
-        <xsl:for-each select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:languageCode">
-          <dc:language><xsl:value-of select="."/></dc:language>
-        </xsl:for-each>
 
-        <!-- bounding box -->
-
-        <xsl:for-each select=".//mri:extent/gex:EX_Extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
-          <dc:coverage>
-            <xsl:value-of select="concat('North ', .//gex:northBoundLatitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('South ', .//gex:southBoundLatitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('East ' , .//gex:eastBoundLongitude/gco:Decimal, ', ')"/>
-            <xsl:value-of select="concat('West ' , .//gex:westBoundLongitude/gco:Decimal, '.')"/>
-          </dc:coverage>
-        </xsl:for-each>
       </xsl:for-each>
 
-      <!-- Type - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-
-      <xsl:for-each select=".//mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope/mcc:MD_ScopeCode/@codeListValue">
-        <dc:type><xsl:value-of select="."/></dc:type>
-      </xsl:for-each>
 
       <!-- Distribution - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
