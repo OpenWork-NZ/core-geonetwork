@@ -41,6 +41,9 @@
           <xsl:for-each select=".//cit:title/gco:CharacterString">
             <dc:title><xsl:value-of select="."/></dc:title>
           </xsl:for-each>
+          <xsl:for-each select=".//cit:alternateTitle/gco:CharacterString">
+            <dc:alternative><xsl:value-of select="."/></dc:alternative>
+          </xsl:for-each>
         </xsl:for-each>
         <dc:description><xsl:value-of select=".//mri:abstract"/></dc:description>
         <xsl:for-each select=".//mri:citation/cit:CI_Citation">
@@ -49,6 +52,9 @@
           </xsl:for-each>
           <xsl:for-each select=".//cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='creation']">
             <dct:created><xsl:value-of select="."/></dct:created>
+          </xsl:for-each>
+          <xsl:for-each select=".//cit:date[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='lastUpdate']">
+            <dct:modified><xsl:value-of select="."/></dct:modified>
           </xsl:for-each>
           <xsl:for-each select=".//cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
             <dc:creator><xsl:value-of select="."/></dc:creator>
@@ -84,7 +90,7 @@
       <!--Rights holder -->
       <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification">
         <xsl:for-each select=".//mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='rightsHolder']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
-          <dc:creator><xsl:value-of select="."/></dc:creator>
+          <dc:rightsHolder><xsl:value-of select="."/></dc:rightsHolder>
         </xsl:for-each>
         <!-- subject -->
 
@@ -94,7 +100,7 @@
 
         <!-- language -->
         <dc:language><xsl:value-of select=".//mri:defaultLocale/lan:PT_Locale/lan:language/lan:LanguageCode/@codeListValue"/></dc:language>
-        
+
 
         <!-- Type - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
@@ -115,7 +121,7 @@
         <!-- rights -->
 
         <xsl:for-each select=".//mri:resourceConstraints/mco:MD_LegalConstraints">
-            <dc:rights><xsl:value-of select=".//mco:MD_RestrictionCode/@codeListValue"/> - <xsl:value-of select="./*/gco:CharacterString"/></dc:rights>
+            <dct:license><xsl:value-of select=".//mco:MD_RestrictionCode/@codeListValue"/> - <xsl:value-of select="./*/gco:CharacterString"/></dct:license>
         </xsl:for-each>
 
 
@@ -130,6 +136,57 @@
           <dc:format><xsl:value-of select="."/></dc:format>
         </xsl:for-each>
       </xsl:for-each>
+
+      <!--Relations-->
+      <dc:relation></dc:relation>
+
+      <!--Is Part Of-->
+      <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification">
+        <xsl:for-each select=".//mdb:identificationInfo/mri:MD_DataIdentification/mri:citation/cit:CI_Citation/cit:series/cit:CI_Series">
+          <xsl:for-each select=".//cit:name/gco:CharacterString">
+            <dct:isPartOf><xsl:value-of select="."/></dct:isPartOf>
+          </xsl:for-each>
+        </xsl:for-each>
+
+        <!--Contributor -->
+
+        <xsl:for-each select=".//mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party/cit:CI_Organisation/cit:name/gco:CharacterString">
+          <dc:contributor><xsl:value-of select="."/></dc:contributor>
+        </xsl:for-each>
+      </xsl:for-each>
+
+      <!--Format-->
+      <xsl:for-each select=".//mdb:distributionInfo/mrd:MD_Distribution">
+        <dc:format><xsl:value-of select=".//mrd:distributionFormat/
+              mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title" /></dc:format>
+      </xsl:for-each>
+
+      <!--AccessRights-->
+
+      <dct:accessRights></dct:accessRights>
+
+      <!--Source (derived from)-->
+      <xsl:for-each select=".//mdb:resourceLineage/mrl:LI_Lineage/mrl:source">
+        <dc:source><xsl:value-of select=".//mrl:LI_Source/mrl:description" /></dc:source>
+      </xsl:for-each>
+
+      <!--Description (Bibliographic Note)-->
+      <xsl:for-each select=".//mdb:identificationInfo/*/mri:supplementalInformation">
+        <dc:description><xsl:value-of select=".//gco.characterString"/> </dc:description>
+      </xsl:for-each>
+
+      <!--Source (Location of data)-->
+      <xsl:for-each select=".//mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/
+      mrd:MD_DigitalTransferOptions/mrd:onLine">
+        <dc:source><xsl:value-of select=".//cit:CI_OnlineResource/cit:linkage/gco:CharacterString"/></dc:source>
+      </xsl:for-each>
+
+
+      <!--Audience-->
+      <xsl:for-each select="..//mdb:identificationInfo/*/mri:purpose">
+        <dct:audience><xsl:value-of select=".//gco.characterString"/></dct:audience>
+      </xsl:for-each>
+
 
     </oai_dc:dc>
   </xsl:template>
