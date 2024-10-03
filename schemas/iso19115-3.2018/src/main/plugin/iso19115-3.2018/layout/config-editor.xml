@@ -1032,8 +1032,32 @@
             </action>
           </section>
           <!--Format-->
-          <section name="Format of the dataset" xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/
+          <section name="Format of the dataset">
+            <field xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/
               mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
+            <action type="add"
+                    btnLabel="Add Distribution Format"
+                    or="distributionFormat"
+                    in="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution">
+              <template>
+                <snippet>
+
+                      <mrd:distributionFormat>
+                        <mrd:MD_Format>
+                          <mrd:formatSpecificationCitation>
+                            <cit:CI_Citation>
+                              <cit:title>
+                                <gco:CharacterString></gco:CharacterString>
+                              </cit:title>
+                            </cit:CI_Citation>
+                          </mrd:formatSpecificationCitation>
+                        </mrd:MD_Format>
+                      </mrd:distributionFormat>
+
+                </snippet>
+              </template>
+            </action>-->
+          </section>
           <!--Access rights-->
           <!--Derived from-->
           <section name="Derived from">
@@ -1098,6 +1122,7 @@
       <flatModeExceptions>
         <for name="mrl:LI_Source"/>
         <for name="mrl:description"/>
+        <for name="mrd:distributionFormat"/>
         <for name="mri:purpose"/>
         <for name="mri:supplementalInformation"/>
         <for name="cit:alternateTitle"/>
@@ -1112,6 +1137,7 @@
         <for name="gfc:carrierOfCharacteristics"/>
         <for name="cit:party"/>
         <for name="cit:name"/>
+        <for name="cit:title"/>
         <for name="cit:CI_Individual"/>
         <for name="cit:CI_Organisation"/>
         <for name="gfc:listedValue"/>

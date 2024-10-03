@@ -156,9 +156,9 @@
       </xsl:for-each>
 
       <!--Format-->
-      <xsl:for-each select=".//mdb:distributionInfo/mrd:MD_Distribution">
-        <dc:format><xsl:value-of select=".//mrd:distributionFormat/
-              mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title" /></dc:format>
+      <xsl:for-each select=".//mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/
+              mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title/gco:CharacterString">
+        <dc:format><xsl:value-of select="." /></dc:format>
       </xsl:for-each>
 
       <!--AccessRights-->
