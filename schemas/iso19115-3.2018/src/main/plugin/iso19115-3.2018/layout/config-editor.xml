@@ -1002,8 +1002,7 @@
           </section>
           <!--Funder-->
           <section name="Funder">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='funder']/cit:party/cit:CI_Organisation/cit:name"
-                   del="../../../.."  />
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='funder']/cit:party/cit:CI_Organisation/cit:name"/>
             <action type="add"
                     btnLabel="Add funder"
                     name="citedResponsibleParty"
@@ -1059,7 +1058,7 @@
             </action>-->
           </section>
           <!--Access rights-->
-          <!--Derived from-->
+          <!--Source - Derived from-->
           <section name="Derived from">
             <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"
                    or="description" in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source"/>

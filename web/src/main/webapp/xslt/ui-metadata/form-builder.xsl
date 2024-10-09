@@ -301,8 +301,10 @@
               <div class="{$cssDefaultClass}
                 {if ($forceDisplayAttributes) then 'gn-attr-mandatory' else 'gn-attr'}
                 {if ($isDisplayingAttributes = true() or $forceDisplayAttributes = true()) then '' else 'hidden'}">
+                <details>
                 <xsl:attribute name="id">gn-attr-div_<xsl:value-of select="$editInfo/@ref"/></xsl:attribute>
                 <xsl:copy-of select="$attributesSnippet"/>
+                </details>
 
               </div>
             </xsl:if>
