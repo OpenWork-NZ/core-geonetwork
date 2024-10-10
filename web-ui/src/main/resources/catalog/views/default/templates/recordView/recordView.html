@@ -80,7 +80,7 @@
           </button>
         </div>
 
-        <div class="pull-right">
+        <div class="pull-right" data-ng-show="recordFormatterList.length == 2">
           <div
             class="btn-group pull-left"
             role="group"
@@ -88,7 +88,7 @@
           >
             <a
               class="btn btn-default"
-              data-ng-show="f.label == 'full'"
+              data-ng-show="currentFormatter !== f.url"
               href=""
               gn-metadata-open="mdView.current.record"
               gn-records="mdView.records"
