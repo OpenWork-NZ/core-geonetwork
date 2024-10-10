@@ -782,6 +782,34 @@
         <!--Creator-->
         <section name="Responsible person/Maintainer">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name"/>
+          <action if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']) = 0"
+                  type="add"
+                  btnLabel="Add Maintainer"
+                  name="citedResponsibleParty"
+                  or="citedResponsibleParty"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
+
+            <template>
+              <snippet label="addOriginator">
+                <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="originator"/>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString/>
+                        </cit:name>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </cit:citedResponsibleParty>
+              </snippet>
+            </template>
+
+          </action>
+
         </section>
         <!--Create date-->
         <section name="Create Date" >
@@ -803,7 +831,7 @@
               <cit:citedResponsibleParty>
                 <cit:CI_Responsibility>
                   <cit:role>
-                    <cit:CI_RoleCode codeListValue="author"/>
+                    <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="author"/>
                   </cit:role>
                   <cit:party>
                     <cit:CI_Organisation>
@@ -874,7 +902,7 @@
                 <cit:citedResponsibleParty>
                   <cit:CI_Responsibility>
                     <cit:role>
-                      <cit:CI_RoleCode codeListValue="rightsHolder"/>
+                      <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="rightsHolder"/>
                     </cit:role>
                     <cit:party>
                       <cit:CI_Organisation>
@@ -893,11 +921,15 @@
 
         <!--Subject-->
         <section name="Keywords (GEMET Thesaurus)">
-          <field use="data-gn-keyword-picker" xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:descriptiveKeywords" name="GEMET">
+          <field use="data-gn-keyword-picker" xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:descriptiveKeywords[mri:MD_Keywords/mri:thesaurusName/cit:CI_Citation/cit:title/gcx:Anchor='GEMET']"
+                 name="GEMET">
             <directiveAttributes
               data-transformation="to-iso19115-3.2018-keyword-with-anchor"
               data-include="external.theme.gemet-en"/>
           </field>
+          <field name="Other keywords"
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:descriptiveKeywords[not(mri:MD_Keywords/mri:thesaurusName)]"
+                   or="descriptiveKeywords" in="/mdb:MD_Metadata/mdb:identificationInfo/*" del=".."/>
         </section>
         <!--Language-->
         <section name="Language">
@@ -922,11 +954,17 @@
                  xpath="/mdb:MD_Metadata/mdb:contact" or="contact"
                  in="/mdb:MD_Metadata"/>/>
         <!--Metadata Creation date-->
-        <section name="Date created" xpath="/mdb:MD_Metadata/mdb:dateInfo[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='creation']"/>
+        <section name="Date created">
+          <field xpath="/mdb:MD_Metadata/mdb:dateInfo[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='creation']"/>
+        </section>
         <!--Metadata Identifier-->
-        <section name="Identifier" xpath="/mdb:MD_Metadata/mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code"/>
+        <section name="Identifier">
+          <field xpath="/mdb:MD_Metadata/mdb:metadataIdentifier/mcc:MD_Identifier/mcc:code"/>
+        </section>
         <!--Metadata modification date-->
-        <section name="Date modified" xpath="/mdb:MD_Metadata/mdb:dateInfo[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='revision']"/>
+        <section name="Date modified">
+          <field xpath="/mdb:MD_Metadata/mdb:dateInfo[cit:CI_Date/cit:dateType/cit:CI_DateTypeCode/@codeListValue='revision']"/>
+        </section>
         <!--Metadata Version (Standard and profile or version of this record?)-->
 
       </tab>
@@ -984,7 +1022,7 @@
                   <cit:citedResponsibleParty>
                     <cit:CI_Responsibility>
                       <cit:role>
-                        <cit:CI_RoleCode codeListValue="contributor"/>
+                        <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="contributor"/>
                       </cit:role>
                       <cit:party>
                         <cit:CI_Organisation>
@@ -1014,7 +1052,7 @@
                   <cit:citedResponsibleParty>
                     <cit:CI_Responsibility>
                       <cit:role>
-                        <cit:CI_RoleCode codeListValue="funder"/>
+                        <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="funder"/>
                       </cit:role>
                       <cit:party>
                         <cit:CI_Organisation>
