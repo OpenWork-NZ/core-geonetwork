@@ -408,7 +408,7 @@
             </mdb:resourceLineage>
           </xsl:if>
           
-          <mds:distributionInfo>
+          <mdb:distributionInfo>
             <mrd:MD_Distribution>
               <mrd:transferOptions>
                 <xsl:for-each select=".//dc:references">
@@ -447,7 +447,7 @@
                 </mrd:distributionFormat>
               </xsl:for-each>
             </mrd:MD_Distribution>
-          </mds:distributionInfo>
+          </mdb:distributionInfo>
       </mdb:MD_Metadata>
   </xsl:template>
 
