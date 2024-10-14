@@ -189,7 +189,12 @@ public class RegisterApi {
         String message = String.format(
             messages.getString("register_email_admin_message"),
             user.getEmail(),
+            user.getSurname(),
+            user.getName(),
+            user.getOrganisation(),
             requestedProfile,
+            user.getId(),
+            user.getUsername(),
             sm.getNodeURL(),
             sm.getSiteName()
         );
