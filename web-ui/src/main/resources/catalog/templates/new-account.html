@@ -4,6 +4,15 @@
       <div class="panel-heading">
         <h1 data-translate="">createAnAccount</h1>
       </div>
+      <style>
+        .required {
+          font-style: italic;
+        }
+        .required::after {
+          content: "*";
+          color: red;
+        }
+      </style>
       <div class="panel-body">
         <p data-translate="">newAccountInfo</p>
         <form class="form-horizontal clearfix" id="userinfo">
@@ -12,7 +21,7 @@
           <fieldset class="pull-left">
             <legend data-translate="">personal</legend>
             <div class="form-group">
-              <label for="inputName" translate="">name</label>
+              <label for="inputName" translate="" class="required">name</label>
               <input
                 type="text"
                 class="form-control"
@@ -20,10 +29,11 @@
                 data-ng-model="userInfo.name"
                 id="inputName"
                 name="name"
+                required
               />
             </div>
             <div class="form-group">
-              <label for="inputUsername" translate="">surname</label>
+              <label for="inputUsername" translate="" class="required">surname</label>
               <input
                 type="text"
                 class="form-control"
@@ -31,10 +41,11 @@
                 data-ng-model="userInfo.surname"
                 id="inputUsername"
                 name="surname"
+                required
               />
             </div>
             <div class="form-group">
-              <label data-translate="">email</label>
+              <label data-translate="" class="required">email</label>
               <input
                 type="email"
                 name="email"
@@ -42,10 +53,12 @@
                 data-ng-model="userInfo.username"
                 autofocus=""
                 class="form-control"
+                required
               />
             </div>
             <div class="form-group">
-              <label data-translate="">organisation</label>
+              <label data-translate="" class="required">organisation*</label>
+              <!--  We really want this, but we don't strictly require it. -->
               <input
                 type="text"
                 name="org"

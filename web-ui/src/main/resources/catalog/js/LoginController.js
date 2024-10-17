@@ -133,7 +133,7 @@
         name: "",
         email: "",
         organisation: "",
-        profile: "RegisteredUser",
+        profile: "Editor",
         address: {
           address: "",
           city: "",
