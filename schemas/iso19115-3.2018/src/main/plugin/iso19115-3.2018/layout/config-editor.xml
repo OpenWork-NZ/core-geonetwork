@@ -747,7 +747,7 @@
   <!-- View configuration -->
   <views>
 
-    <view name="MWLR-Core" displayTooltips="true" displayTooltipsMode="onhover"
+    <view name="MWLR-Core" displayTooltips="true" displayTooltipsMode="onfocus"
 		class="gn-label-above-input gn-indent-bluescale" default="true">
       <sidePanel>
         <!--<directive data-gn-need-help="creating-metadata"/>-->
@@ -1115,8 +1115,25 @@
         </section>
           <!--Source - Derived from-->
           <section name="Derived from">
-            <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"
-                   or="description" in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source"/>
+            <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"/>
+            <action type="add"
+                    btnLabel="Add data source"
+                    or="source"
+                    in="/mdb:MD_Metadata/mdb:resourceLineage/mrd:MD_Distribution/mrl:LI_Lineage">
+              <template>
+                <snippet>
+
+                  <mrl:source>
+                    <mrl:LI_Source>
+                      <mrl:description>
+                        <gco:CharacterString>A description of the source material</gco:CharacterString>
+                      </mrl:description>
+                    </mrl:LI_Source>
+                  </mrl:source>
+
+                </snippet>
+              </template>
+            </action>
           </section>
           <!--Bibliogrraphical note-->
           <section name="Bibliogrraphical note">
