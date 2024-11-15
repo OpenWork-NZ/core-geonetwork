@@ -433,6 +433,12 @@
     </lan:LanguageCode>
   </xsl:template>
 
+  <xsl:template match="lan:CountryCode[@codeListValue]" priority="10">
+    <lan:LanguageCode codeList="https://www.nationsonline.org/oneworld/country_code_list.htm">
+      <xsl:apply-templates select="@*[name(.)!='codeList']"/>
+    </lan:LanguageCode>
+  </xsl:template>
+
   <xsl:template match="dqm:*[@codeListValue]" priority="10">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
