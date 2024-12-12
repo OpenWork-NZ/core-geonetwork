@@ -747,7 +747,7 @@
   <!-- View configuration -->
   <views>
 
-    <view name="MWLR-Core" displayTooltips="true" displayTooltipsMode="onfocus"
+    <view name="MWLR-Core" displayTooltips="true"
 		class="gn-label-above-input gn-indent-bluescale" default="true">
       <sidePanel>
         <!--<directive data-gn-need-help="creating-metadata"/>-->
@@ -881,9 +881,32 @@
                  xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party/cit:CI_Organisation/cit:name"/>
         </section>
         <!--Unique Identifier (Resource)-->
-        <section name="dataIdentifierIcsm" >
+        <section name="dataIdentifierIcsm"  >
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:identifier"
-                 or="identifier" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation" del="../.." />
+                  del="../.." />
+          <action type="add"
+                  btnLabel="Add Data Identifier"
+                  name="identifier"
+                  or="identifier"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
+
+            <template>
+              <snippet label="addDataIdentifier">
+                <cit:identifier>
+                  <mcc:MD_Identifier>
+                    <mcc:code>
+                      <gco:CharacterString>DOI or other unique identifier</gco:CharacterString>
+                    </mcc:code>
+                    <mcc:description gco:nilReason="missing">
+                      <gco:CharacterString/>
+                    </mcc:description>
+                  </mcc:MD_Identifier>
+                </cit:identifier>
+              </snippet>
+            </template>
+
+          </action>
+
         </section>
         <!--provenance-->
         <section name="Project identifier">
