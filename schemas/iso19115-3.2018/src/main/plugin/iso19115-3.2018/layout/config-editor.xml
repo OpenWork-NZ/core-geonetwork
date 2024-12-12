@@ -942,7 +942,7 @@
         <!--Type-->
         <section name="Resource Type" xpath="/mdb:MD_Metadata/mdb:metadataScope"/>
         <!--Point of Contact (contact details)-->
-        <section name="Point of cantact">
+        <section name="Point of contact">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
                  or="pointOfContact" in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
         </section>
@@ -1135,8 +1135,8 @@
               </template>
             </action>
           </section>
-          <!--Bibliogrraphical note-->
-          <section name="Bibliogrraphical note">
+          <!--Bibliographical note-->
+          <section name="Bibliographical note">
               <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:supplementalInformation"
                      or="supplementalInformation" in="/mdb:MD_Metadata/mdb:identificationInfo/*" />
           </section>
