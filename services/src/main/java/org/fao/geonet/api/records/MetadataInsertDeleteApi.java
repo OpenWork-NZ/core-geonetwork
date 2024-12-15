@@ -339,7 +339,8 @@ public class MetadataInsertDeleteApi {
 
             Pair<Integer, String> pair = loadRecord(metadataType, element, uuidProcessing, group, category,
                     rejectIfInvalid, publishToAll, allowEditGroupMembers, transformWith, schema, extra, request);
-            report.addMetadataInfos(pair.one(), pair.two(), !publishToAll, false, String.format(messages.getString("api.metadata.import.importedFromXMLWithUuid"), pair.two()));
+            String inputSchema = dataManager.autodetectSchema(element);
+            report.addMetadataInfos(pair.one(), pair.two(), !publishToAll, false, String.format(messages.getString("api.metadata.import.importedFromXMLWithUuidAndSchema"), pair.two(), inputSchema));
 
             triggerImportEvent(request, pair.two());
 
@@ -872,7 +873,10 @@ public class MetadataInsertDeleteApi {
             FilePathChecker.verify(transformWith);
             Path xslFile = dataDirectory.getXsltConversion(transformWith);
             if (Files.exists(xslFile)) {
-                xmlElement = Xml.transform(xmlElement, xslFile);
+            	String inSchema = dataManager.autodetectSchema(xmlElement);
+            	TreeMap<String, Object> params = new TreeMap<String, Object>();
+            	params.put("schema", inSchema);
+                xmlElement = Xml.transform(xmlElement, xslFile, params);
             } else {
                 throw new ResourceNotFoundException(String.format(messages.getString("api.metadata.import.errorMissingXsl"), transformWith));
             }
