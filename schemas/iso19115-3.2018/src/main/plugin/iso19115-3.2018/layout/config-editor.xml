@@ -909,9 +909,9 @@
 
         </section>
         <!--provenance-->
-        <section name="Project identifier">
+        <section name="Project statement">
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" or="statement"
-                 in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage"/>
+                 in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage" del="." />
         </section>
         <!--Rights Holder-->
         <section name="Rights Holder">
@@ -1166,7 +1166,7 @@
           <!--Source-->
           <section name="Location of data">
             <field name="url"
-                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage" del=".."/>
+                   xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage" del="../.."/>
             <action type="add"
                     btnLabel="Add data location"
                     or="transferOptions"
@@ -1297,6 +1297,9 @@
         <for name="lan:LanguageCode"/>
         <for name="cit:identifier"/>
         <for name="mcc:code" />
+        <for name="mrl:statement"/>
+        <for name="mrl:description" />
+        <for name="mrl:source" />
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.httpinspireeceuropaeutheme-theme" transformations="to-iso19115-3.2018-keyword-with-anchor"/>
