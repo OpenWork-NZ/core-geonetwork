@@ -339,7 +339,8 @@ public class MetadataInsertDeleteApi {
 
             Pair<Integer, String> pair = loadRecord(metadataType, element, uuidProcessing, group, category,
                     rejectIfInvalid, publishToAll, allowEditGroupMembers, transformWith, schema, extra, request);
-            report.addMetadataInfos(pair.one(), pair.two(), !publishToAll, false, String.format(messages.getString("api.metadata.import.importedFromXMLWithUuid"), pair.two()));
+            String inputSchema = dataManager.autodetectSchema(element);
+            report.addMetadataInfos(pair.one(), pair.two(), !publishToAll, false, String.format(messages.getString("api.metadata.import.importedFromXMLWithUuidAndSchema"), pair.two(), inputSchema));
 
             triggerImportEvent(request, pair.two());
 
@@ -872,7 +873,19 @@ public class MetadataInsertDeleteApi {
             FilePathChecker.verify(transformWith);
             Path xslFile = dataDirectory.getXsltConversion(transformWith);
             if (Files.exists(xslFile)) {
-                xmlElement = Xml.transform(xmlElement, xslFile);
+            	String inSchema = dataManager.autodetectSchema(xmlElement);
+            	TreeMap<String, Object> params = new TreeMap<String, Object>();
+            	params.put("schema", inSchema);
+                Element transformed = Xml.transform(xmlElement, xslFile, params);
+
+                // Support redirects! This can remove techie decisions from the UX.
+                String redirect = transformed.getTextNormalize();
+                if (transformed.getName() == "redirect" && redirect != "") {
+                	xslFile = dataDirectory.getXsltConversion(redirect);
+                	if (Files.exists(xslFile)) {
+                		xmlElement = Xml.transform(xmlElement, xslFile, params);
+                	} else xmlElement = transformed;
+                } else xmlElement = transformed;
             } else {
                 throw new ResourceNotFoundException(String.format(messages.getString("api.metadata.import.errorMissingXsl"), transformWith));
             }
