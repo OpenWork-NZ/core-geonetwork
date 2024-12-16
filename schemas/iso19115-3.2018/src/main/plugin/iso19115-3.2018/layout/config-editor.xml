@@ -754,8 +754,8 @@
         <directive data-gn-overview-manager=""
                    data-file-types=".png,.gif,.jpeg,.jpg"/>
 
-        <directive data-gn-file-uploader=""
-                   data-type="onlines"/>
+        <!-- <directive data-gn-file-uploader=""
+                   data-type="onlines"/>-->
 
         <directive data-gn-onlinesrc-list=""
                    data-types="onlinesrc|sibling|associated|source|dataset"/>
