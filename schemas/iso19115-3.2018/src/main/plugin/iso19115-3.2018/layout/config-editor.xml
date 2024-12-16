@@ -751,6 +751,7 @@
 		class="gn-label-above-input gn-indent-bluescale" default="true">
       <sidePanel>
         <!--<directive data-gn-need-help="creating-metadata"/>-->
+        <directive data-gn-validation-report=""/>
         <directive data-gn-overview-manager=""
                    data-file-types=".png,.gif,.jpeg,.jpg"/>
 
