@@ -81,14 +81,10 @@
         </div>
 
         <div class="pull-right" data-ng-show="recordFormatterList.length == 2">
-          <div
-            class="btn-group pull-left"
-            role="group"
-            data-ng-repeat="f in recordFormatterList"
-          >
+          <div class="btn-group pull-left" role="group">
             <a
-              class="btn btn-default"
-              data-ng-show="currentFormatter !== f.url"
+              data-ng-repeat="f in recordFormatterList"
+              class="btn btn-default {{(currentFormatter === f.url) ? 'disabled active' : ''}}"
               href=""
               gn-metadata-open="mdView.current.record"
               gn-records="mdView.records"
@@ -145,7 +141,7 @@
             data-gn-md-actions-menu="mdView.current.record"
           />
 
-          <!-- display mode -->
+          <!-- display mode -- >
           <div class="btn-group gn-view-menu-button pull-left">
             <button
               type="button"
@@ -174,7 +170,7 @@
                 </a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
 
