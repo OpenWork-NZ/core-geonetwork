@@ -72,7 +72,7 @@
         rejectIfInvalid: false,
         publishToAll: false,
         assignToCatalog: true,
-        transformWith: "_none_",
+        transformWith: "schema:iso19115-3.2018:convert/autoconvert" /* "_none_",*/,
         group: null,
         category: null
       };

@@ -282,47 +282,26 @@
                 id="gn-import-xslt-label"
                 for="gn-import-xslt-input"
                 class="col-sm-4 control-label"
-                >Import from</label
+                >Input schema</label
               >
               <div class="col-sm-8">
                 <!--<div data-gn-import-xsl="params.transformWith" />-->
-                <label>
-                  <input
-                    type="radio"
-                    data-ng-model="params.transformWith"
-                    checked
-                    name="transformWith"
-                    value="schema:iso19115-3.2018:convert/autoconvert"
-                  />
-                  guess
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    data-ng-model="params.transformWith"
-                    name="transformWith"
-                    value=""
-                  />
-                  ISO19115-3.2018
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    data-ng-model="params.transformWith"
-                    name="transformWith"
-                    value="schema:iso19115-3.2018:convert/fromISO19139"
-                  />
-                  ISO19139
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    data-ng-model="params.transformWith"
-                    name="transformWith"
-                    value="schema:iso19115-3.2018:convert/fromMWLR-DC"
-                  />
-                  Dublin Core
-                </label>
+                <select
+                  id="gn-import-xslt-input"
+                  data-ng-model="params.transformWith"
+                  name="transformWith"
+                >
+                  <option value="schema:iso19115-3.2018:convert/autoconvert">
+                    Autoselect
+                  </option>
+                  <option value="_none_">ISO19115-3.2018</option>
+                  <option value="schema:iso19115-3.2018:convert/fromISO19139">
+                    ISO19139
+                  </option>
+                  <option value="schema:iso19115-3.2018:convert/fromMWLR-DC">
+                    Dublin Core
+                  </option>
+                </select>
                 <!--<input
                   id="gn-import-xslt-input"
                   type="text"
