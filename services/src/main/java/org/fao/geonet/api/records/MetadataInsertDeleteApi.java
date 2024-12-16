@@ -876,7 +876,16 @@ public class MetadataInsertDeleteApi {
             	String inSchema = dataManager.autodetectSchema(xmlElement);
             	TreeMap<String, Object> params = new TreeMap<String, Object>();
             	params.put("schema", inSchema);
-                xmlElement = Xml.transform(xmlElement, xslFile, params);
+                Element transformed = Xml.transform(xmlElement, xslFile, params);
+
+                // Support redirects! This can remove techie decisions from the UX.
+                String redirect = transformed.getTextNormalize();
+                if (transformed.getName() == "redirect" && redirect != "") {
+                	xslFile = dataDirectory.getXsltConversion(redirect);
+                	if (Files.exists(xslFile)) {
+                		xmlElement = Xml.transform(xmlElement, xslFile, params);
+                	} else xmlElement = transformed;
+                } else xmlElement = transformed;
             } else {
                 throw new ResourceNotFoundException(String.format(messages.getString("api.metadata.import.errorMissingXsl"), transformWith));
             }
