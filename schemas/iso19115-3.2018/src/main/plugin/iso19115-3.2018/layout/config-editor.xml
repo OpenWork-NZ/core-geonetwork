@@ -963,7 +963,18 @@
                  or="language" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:defaultLocale/lan:PT_Locale" />
         </section>
         <!--Type-->
-        <section name="Resource Type" xpath="/mdb:MD_Metadata/mdb:metadataScope"/>
+        <!-- BC 16-12-24 hide resource scope as there is no need to edit.
+             All records using this editor should match the template value of "Dataset"
+             and should not be changed.
+             Attempted to make this feild non-editable but failed. Questioning the value of that approach
+             Will confirm with MWLR -->
+        <!--<section name="Resource Type">
+        <field xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope"  >
+          <directiveAttributes
+            value="mcc:MD_ScopeCode@codeListValue"
+            isDisabled="true()"/>
+        </field>
+        </section>-->
         <!--Point of Contact (contact details)-->
         <section name="Point of contact">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
