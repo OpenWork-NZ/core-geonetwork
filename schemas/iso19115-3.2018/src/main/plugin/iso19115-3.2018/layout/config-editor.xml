@@ -751,11 +751,12 @@
 		class="gn-label-above-input gn-indent-bluescale" default="true">
       <sidePanel>
         <!--<directive data-gn-need-help="creating-metadata"/>-->
+        <directive data-gn-validation-report=""/>
         <directive data-gn-overview-manager=""
                    data-file-types=".png,.gif,.jpeg,.jpg"/>
 
-        <directive data-gn-file-uploader=""
-                   data-type="onlines"/>
+        <!-- <directive data-gn-file-uploader=""
+                   data-type="onlines"/>-->
 
         <directive data-gn-onlinesrc-list=""
                    data-types="onlinesrc|sibling|associated|source|dataset"/>
@@ -963,7 +964,18 @@
                  or="language" in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:defaultLocale/lan:PT_Locale" />
         </section>
         <!--Type-->
-        <section name="Resource Type" xpath="/mdb:MD_Metadata/mdb:metadataScope"/>
+        <!-- BC 16-12-24 hide resource scope as there is no need to edit.
+             All records using this editor should match the template value of "Dataset"
+             and should not be changed.
+             Attempted to make this feild non-editable but failed. Questioning the value of that approach
+             Will confirm with MWLR -->
+        <!--<section name="Resource Type">
+        <field xpath="/mdb:MD_Metadata/mdb:metadataScope/mdb:MD_MetadataScope/mdb:resourceScope"  >
+          <directiveAttributes
+            value="mcc:MD_ScopeCode@codeListValue"
+            isDisabled="true()"/>
+        </field>
+        </section>-->
         <!--Point of Contact (contact details)-->
         <section name="Point of contact">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
