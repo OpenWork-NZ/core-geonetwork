@@ -4236,6 +4236,19 @@
     <description>Name of the data transfer format(s)</description>
     <help>File or link format name</help>
     <helper>
+      <option value="APRX">ArcGIS Pro project file</option>
+      <option value="GDB">Geodatabase</option>
+      <option value="GeoJSON">GeoJSON</option>
+      <option value="GeoParquet">Geoparquet file</option>
+      <option value="GML">Geography Markup Language</option>
+      <option value="GPKG">OGC Geopackage</option>
+      <option value="KML">Keyhole Markup Language</option>
+      <option value="KMZ">Keyhole Zipped File</option>
+      <option value="QGS">QGIS Project File</option>
+      <option value="SHP">ESRI Shapefile</option>
+      <option value="TAB">Mapinfo File Format</option>
+      <option value="other_table">Other tabular vector formats</option>
+      
       <option value="ArcGIS GP Server">ArcGIS GP Server</option>
       <option value="ArcGIS Image Server">ArcGIS Image Server</option>
       <option value="ArcGIS Map Server">ArcGIS Map Server</option>
@@ -4255,11 +4268,7 @@
 
       <option value="Text">Text</option>
       <option value="XLS">XLS</option>
-      <option value="ESRI Shapefile">ESRI Shapefile</option>
       <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
-      <option value="Mapinfo TAB">Mapinfo TAB</option>
-      <option value="KML">KML</option>
-      <option value="GML">GML</option>
       <option value="XYZ Ascii">XYZ Ascii</option>
       <option value="NetCDF">NetCDF</option>
       <option value="GeoTIFF">GeoTIFF</option>
