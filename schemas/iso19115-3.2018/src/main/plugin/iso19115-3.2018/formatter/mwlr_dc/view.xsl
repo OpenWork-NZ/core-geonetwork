@@ -29,6 +29,7 @@
   <!-- ============================================================================================ -->
 
   <xsl:template match="/">
+
     <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/"
                xmlns:dc   ="http://purl.org/dc/elements/1.1/"
                xmlns:dct  ="http://purl.org/dc/terms/"
