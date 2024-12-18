@@ -3764,10 +3764,11 @@
     <condition>mandatory</condition>
   </element>
   <element name="mri:pointOfContact" id="29.0">
-    <label>Point of contact - Custodian, Owner, etc</label>
+    <label>Resource Point of contact - (Mandatory!)</label>
     <description>Identification of, and means of communication with, person(s)
       and organizations(s) associated with the resource(s)
     </description>
+    <condition>mandatory</condition>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/Contacts-Metadata#point-of-contact">Help</a>]]></help>
   </element>
   <element name="gex:polygon" id="342.0">
@@ -4248,7 +4249,7 @@
       <option value="SHP">ESRI Shapefile</option>
       <option value="TAB">Mapinfo File Format</option>
       <option value="other_table">Other tabular vector formats</option>
-      
+
       <option value="ArcGIS GP Server">ArcGIS GP Server</option>
       <option value="ArcGIS Image Server">ArcGIS Image Server</option>
       <option value="ArcGIS Map Server">ArcGIS Map Server</option>

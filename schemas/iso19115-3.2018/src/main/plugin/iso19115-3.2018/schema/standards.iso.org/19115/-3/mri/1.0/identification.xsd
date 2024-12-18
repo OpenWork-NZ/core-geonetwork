@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema" 
-  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0" 
+<?xml version="1.0" encoding="UTF-8"?><schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
   xmlns:gmw="http://standards.iso.org/iso/19115/-3/gmw/1.0"
-  xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0" 
-  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0" 
+  xmlns:lan="http://standards.iso.org/iso/19115/-3/lan/1.0"
+  xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0"
   xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0" elementFormDefault="qualified" targetNamespace="http://standards.iso.org/iso/19115/-3/mri/1.0" version="1.0">
 <!--  <include schemaLocation="mri.xsd"/>-->
   <import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../../../19115/-3/gco/1.0/gco.xsd"/>
@@ -138,7 +138,7 @@
               <documentation>status of the resource(s)</documentation>
             </annotation>
           </element>
-          <element maxOccurs="unbounded" minOccurs="0" name="pointOfContact" type="mcc:Abstract_Responsibility_PropertyType">
+          <element maxOccurs="unbounded" minOccurs="1" name="pointOfContact" type="mcc:Abstract_Responsibility_PropertyType">
             <annotation>
               <documentation>identification of, and means of communication with, person(s) and organisation(s) associated with the resource(s)</documentation>
             </annotation>

@@ -1088,7 +1088,7 @@
         </field>
         </section>-->
         <!--Point of Contact (contact details)-->
-        <section name="Point of contact">
+        <section name="mri:pointOfContact">
           <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility/cit:party"/>
 
         <action type="add"
