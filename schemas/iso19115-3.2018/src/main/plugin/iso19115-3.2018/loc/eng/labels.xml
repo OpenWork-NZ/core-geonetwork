@@ -4266,8 +4266,12 @@
       <option value="SPARQL service">SPARQL service</option>
       <option value="Download">Download</option>
       <option value="HTML information">HTML information</option>
+      <option value="Kea">Kea</option>
+      <option value="Other">Other raster</option>
+
 
       <option value="Text">Text</option>
+      <option value="Kea">Kea</option>
       <option value="XLS">XLS</option>
       <option value="Mapinfo MIF/MID">Mapinfo MIF/MID</option>
       <option value="XYZ Ascii">XYZ Ascii</option>
@@ -4282,6 +4286,7 @@
       <option value="JPEG">JPEG</option>
       <option value="OGC:WMC">OGC:WMC</option>
       <option value="OGC:OWS-C">OGC OWS Context</option>
+      <option value="Other">Other raster</option>
     </helper>
   </element>
 
