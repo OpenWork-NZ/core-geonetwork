@@ -489,6 +489,7 @@
     <name>srv:SV_CoupledResource</name>
     <name>mrd:transferOptions</name>
     <name>cit:CI_Responsibility</name>
+    <name>cit:party</name>
   </fieldsWithFieldset>
 
   <multilingualFields>
@@ -598,7 +599,7 @@
     <!-- This is an example for organisation table layout.
     19115-3 being more flexible with link between orgs and individual,
     a table view force some constraints. -->
-    <table for="cit:CI_Responsibility" label="Contact">
+    <table for="cit:CI_Responsibility" >
       <header>
         <col label="cit:role"/>
         <col label="cit:CI_Organisation"/>
@@ -612,6 +613,20 @@
         <col xpath="cit:party//cit:CI_Individual/cit:name"/>
         <col xpath="cit:party/*/cit:contactInfo/*/cit:address/*/cit:electronicMailAddress"/>
         <col del=".."/>
+      </row>
+    </table>
+    <table for="cit:CI_Organisation">
+      <header>
+        <col label="cit:CI_Organisation"/>
+        <col label="cit:CI_Individual"/>
+        <col label="cit:electronicMailAddress"/>
+        <col/>
+      </header>
+      <row>
+        <col xpath="cit:name"/>
+        <col xpath="cit:individual/cit:CI_Individual/cit:name"/>
+        <col xpath="cit:contactInfo//cit:electronicMailAddress"/>
+        <col del="../../.."/>
       </row>
     </table>
     <table for="gfc:FC_ListedValue">
@@ -782,8 +797,8 @@
         </section>
         <!--Creator-->
         <section name="Responsible person/Maintainer">
-          <field name="Name"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name"/>
+                 <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party"/>
+                 <!--xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']/cit:party/cit:CI_Organisation/cit:name"/-->
           <action if="count(mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='originator']) = 0"
                   type="add"
                   btnLabel="Add Maintainer"
@@ -801,8 +816,26 @@
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
-                          <gco:CharacterString/>
+                          <gco:CharacterString>Responible org</gco:CharacterString>
                         </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>email</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                        <cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>name</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>
                       </cit:CI_Organisation>
                     </cit:party>
                   </cit:CI_Responsibility>
@@ -819,9 +852,8 @@
         </section>
         <!--author-->
         <section name="Author of the dataset">
-          <field name="Name"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party/cit:CI_Organisation/cit:name"
-            del="../../../.."  />
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='author']/cit:party"
+            del="../../.."  />
         <action type="add"
                 btnLabel="Add author"
                 name="citedResponsibleParty"
@@ -838,8 +870,26 @@
                   <cit:party>
                     <cit:CI_Organisation>
                       <cit:name>
-                        <gco:CharacterString/>
+                        <gco:CharacterString>Responible org</gco:CharacterString>
                       </cit:name>
+                      <cit:contactInfo>
+                        <cit:CI_Contact>
+                          <cit:address>
+                            <cit:CI_Address>
+                              <cit:electronicMailAddress>
+                                <gco:CharacterString>email</gco:CharacterString>
+                              </cit:electronicMailAddress>
+                            </cit:CI_Address>
+                          </cit:address>
+                        </cit:CI_Contact>
+                      </cit:contactInfo>
+                      <cit:individual>
+                        <cit:CI_Individual>
+                          <cit:name>
+                            <gco:CharacterString>name</gco:CharacterString>
+                          </cit:name>
+                        </cit:CI_Individual>
+                      </cit:individual>
                     </cit:CI_Organisation>
                   </cit:party>
                 </cit:CI_Responsibility>
@@ -879,7 +929,51 @@
         <!--Publisher-->
         <section name="Publisher">
           <field name="Name"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party/cit:CI_Organisation/cit:name"/>
+                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='publisher']/cit:party"/>
+          <action type="add"
+                  btnLabel="Add publisher"
+                  name="citedResponsibleParty"
+                  or="citedResponsibleParty"
+                  in="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation">
+
+            <template>
+              <snippet label="addPublisher">
+                <cit:citedResponsibleParty>
+                  <cit:CI_Responsibility>
+                    <cit:role>
+                      <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="publisher"/>
+                    </cit:role>
+                    <cit:party>
+                      <cit:CI_Organisation>
+                        <cit:name>
+                          <gco:CharacterString>Responible org</gco:CharacterString>
+                        </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>email</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                        <cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>name</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>
+                      </cit:CI_Organisation>
+                    </cit:party>
+                  </cit:CI_Responsibility>
+                </cit:citedResponsibleParty>
+              </snippet>
+            </template>
+
+          </action>
         </section>
         <!--Unique Identifier (Resource)-->
         <section name="dataIdentifierIcsm"  >
@@ -916,8 +1010,7 @@
         </section>
         <!--Rights Holder-->
         <section name="Rights Holder">
-          <field name="Name"
-                 xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='rightsHolder']/cit:party/cit:CI_Organisation/cit:name"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='rightsHolder']/cit:party"/>
           <action type="add"
                   btnLabel="Add rights holder"
                   name="citedResponsibleParty"
@@ -934,8 +1027,26 @@
                     <cit:party>
                       <cit:CI_Organisation>
                         <cit:name>
-                          <gco:CharacterString/>
+                          <gco:CharacterString>Responible org</gco:CharacterString>
                         </cit:name>
+                        <cit:contactInfo>
+                          <cit:CI_Contact>
+                            <cit:address>
+                              <cit:CI_Address>
+                                <cit:electronicMailAddress>
+                                  <gco:CharacterString>email</gco:CharacterString>
+                                </cit:electronicMailAddress>
+                              </cit:CI_Address>
+                            </cit:address>
+                          </cit:CI_Contact>
+                        </cit:contactInfo>
+                        <cit:individual>
+                          <cit:CI_Individual>
+                            <cit:name>
+                              <gco:CharacterString>name</gco:CharacterString>
+                            </cit:name>
+                          </cit:CI_Individual>
+                        </cit:individual>
                       </cit:CI_Organisation>
                     </cit:party>
                   </cit:CI_Responsibility>
@@ -978,13 +1089,57 @@
         </section>-->
         <!--Point of Contact (contact details)-->
         <section name="Point of contact">
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact"
-                 or="pointOfContact" in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:pointOfContact/cit:CI_Responsibility/cit:party"/>
+
+        <action type="add"
+                btnLabel="Add point of contact"
+                name="pointOfContact"
+                or="pointOfContact"
+                in="/mdb:MD_Metadata/mdb:identificationInfo/*">
+
+          <template>
+            <snippet label="pointOfContact">
+              <mri:pointOfContact>
+                <cit:CI_Responsibility>
+                  <cit:role>
+                    <cit:CI_RoleCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_RoleCode" codeListValue="pointOfcontact"/>
+                  </cit:role>
+                  <cit:party>
+                    <cit:CI_Organisation>
+                      <cit:name>
+                        <gco:CharacterString>Responible org</gco:CharacterString>
+                      </cit:name>
+                      <cit:contactInfo>
+                        <cit:CI_Contact>
+                          <cit:address>
+                            <cit:CI_Address>
+                              <cit:electronicMailAddress>
+                                <gco:CharacterString>email</gco:CharacterString>
+                              </cit:electronicMailAddress>
+                            </cit:CI_Address>
+                          </cit:address>
+                        </cit:CI_Contact>
+                      </cit:contactInfo>
+                      <cit:individual>
+                        <cit:CI_Individual>
+                          <cit:name>
+                            <gco:CharacterString>name</gco:CharacterString>
+                          </cit:name>
+                        </cit:CI_Individual>
+                      </cit:individual>
+                    </cit:CI_Organisation>
+                  </cit:party>
+                </cit:CI_Responsibility>
+              </mri:pointOfContact>
+            </snippet>
+          </template>
+
+        </action>
         </section>
         <!--Licence-->
         <section name="License">
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints[mco:MD_LegalConstraints]" or="resourceConstraints"
-                                       in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints" or="resourceConstraints"
+                 in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
         </section>
 
       </tab>
@@ -1057,7 +1212,7 @@
           </section>
           <!--Contributor-->
           <section name="Contributor">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party/cit:CI_Organisation/cit:name"/>
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='contributor']/cit:party"/>
             <action type="add"
                     btnLabel="Add contributor"
                     name="citedResponsibleParty"
@@ -1074,8 +1229,26 @@
                       <cit:party>
                         <cit:CI_Organisation>
                           <cit:name>
-                            <gco:CharacterString/>
+                            <gco:CharacterString>Responible org</gco:CharacterString>
                           </cit:name>
+                          <cit:contactInfo>
+                            <cit:CI_Contact>
+                              <cit:address>
+                                <cit:CI_Address>
+                                  <cit:electronicMailAddress>
+                                    <gco:CharacterString>email</gco:CharacterString>
+                                  </cit:electronicMailAddress>
+                                </cit:CI_Address>
+                              </cit:address>
+                            </cit:CI_Contact>
+                          </cit:contactInfo>
+                          <cit:individual>
+                            <cit:CI_Individual>
+                              <cit:name>
+                                <gco:CharacterString>name</gco:CharacterString>
+                              </cit:name>
+                            </cit:CI_Individual>
+                          </cit:individual>
                         </cit:CI_Organisation>
                       </cit:party>
                     </cit:CI_Responsibility>
@@ -1087,7 +1260,7 @@
           </section>
           <!--Funder-->
           <section name="Funder">
-            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='funder']/cit:party/cit:CI_Organisation/cit:name"/>
+            <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:citation/cit:CI_Citation/cit:citedResponsibleParty/cit:CI_Responsibility[cit:role/cit:CI_RoleCode/@codeListValue='funder']/cit:party"/>
             <action type="add"
                     btnLabel="Add funder"
                     name="citedResponsibleParty"
@@ -1104,8 +1277,26 @@
                       <cit:party>
                         <cit:CI_Organisation>
                           <cit:name>
-                            <gco:CharacterString/>
+                            <gco:CharacterString>Responible org</gco:CharacterString>
                           </cit:name>
+                          <cit:contactInfo>
+                            <cit:CI_Contact>
+                              <cit:address>
+                                <cit:CI_Address>
+                                  <cit:electronicMailAddress>
+                                    <gco:CharacterString>email</gco:CharacterString>
+                                  </cit:electronicMailAddress>
+                                </cit:CI_Address>
+                              </cit:address>
+                            </cit:CI_Contact>
+                          </cit:contactInfo>
+                          <cit:individual>
+                            <cit:CI_Individual>
+                              <cit:name>
+                                <gco:CharacterString>name</gco:CharacterString>
+                              </cit:name>
+                            </cit:CI_Individual>
+                          </cit:individual>
                         </cit:CI_Organisation>
                       </cit:party>
                     </cit:CI_Responsibility>
@@ -1144,10 +1335,12 @@
           </section>
 
           <!--Access rights-->
-        <section name="Access constraints">
-          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints[mco:MD_Constraints]" or="resourceConstraints"
+        <!--<section name="Access constraints">
+          <field xpath="/mdb:MD_Metadata/mdb:identificationInfo/*/mri:resourceConstraints" or="resourceConstraints"
                                                   in="/mdb:MD_Metadata/mdb:identificationInfo/*"/>
-        </section>
+        </section>-->
+
+
           <!--Source - Derived from-->
           <section name="Derived from">
             <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:source/mrl:LI_Source/mrl:description"/>
