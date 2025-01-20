@@ -3764,7 +3764,7 @@
     <condition>mandatory</condition>
   </element>
   <element name="mri:pointOfContact" id="29.0">
-    <label>Resource Point of contact - (Mandatory!)</label>
+    <label>Resource point of contact - (Mandatory!)</label>
     <description>Identification of, and means of communication with, person(s)
       and organizations(s) associated with the resource(s)
     </description>
