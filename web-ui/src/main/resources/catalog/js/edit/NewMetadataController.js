@@ -83,7 +83,7 @@
         dataset: "fa-file"
       };
 
-      var defaultType = "dataset";
+      var defaultType = "iso19115-3.2018GNSS";
       var unknownType = "unknownType";
       var fullPrivileges = true;
 
@@ -111,12 +111,19 @@
           } else {
             query.push({ terms: { isTemplate: ["y"] } });
           }
-
+          /* TODO - Create interface where users can select the grouping methods for Templates */
           var facetConfig = {
-            resourceType: {
+            /*resourceType: {
+                        terms: {
+                          field: "resourceType",
+                          exclude: ["map/static", "theme", "place"],
+                          missing: "other"
+                        }
+                      }*/
+            documentStandard: {
               terms: {
-                field: "resourceType",
-                exclude: ["map/static", "theme", "place"],
+                field: "documentStandard",
+                exclude: [],
                 missing: "other"
               }
             }
