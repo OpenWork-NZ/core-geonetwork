@@ -1370,7 +1370,7 @@
           </section>
           <!--Source-->
           <section name="Location of data">
-            <field name="url"
+            <field name="Location (URL, Filepath, or other)"
                    xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:transferOptions/mrd:MD_DigitalTransferOptions/mrd:onLine/cit:CI_OnlineResource/cit:linkage" del="../.."/>
             <action type="add"
                     btnLabel="Add data location"
