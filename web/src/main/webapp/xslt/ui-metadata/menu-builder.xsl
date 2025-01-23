@@ -102,7 +102,7 @@
                 </xsl:if>
               </xsl:for-each>
 
-              <li class="divider" role="menuitem"/>
+              <!-- <li class="divider" role="menuitem"/>
               <li role="menuitem">
                 <a data-ng-click="toggleAttributes(true)" href="">
                   <i class="fa"
@@ -118,7 +118,7 @@
                   &#160;
                   <span data-translate="">toggleTooltips</span>
                 </a>
-              </li>
+              </li> -->
             </xsl:otherwise>
           </xsl:choose>
         </ul>

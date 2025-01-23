@@ -707,7 +707,7 @@
                 label: "exportMEF",
                 url: "/formatters/zip?withRelated=true",
                 class: "fa-file-zip-o",
-                extension: "mef"
+                extension: "zip"
               },
               {
                 label: "exportPDF",

@@ -19,7 +19,7 @@
       data-ng-init="isReviewer = user.isAdmin() || user.isReviewerForGroup(md.groupOwner);
                     isRecordWorkflowEnabled = isMdWorkflowEnable && md.isWorkflowEnabled();"
     >
-      <li role="menuitem" data-ng-if="showBatchDropdown">
+      <!-- <li role="menuitem" data-ng-if="showBatchDropdown">
         <label>
           <input
             class="fa fa-fw"
@@ -36,7 +36,7 @@
           >
         </label>
       </li>
-      <li class="divider" role="menuitem" data-ng-if="showBatchDropdown"></li>
+      <li class="divider" role="menuitem" data-ng-if="showBatchDropdown"></li> -->
       <li role="menuitem">
         <a
           href=""
@@ -226,7 +226,7 @@
           data-ng-if="!!f.url"
           data-ng-href="{{::buildFormatter(f.url, md.uuid, mdView.current.record.draft)}}"
           target="_blank"
-          download="{{mdView.current.record.resourceTitle}}.{{f.extension}}"
+          download="{{mdView.current.record.resourceTitle}}.{{ f.extension }}"
         >
           <span class="fa fa-fw {{f.class}}"></span>&nbsp;
           <span data-translate="">{{f.label | translate}}</span>
