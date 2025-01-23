@@ -1,18 +1,19 @@
-<mco:MD_LegalConstraints xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0" xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0" xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0" xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0" xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0" xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?>
+<mco:MD_LegalConstraints xmlns:mco="http://standards.iso.org/iso/19115/-3/mco/1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mri="http://standards.iso.org/iso/19115/-3/mri/1.0" xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/2.0" xmlns:mcc="http://standards.iso.org/iso/19115/-3/mcc/1.0" xmlns:gcx="http://standards.iso.org/iso/19115/-3/gcx/1.0" xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0" xmlns:geonet="http://www.fao.org/geonetwork" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.iso.org/iso/19115/-3/mdb/2.0 https://schemas.isotc211.org/19115/-3/mdb/2.0/mdb.xsd">
   <mco:useLimitation>
-    <gco:CharacterString>CC BY-NC</gco:CharacterString>
+    <gco:CharacterString>Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</gco:CharacterString>
   </mco:useLimitation>
   <mco:constraintApplicationScope>
     <mcc:MD_Scope>
       <mcc:level>
-        <mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode" codeListValue="document" />
+        <mcc:MD_ScopeCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_ScopeCode" codeListValue="dataset" />
       </mcc:level>
     </mcc:MD_Scope>
   </mco:constraintApplicationScope>
   <mco:reference>
     <cit:CI_Citation>
       <cit:title>
-        <gco:CharacterString>Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</gco:CharacterString>
+        <gco:CharacterString>Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</gco:CharacterString>
       </cit:title>
       <cit:onlineResource>
         <cit:CI_OnlineResource>
@@ -23,10 +24,10 @@
             <gco:CharacterString>https</gco:CharacterString>
           </cit:protocol>
           <cit:name>
-            <gco:CharacterString>Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)</gco:CharacterString>
+            <gco:CharacterString>Attribution-NonCommercial 4.0 International (CC BY-NC-SA 4.0)</gco:CharacterString>
           </cit:name>
           <cit:description>
-            <gco:CharacterString>Human Readable Summary of CC BY-NC.</gco:CharacterString>
+            <gco:CharacterString>Human Readable Summary of CC BY-NC-SA.</gco:CharacterString>
           </cit:description>
           <cit:function>
             <cit:CI_OnLineFunctionCode codeList="" codeListValue="" />
@@ -39,7 +40,7 @@
     <mco:MD_Releasability>
       <mco:addressee />
       <mco:statement>
-        <gco:CharacterString>Creative Commons Attribution Non-Commercial</gco:CharacterString>
+        <gco:CharacterString>Creative Commons Attribution-NonCommercial-ShareAlike</gco:CharacterString>
       </mco:statement>
       <mco:disseminationConstraints>
         <mco:MD_RestrictionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_RestrictionCode" codeListValue="license" />
@@ -50,6 +51,6 @@
     <mco:MD_RestrictionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_RestrictionCode" codeListValue="copyright" />
   </mco:accessConstraints>
   <mco:useConstraints>
-    <mco:MD_RestrictionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_RestrictionCode" codeListValue="" />
+    <mco:MD_RestrictionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#MD_RestrictionCode" codeListValue="copyright" />
   </mco:useConstraints>
 </mco:MD_LegalConstraints>

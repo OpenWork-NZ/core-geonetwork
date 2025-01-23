@@ -673,22 +673,26 @@
    <table for="mco:MD_SecurityConstraints">
       <header>
         <col label="mco:MD_SecurityConstraints" />
+        <col label="mco:accessConstraints" />
+        <col label="mco:useConstraints" />
+        <col label="cit:linkage" />
         <col />
       </header>
       <row>
         <col xpath="mco:reference/cit:CI_Citation/cit:title" />
+        <col xpath="mco:accessConstraints" />
+        <col xpath="mco:useConstraints" />
+        <col xpath="mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage" />
         <col del=".." />
       </row>
     </table>
    <table for="mco:MD_Constraints">
       <header>
         <col label="mco:useLimitation" />
-        <col label="mco:constraintApplicationScope" />
         <col label="cit:linkage" />
       </header>
       <row>
         <col xpath="mco:useLimitation" />
-        <col xpath="mco:constraintApplicationScope" />
         <col xpath="mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage" />
         <col del=".." />
       </row>
@@ -698,14 +702,14 @@
         <col label="mco:MD_LegalConstraints" />
         <col label="mco:accessConstraints" />
         <col label="mco:useConstraints" />
-        <col label="mco:constraintApplicationScope" />
+        <col label="cit:linkage" />
         <col />
       </header>
       <row>
         <col xpath="mco:useLimitation"/>
         <col xpath="mco:accessConstraints" />
         <col xpath="mco:useConstraints" />
-        <col xpath="mco:constraintApplicationScope/mcc:MD_Scope/mcc:level" />
+        <col xpath="mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage" />
         <col del=".." />
       </row>
     </table>
@@ -1004,7 +1008,7 @@
 
         </section>
         <!--provenance-->
-        <section name="Project statement">
+        <section name="Project description">
           <field xpath="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage/mrl:statement" or="statement"
                  in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage" del="." />
         </section>
@@ -1307,9 +1311,8 @@
             </action>
           </section>
           <!--Format-->
-          <section name="Format of the dataset">
-            <field xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/
-              mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title"/>
+          <section name="Format of the dataset" >
+            <field xpath="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title" del="../.." />
             <action type="add"
                     btnLabel="Add Distribution Format"
                     or="distributionFormat"
@@ -1347,7 +1350,7 @@
             <action type="add"
                     btnLabel="Add data source"
                     or="source"
-                    in="/mdb:MD_Metadata/mdb:resourceLineage/mrd:MD_Distribution/mrl:LI_Lineage">
+                    in="/mdb:MD_Metadata/mdb:resourceLineage/mrl:LI_Lineage">
               <template>
                 <snippet>
 
@@ -1384,7 +1387,7 @@
                       <mrd:onLine>
                         <cit:CI_OnlineResource>
                           <cit:linkage>
-                            <gco:CharacterString>Distro URL</gco:CharacterString>
+                            <gco:CharacterString></gco:CharacterString>
                           </cit:linkage>
                           <cit:protocol gco:nilReason="missing">
                             <gco:CharacterString/>

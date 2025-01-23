@@ -4431,7 +4431,7 @@
     </description>
   </element>
   <element name="mrd:transferOptions" id="273.0">
-    <label>Transfer options</label>
+    <label>Data access options</label>
     <description>Provides information about technical means and media by which a
       resource is obtained from the distributor
     </description>
