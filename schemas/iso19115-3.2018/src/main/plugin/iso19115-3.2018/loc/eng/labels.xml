@@ -1346,7 +1346,7 @@
   </element>
   <element name="lan:language" id="448.0" context="/mdb:MD_Metadata/mdb:defaultLocale/lan:PT_Locale/lan:language">
     <label>Metadata language</label>
-    <description iso="true">Designation of the locale language</description>
+    <description iso="true">The language used for the metadata (e.g., English, Te Reo Māori).</description>
   </element>
   <element name="lan:language" id="448.0" context="/mdb:MD_Metadata/mdb:otherLocale/lan:PT_Locale/lan:language">
     <label>Other language</label>
@@ -1826,7 +1826,7 @@
   </element>
   <element name="mcc:MD_Identifier" id="431.0">
     <label>Identifier</label>
-    <description>Value uniquely identifying an object within a namespace
+    <description>A dataset identifier is a code that exclusively identifies a dataset.
     </description>
   </element>
   <element name="mrc:MD_ImageDescription" id="243.0">
@@ -1959,7 +1959,7 @@
   </element>
   <element name="mri:abstract" id="25.0">
     <label>Abstract</label>
-    <description>Brief narrative summary of the content of the resource(s)
+    <description>A brief summary the dataset
     </description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/General-Metadata#abstract">Help</a>]]></help>
     <condition>mandatory</condition>
@@ -2017,9 +2017,7 @@
   </element>
   <element name="cit:alternateTitle" id="363.0">
     <label>Alternate title</label>
-    <description>Short name or other language name by which the cited
-      information is known.
-      Example: "DCW" as an alternative title for "Digital Chart of the World
+    <description>A shorter or simpler name for this dataset e.g. LCDB v5.0 or another name is known by
     </description>
   </element>
   <element name="mrd:amendmentNumber" id="287.0">
@@ -2188,7 +2186,7 @@
   </element>
   <element name="mcc:code" id="433.0">
     <label>Code</label>
-    <description>Alphanumeric value identifying an instance in the namespace
+    <description>A ID that helps uniquely identify the dataset. Typically a DOI is the dataset is published.
     </description>
     <description iso="true">Alphanumeric value identifying an instance in the
       namespace. NOTE Avoid characters that are not legal in URLs.
@@ -2491,9 +2489,7 @@
   </element>
   <element name="mcc:description" id="436.0">
     <label>Description</label>
-    <description iso="true">natural language description of the meaning of the
-      code value. EXAMPLE For codeSpace = EPSG, code= 4326, description =
-      WGS-84.
+    <description iso="true">A clear, plain-language explanation of what the code represents.
     </description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/General-Metadata#description">Help</a>]]></help>
   </element>
@@ -2510,7 +2506,7 @@
   </element>
   <element name="mrl:description" id="93.0" context="mrl:LI_Source">
     <label>Source Description</label>
-    <description>Detailed description of the level of the source data
+    <description>Information about the original sources used to create this dataset.
     </description>
     <_condition>Conditional / sourceExtent not provided?</_condition>
   </element>
@@ -3108,8 +3104,7 @@
   </element>
   <element name="cit:linkage" id="406.0">
     <label>Linkage (URL)</label>
-    <description>Location (address) for on-line access using a Uniform Resource
-      Locator address or similar addressing scheme such as http://www.statkart.no/isotc211
+    <description>A text field indicating the physical or virtual location of the data or a resource to help locate the data.
     </description>
     <condition>mandatory</condition>
   </element>
@@ -3256,8 +3251,7 @@
   </element>
   <element name="cit:name" context="cit:CI_Series" id="414.0">
     <label>Name</label>
-    <description>Name of the series, or aggregate dataset, of which the dataset
-      is a part
+    <description>The name of the series or larger collection this dataset belongs to.
     </description>
   </element>
   <element name="mri:name" context="mri:MD_CodeDomain" id="537.0">
@@ -3885,8 +3879,7 @@
   <element name="mri:purpose" id="26.0">
     <label>Purpose</label>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/General-Metadata#purpose">Help</a>]]></help>
-    <description>Summary of the intentions with which the resource(s) was
-      developed
+    <description>Describe the intended audience for the data e.g. MWLR researchers, policy makers.
     </description>
   </element>
   <element name="mrc:radiometricCalibrationDataAvailability" id="252.0">
@@ -4083,8 +4076,7 @@
   </element>
   <element name="mri:series" id="369.0">
     <label>Series</label>
-    <description>Information about the series, or aggregate dataset, of which
-      the dataset is a part
+    <description>Details about the broader series or collection that this dataset is part of.
     </description>
   </element>
   <element name="mri:shortName" id="308.0">
@@ -4196,9 +4188,8 @@
     <label>Specification</label>
   </element>
   <element name="mrl:statement" id="83.0">
-    <label>Statement</label>
-    <description>General explanation of the data producer's knowledge about the
-      lineage of a dataset
+    <label>Project description</label>
+    <description>An explanation of the history (lineage) of the dataset that lets the user understand how the dataset was created over time.
     </description>
     <condition>conditional</condition>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/Linage-Metadata#statement">Help</a>]]></help>
@@ -4210,7 +4201,7 @@
   </element>
   <element name="mri:supplementalInformation" id="46.0">
     <label>Supplemental Information</label>
-    <description>Any other descriptive information about the dataset
+    <description>Any extra details, references or publications about the dataset that users might find helpful.
     </description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/General-Metadata#status">Help</a>]]></help>
   </element>
@@ -4234,8 +4225,7 @@
   <element name="cit:title" id="285.0"
            context="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution/mrd:distributionFormat/mrd:MD_Format/mrd:formatSpecificationCitation/cit:CI_Citation/cit:title">
     <label>Format name</label>
-    <description>Name of the data transfer format(s)</description>
-    <help>File or link format name</help>
+    <description>The format this dataset is available in, such as the file type(s) or link.</description>
     <helper>
       <option value="APRX">ArcGIS Pro project file</option>
       <option value="GDB">Geodatabase</option>
@@ -4370,7 +4360,7 @@
   <element name="cit:title" id="360.0"
            context="/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:citation/cit:CI_Citation/cit:title">
     <label>Title</label>
-    <description>Name by which the cited resource is known</description>
+    <description>The name by which this dataset is known. e.g. Land Cover Database version 5.0, Mainland, New Zealand</description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/General-Metadata#title">Help</a>]]></help>
     <condition>mandatory</condition>
 
@@ -4529,7 +4519,7 @@
   <element name="mco:useLimitation" id="99.0"
            context="/mdb:MD_Metadata/mdb:identificationInfo/mri:MD_DataIdentification/mri:resourceConstraints/mco:MD_Constraints/mco:useLimitation">
     <label>Resource use limitation</label>
-    <description>Assign an overall product quality score with respect to the objectives and explain why.</description>
+    <description>Any restrictions on using this dataset. Explain if there are quality limitations or specific terms of use that apply.</description>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/Constraints-Metadata#use-limitation">Help</a>]]></help>
   </element>
   <element name="mco:useLimitation" id="99.0">
