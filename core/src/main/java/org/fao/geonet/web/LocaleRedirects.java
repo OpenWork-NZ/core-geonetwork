@@ -75,7 +75,7 @@ public class LocaleRedirects {
         SPECIAL_HEADERS = Collections.unmodifiableSet(headers);
     }
 
-    private String _homeRedirectUrl = "catalog.search";
+    private String _homeRedirectUrl = "catalog.search#/search";
     private String _portalHomeRedirectUrl = NodeInfo.DEFAULT_NODE + "/api/sources";
 
     @Autowired
