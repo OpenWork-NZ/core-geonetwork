@@ -126,7 +126,7 @@
           },
           home: {
             enabled: true,
-            appUrl: "../../{{node}}/{{lang}}/catalog.signin#/home",
+            appUrl: "../../{{node}}/{{lang}}/catalog.signin",
             showSocialBarInFooter: true,
             showMosaic: true,
             showMaps: true,
@@ -1626,7 +1626,6 @@
       $scope.nodeId = detectNode(gnGlobalSettings.gnCfg.nodeDetector);
       $scope.isDefaultNode = $scope.nodeId === defaultNode;
       $scope.service = detectService(gnGlobalSettings.gnCfg.serviceDetector);
-      $scope.redirectUrlAfterSign = window.location.href;
 
       gnGlobalSettings.nodeId = $scope.nodeId;
       gnGlobalSettings.isDefaultNode = $scope.isDefaultNode;
@@ -1635,13 +1634,16 @@
       gnConfig.env.defaultNode = defaultNode;
       gnConfig.env.baseURL = detectBaseURL(gnGlobalSettings.gnCfg.baseURLDetector);
 
-      $scope.signoutUrl =
-        gnGlobalSettings.gnCfg.mods.authentication.signoutUrl +
-        "?redirectUrl=" +
+      $scope.redirectUrlAfterSign =
         window.location.href.slice(
           0,
           window.location.href.indexOf(gnConfig.env.node) + gnConfig.env.node.length
-        );
+        ) + "/eng/catalog.search#/search";
+
+      $scope.signoutUrl =
+        gnGlobalSettings.gnCfg.mods.authentication.signoutUrl +
+        "?redirectUrl=" +
+        $scope.redirectUrlAfterSign;
 
       // Lang names to be displayed in language selector
       $scope.langLabels = {

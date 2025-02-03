@@ -1283,9 +1283,13 @@
   </element>
   <element name="mri:additionalDocumentation" id="91.0">
     <label>Additional documentation</label>
-    <description iso="true">Publications that describe usage of data
+    <description iso="true">A link (DOI, URL) or a description of a document relevant to using the data
     </description>
     <_condition>optional</_condition>
+  </element>
+  <element name="cit:title" id="507.0" context="mri:additionalDocumentation/cit:CI_Citation/cit:title">
+    <label>Related additional documents</label>
+    <description>A link (DOI, URL) or a description of a document relevant to using the data</description>
   </element>
   <element name="mri:identifiedIssues" id="92.0">
     <label>Identified issues</label>
@@ -1365,16 +1369,14 @@
   </element>
   <element name="cit:series" id="370.0">
     <label>Series</label>
-    <description iso="true">Information about the series, or aggregate resource,
-      of which the resource is a part
+    <description iso="true">Details about the broader series or collection that this dataset is part of.
     </description>
     <help/>
     <condition/>
   </element>
   <element name="cit:CI_Series" id="413.0">
     <label>Series</label>
-    <description iso="true">Class of information about the series, or aggregate
-      resource, to which a resource belongs
+    <description iso="true">The name of the series or larger collection this dataset belongs to.
     </description>
     <help/>
     <condition/>
@@ -2186,10 +2188,7 @@
   </element>
   <element name="mcc:code" id="433.0">
     <label>Code</label>
-    <description>A ID that helps uniquely identify the dataset. Typically a DOI is the dataset is published.
-    </description>
-    <description iso="true">Alphanumeric value identifying an instance in the
-      namespace. NOTE Avoid characters that are not legal in URLs.
+    <description iso="true">A ID that helps uniquely identify the dataset. Typically a DOI is the dataset is published.
     </description>
     <condition>mandatory</condition>
     <help><![CDATA[<a target="docs" href="https://openwork-nz.github.io/ANZLIC-Metadata-Tool-help/Spatial-Metadata.html#reference-system">Help</a>]]></help>
