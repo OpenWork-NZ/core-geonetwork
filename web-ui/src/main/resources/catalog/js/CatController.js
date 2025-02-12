@@ -706,33 +706,28 @@
               {
                 label: "exportMEF",
                 url: "/formatters/zip?withRelated=true",
-                class: "fa-file-zip-o",
-                extension: "zip"
+                class: "fa-file-zip-o"
               },
               {
                 label: "exportPDF",
                 url: "/formatters/xsl-view?output=pdf&language=${lang}",
-                class: "fa-file-pdf-o",
-                extension: "pdf"
+                class: "fa-file-pdf-o"
               },
               {
                 label: "exportXML",
                 // 'url' : '/formatters/xml?attachment=false',
                 url: "/formatters/xml",
-                class: "fa-file-code-o",
-                extension: "xml"
+                class: "fa-file-code-o"
               },
               {
                 label: "exportJSON",
                 url: "/formatters/jsonld",
-                class: "fa-file-o",
-                extension: "json"
+                class: "fa-file-o"
               }
               /*{
                 label: "exportDCAT",
                 url: "/geonetwork/api/collections/main/items/${uuid}?f=dcat",
-                class: "fa-file-code-o",
-				extension: 'rdf'
+                class: "fa-file-code-o"
               }*/
             ],
             grid: {
