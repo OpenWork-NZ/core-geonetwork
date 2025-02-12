@@ -1638,7 +1638,7 @@
         window.location.href.slice(
           0,
           window.location.href.indexOf(gnConfig.env.node) + gnConfig.env.node.length
-        ) + "/eng/catalog.search#/search";
+        ) + "/eng/catalog.signin";
 
       $scope.signoutUrl =
         gnGlobalSettings.gnCfg.mods.authentication.signoutUrl +
