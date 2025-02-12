@@ -28,6 +28,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:java-xsl-util="java:org.fao.geonet.util.XslUtil"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:fn="http://www.w3.org/2005/xpath-functions"
                 xmlns:saxon="http://saxon.sf.net/" version="2.0"
                 extension-element-prefixes="saxon" exclude-result-prefixes="#all">
   <!-- Build the form for creating HTML elements. -->
@@ -102,6 +103,20 @@
 
     <xsl:param name="isReadOnly" required="no" as="xs:boolean" select="false()"/>
 
+    <xsl:param name="parentXPath" required="no" as="xs:string" select="name(..)"/>
+
+    <xsl:variable name="parentxpath" as="xs:string">
+      <xsl:choose>
+        <!-- Hacky, where exactly is the issue? -->
+        <xsl:when test="$parentXPath = 'col'">
+          <xsl:value-of select="fn:tokenize($xpath, '/')[last() - 1]" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$parentXPath" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+
     <xsl:variable name="isMultilingual" select="count($value/values) > 0"/>
 
     <xsl:variable name="isoType" select="if (../@gco:isoType) then ../@gco:isoType else ''"/>
@@ -118,7 +133,7 @@
           (not($parentEditInfo) and $editInfo and $editInfo/@min = 1 and $editInfo/@max = 1)">
           <xsl:value-of select="true()"/>
         </xsl:when>
-        <xsl:when test="gn-fn-metadata:getLabel($schema, name(), $labels, name(..),$isoType, $xpath)/condition = 'mandatory'">
+        <xsl:when test="gn-fn-metadata:getLabel($schema, name(), $labels, $parentxpath,$isoType, $xpath)/condition = 'mandatory'">
           <xsl:value-of select="true()"/>
         </xsl:when>
         <xsl:otherwise>
@@ -222,7 +237,7 @@
               <xsl:when test="$isMultilingual">
 
                 <xsl:variable name="tooltip"
-                              select="concat($schema, '|', name(.), '|', name(..), '|', $xpath)"></xsl:variable>
+                              select="concat($schema, '|', name(.), '|', $parentxpath, '|', $xpath)"></xsl:variable>
 
                 <!-- Preserve order of the languages as defined in the record. -->
                 <xsl:for-each select="$value/values/value">
@@ -279,7 +294,7 @@
                   <xsl:with-param name="type" select="$type"/>
                   <xsl:with-param name="directiveAttributes" select="$directiveAttributes"/>
                   <xsl:with-param name="tooltip"
-                                  select="concat($schema, '|', name(.), '|', name(..), '|', $xpath)"/>
+                                  select="concat($schema, '|', name(.), '|', $parentxpath, '|', $xpath)"/>
                   <xsl:with-param name="isRequired" select="$isRequired"/>
                   <xsl:with-param name="isDisabled" select="$isDisabled"/>
                   <xsl:with-param name="isReadOnly" select="$isReadOnly"/>
