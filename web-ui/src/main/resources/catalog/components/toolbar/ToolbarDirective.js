@@ -53,7 +53,9 @@
           }
           var BETTER_TITLES = {
             "catalog.edit#/board": "Editor Board",
-            "catalog.edit#/metadata": "Metadata Edit"
+            "catalog.edit#/metadata": "Metadata Edit",
+            "catalog.signin": "MWLR MetaSpace",
+            "catalog.search": "MWLR MetaSpace Search"
           };
           var path = location.pathname.split("/");
           var name = path[path.length - 1];
