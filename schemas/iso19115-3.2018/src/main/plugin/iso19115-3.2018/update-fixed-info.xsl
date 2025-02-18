@@ -615,7 +615,7 @@
                       and not(*/mri:thesaurusName)
                       and */mri:type/*/@codeListValue = $freeTextKeywordBlockType]/*/mri:keyword"/>
 
-          <xsl:apply-templates select="*/mri:type"/>
+         <!-- <xsl:apply-templates select="*/mri:type"/>-->
         </mri:MD_Keywords>
       </xsl:copy>
     </xsl:if>
