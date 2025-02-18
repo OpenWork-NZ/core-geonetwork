@@ -1633,12 +1633,17 @@
         window.location.href.slice(
           0,
           window.location.href.indexOf(gnConfig.env.node) + gnConfig.env.node.length
-        ) + "/eng/catalog.signin";
+        ) + "/eng/catalog.search#/search";
 
       $scope.signoutUrl =
         gnGlobalSettings.gnCfg.mods.authentication.signoutUrl +
         "?redirectUrl=" +
-        $scope.redirectUrlAfterSign;
+        window.location.href.slice(
+          0,
+          window.location.href.indexOf(gnConfig.env.node) + gnConfig.env.node.length
+        ) +
+        "/eng/catalog.signin";
+      //$scope.redirectUrlAfterSign;
 
       // Lang names to be displayed in language selector
       $scope.langLabels = {
