@@ -787,6 +787,7 @@
                     {
                       name: "places",
                       displayKey: "name",
+                      limit: 10,
                       source: autocompleter.ttAdapter(),
                       templates: {
                         suggestion: function (loc) {
