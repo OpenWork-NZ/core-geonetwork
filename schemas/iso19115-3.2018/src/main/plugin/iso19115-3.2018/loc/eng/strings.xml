@@ -124,6 +124,6 @@
   </add-extent-from-geokeywordsHelp>
   <extent>Geographic bounding box</extent>
   <spatialExtent>Spatial extent</spatialExtent>
-  <freeTextKeywords>Other keywords</freeTextKeywords>
+  <freeTextKeywords>Free text keywords</freeTextKeywords>
   <noThesaurusName>Keywords</noThesaurusName>
 </strings>

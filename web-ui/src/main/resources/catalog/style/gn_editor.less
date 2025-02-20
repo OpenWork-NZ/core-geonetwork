@@ -1023,3 +1023,17 @@ gn-bounding-polygon {
     border-radius: 50% !important;
   }
 }
+summary {
+  margin: 15px;
+  font-weight: bold;
+  font-size: 0.8em;
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+summary::before {
+  content: " ►";
+}
+details[open] summary:before {
+  content: " ▼";
+}

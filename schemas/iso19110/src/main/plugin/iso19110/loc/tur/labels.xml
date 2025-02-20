@@ -1427,7 +1427,8 @@
   <!-- ==================================================== -->
   <element name="keyword">
     <label>Keyword</label>
-    <description>Add additional desired keywords. You can also add more specific place names, method keywords or taxonomic terms
+    <description>commonly used word(s) or formalised word(s) or phrase(s) used to describe the
+      subject
     </description>
   </element>
   <!-- ==================================================== -->

@@ -17,7 +17,7 @@
     "addFromDictionnary": "Add from dictionary",
     "addFromEPSGdb": "Add from EPSG database",
     "addFromThesaurus": "Choose keywords from thesaurus",
-    "addKeywordNotFromThesaurus": "Add new keywords",
+    "addKeywordNotFromThesaurus": "Add freetext keywords",
     "addKeywordNotFromThesaurusHelp": "Add free text keyword. Populate this information only if you can't find appropriate keywords in the proposed thesauri.",
     "addLinks": "Add links",
     "addOnlinesrc": "Add a distribution",
