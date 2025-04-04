@@ -975,7 +975,7 @@
                  in="/mdb:MD_Metadata" />
       </tab>
 
-      <!--<tab id="distributionICSM" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) = 0">
+      <tab id="distributionICSM" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) = 0">
         <section name="Distributions">
           <field xpath="/mdb:MD_Metadata/mdb:distributionInfo"
                  del=".."/>
@@ -1017,7 +1017,7 @@
             </template>
           </action>
         </section>
-      </tab>-->
+      </tab>
 
       <!--<tab id="metadataIcsm" mode="flat">
           <section name="metadataContactsIcsm">
