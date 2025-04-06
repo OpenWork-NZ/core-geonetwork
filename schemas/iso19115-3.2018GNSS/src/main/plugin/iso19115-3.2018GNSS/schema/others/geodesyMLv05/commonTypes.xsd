@@ -1,10 +1,11 @@
 <?xml  version='1.0' encoding='utf-8' ?>
 <xs:schema targetNamespace="urn:xml-gov-au:icsm:egeodesy:0.5"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:gco="http://www.isotc211.org/2005/gco"
+           xmlns:gco="http://standards.iso.org/iso/19115/-3/gco/1.0"
            xmlns:gml="http://www.opengis.net/gml/3.2"
            xmlns:geo="urn:xml-gov-au:icsm:egeodesy:0.5" elementFormDefault="qualified" version="0.5">
-	<xs:import namespace="http://www.isotc211.org/2005/gco" schemaLocation="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/gco/gco.xsd"/>
+	<xs:import namespace="http://standards.iso.org/iso/19115/-3/gco/1.0" schemaLocation="../../standards.iso.org/19115/-3/gco/1.0/gco.xsd"/>
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../ISO19136/gmlBase.xsd" />
 	<xs:element name="AbstractTimeSlice" type="geo:AbstractTimeSlice"/>
 	<xs:complexType name="AbstractTimeSlice" abstract="true">
 		<xs:complexContent>
@@ -32,7 +33,7 @@
 	<xs:complexType name="DynamicFeature">
 		<xs:sequence>
 			<xs:sequence minOccurs="1" maxOccurs="1">
-				<xs:element ref="gml:StandardObjectProperties" minOccurs="1" maxOccurs="1"/>
+				<xs:group ref="gml:StandardObjectProperties" minOccurs="1" maxOccurs="1"/>
 			</xs:sequence>
 			<xs:sequence minOccurs="1" maxOccurs="1">
 				<xs:element ref="gml:boundedBy" minOccurs="0" maxOccurs="1"/>
