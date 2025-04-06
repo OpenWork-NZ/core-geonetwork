@@ -4,6 +4,9 @@
            xmlns:cit="http://standards.iso.org/iso/19115/-3/cit/1.0"
            xmlns:gml="http://www.opengis.net/gml/3.2"
            xmlns:geo="urn:xml-gov-au:icsm:egeodesy:0.5" elementFormDefault="qualified" version="0.5">
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="../ISO19136/gml.xsd" />
+  <xs:import namespace="http://standards.iso.org/iso/19115/-3/cit/1.0"
+             schemaLocation="../../standards.iso.org/19115/-3/cit/1.0/cit.xsd" />
 	<xs:simpleType name="EncodingType">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="none"/>
@@ -18,7 +21,6 @@
 					<xs:element name="body" minOccurs="0" maxOccurs="1">
 						<xs:complexType>
 							<xs:choice>
-								<xs:element name="content" type="geo:content" minOccurs="1" maxOccurs="1"/>
 								<xs:element name="fileReference" type="gml:ReferenceType" minOccurs="1" maxOccurs="1"/>
 								<xs:any namespace="##other" minOccurs="1" maxOccurs="1"/>
 								<xs:element name="content">

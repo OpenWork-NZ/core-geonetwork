@@ -19,9 +19,11 @@ To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 	<include schemaLocation="gml.xsd"/>
 	<include schemaLocation="referenceSystems.xsd"/>
 	<include schemaLocation="measures.xsd"/>
-  	<import namespace="http://standards.iso.org/iso/19115/-3/cit/2.0"
+  	<import namespace="http://standards.iso.org/iso/19115/-3/cit/1.0"
           schemaLocation="../../standards.iso.org/19115/-3/cit/1.0/cit.xsd"/>
-	<import namespace="https://schemas.isotc211.org/19157/-1/dqm/1.0"
+  <import namespace="http://standards.iso.org/iso/19115/-3/cit/2.0"
+             schemaLocation="../../standards.iso.org/19115/-3/cit/2.0/cit.xsd" />
+  <import namespace="https://schemas.isotc211.org/19157/-1/dqm/1.0"
           schemaLocation="../../standards.iso.org/19157/-1/dqm/1.0.0/dqm.xsd"/>
 	<element name="AbstractCoordinateOperation" type="gml:AbstractCoordinateOperationType" abstract="true" substitutionGroup="gml:Definition">
 		<annotation>
