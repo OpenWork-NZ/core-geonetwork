@@ -114,6 +114,7 @@
   "facet-th_httpinspireeceuropaeutheme-theme": "INSPIRE themes",
   "facet-th_httpinspireeceuropaeutheme-theme_tree": "INSPIRE themes",
   "facet-creationYearForResource":  "Years",
+  "facet-publicationYearForResource":  "Publication Years",
   "facet-resolutionScaleDenominator": "Scales",
   "facet-cl_maintenanceAndUpdateFrequency": "Update frequencies",
   "facet-cl_status": "Status",

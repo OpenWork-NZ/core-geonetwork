@@ -7,6 +7,7 @@
   "facets.block.title.cl_spatialRepresentationType.key": "Spatial representation",
   "facets.block.title.cl_status.key": "Status",
   "facets.block.title.creationYearForResource": "Creation year",
+  "facets.block.title.publicationYearForResource": "Publication year",
   "facets.block.title.resolutionScaleDenominator": "Scale",
   "facets.block.title.tag": "Keywords",
   "facets.block.title.tag.default": "Tag",
