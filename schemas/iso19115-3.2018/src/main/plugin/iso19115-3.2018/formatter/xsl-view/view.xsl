@@ -266,7 +266,8 @@
 
   <xsl:template mode="getMetadataHeader" match="mdb:MD_Metadata">
     <div class="gn-abstract">
-      <xsl:for-each select="if ($isOnlyFeatureCatalog)
+      <p data-ng-bind-html="(mdView.current.record.resourceAbstract) | linky | newlines"></p>
+      <!--<xsl:for-each select="if ($isOnlyFeatureCatalog)
                             then mdb:contentInfo/*/mrc:featureCatalogue/*/cat:scope
                             else mdb:identificationInfo/*/mri:abstract">
         <xsl:variable name="txt">
@@ -277,7 +278,7 @@
         <xsl:call-template name="addLineBreaksAndHyperlinks">
           <xsl:with-param name="txt" select="$txt"/>
         </xsl:call-template>
-      </xsl:for-each>
+      </xsl:for-each>-->
     </div>
 
     <xsl:if test="$withJsonLd = 'true'">
