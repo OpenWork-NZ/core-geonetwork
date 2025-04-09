@@ -17,6 +17,18 @@
     opacity: 1;
   }
 
+  &.gn-date-facet:not(.open) > *:not(.gn-facet-header) {
+    display: none;
+  }
+  &.gn-date-facet:not(.open) > .gn-facet-header > .caret {
+    border: 4px solid transparent;
+    border-left: 4px dashed currentColor;
+  }
+  &.gn-date-facet > *,
+  &.gn-date-facet > .gn-search-filter-datepicker > * {
+    margin: 10px;
+  }
+
   .gn-facet-item {
     position: relative;
     .fa-close {
