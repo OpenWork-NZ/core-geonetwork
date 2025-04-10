@@ -383,7 +383,7 @@
   </element>
   <!-- ==================================================== -->
   <element name="dct:issued">
-    <label>Date Issued</label>
+    <label>Date Published</label>
     <description>Date of formal issuance (e.g., publication) of the resource.</description>
   </element>
   <!-- ==================================================== -->
