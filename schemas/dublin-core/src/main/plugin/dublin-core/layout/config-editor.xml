@@ -35,6 +35,7 @@
     <for name="dc:rights" use="textarea"/>
 
     <for name="dct:created" use="date"/>
+    <for name="dct:issued" use="date"/>
     <for name="dct:dateSubmitted" use="date"/>
     <for name="dct:dateAccepted" use="date"/>
     <for name="dct:dateCopyrighted" use="date"/>
