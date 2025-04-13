@@ -24,6 +24,11 @@
       <ows-context:Server service="urn:ogc:serviceType:WMS">
         <ows-context:OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://prod-ada-3.landcareresearch.co.nz/mapcache/atda/wmts/?Service%3DWMTS%26Request%3DGetCapabilities%26Version%3D1.0.0"/>
       </ows-context:Server>
+      <ows-context:VendorExtension>
+        <ows-context:Attribution>
+          <ows-context:Title>© Landcare Research NZ Ltd 2009-2023 CC BY 3.0 NZ. Basemap data from RAMP, via NSIDC, &amp; REMA from Byrd Polar and Climate Research Center and the Polar Geospatial Center.</ows-context:Title>
+        </ows-context:Attribution>
+      </ows-context:VendorExtension>
       <ows-context:StyleList/>
     </ows-context:Layer>
 
