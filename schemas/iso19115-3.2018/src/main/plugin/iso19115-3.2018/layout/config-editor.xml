@@ -976,43 +976,27 @@
       </tab>
 
       <tab id="distributionICSM" mode="flat" displayIfRecord="count(mdb:MD_Metadata/mdb:identificationInfo/srv:SV_ServiceIdentification) = 0">
-        <section name="Distributions">
-          <field xpath="/mdb:MD_Metadata/mdb:distributionInfo"
-                 del=".."/>
+        <section name="Distributions" >
+          <field xpath="/mdb:MD_Metadata/mdb:distributionInfo/*/mrd:distributionFormat/*/mrd:formatSpecificationCitation/*/cit:title"
+                 del="../../../.."/>
           <action type="add"
-                  btnLabel="Add Distribution"
-                  or="distributionInfo"
-                  in="/mdb:MD_Metadata">
+                  name="mrd:distributionFormat"
+                  btnLabel="Add Distribution format"
+                  or="distributionFormat"
+                  in="/mdb:MD_Metadata/mdb:distributionInfo/mrd:MD_Distribution">
             <template>
               <snippet>
-                <mdb:distributionInfo>
-                <mrd:MD_Distribution>
-                <mrd:transferOptions>
-                <mrd:MD_DigitalTransferOptions>
-                <mrd:onLine>
-                  <cit:CI_OnlineResource>
-                    <cit:linkage>
-                      <gco:CharacterString>Distro URL</gco:CharacterString>
-                    </cit:linkage>
-                    <cit:protocol>
-                      <gco:CharacterString/>
-                    </cit:protocol>
-                    <cit:name>
-                      <gco:CharacterString>Name of resource</gco:CharacterString>
-                    </cit:name>
-                    <cit:description>
-                      <gco:CharacterString/>
-                    </cit:description>
-                    <cit:function>
-                      <cit:CI_OnLineFunctionCode codeList="http://standards.iso.org/iso/19115/resources/Codelists/cat/codelists.xml#CI_OnLineFunctionCode"
-                                                 codeListValue="download"/>
-                    </cit:function>
-                  </cit:CI_OnlineResource>
-                </mrd:onLine>
-                </mrd:MD_DigitalTransferOptions>
-                </mrd:transferOptions>
-                </mrd:MD_Distribution>
-                </mdb:distributionInfo>
+                <mrd:distributionFormat>
+                  <mrd:MD_Format>
+                    <mrd:formatSpecificationCitation>
+                      <cit:CI_Citation>
+                        <cit:title>
+                          <gco:CharacterString>Use dropdown or enter text</gco:CharacterString>
+                        </cit:title>
+                      </cit:CI_Citation>
+                    </mrd:formatSpecificationCitation>
+                  </mrd:MD_Format>
+                </mrd:distributionFormat>
               </snippet>
             </template>
           </action>
@@ -1047,6 +1031,7 @@
         <for name="cit:citedResponsibleParty"/>
         <for name="cit:otherCitationDetails"/>
         <for name="cit:date"/>
+        <for name="cit:title"/>
         <for name="mdb:dateInfo"/>
         <for name="cit:identifier"/>
         <for name="cit:description"/>
@@ -1090,7 +1075,7 @@
         <for name="mri:resourceConstraints" />
         <for name="srv:resourceReference" />
         <for name="cit:onlineResource" />
-        <for name="mdb:distributionInfo" />
+        <for name="mdb:distributionFormat" />
         <for name="mrl:statement" />
         <for name="mrl:description" />
         <for name="mrl:source" />
