@@ -657,7 +657,9 @@
           scope.customId = Date.now();
           element.attr("customId", scope.customId);
 
-          scope.thesaurusKey = attrs.thesaurusKey || "";
+          scope.thesaurusKey =
+            attrs.thesaurusKey ||
+            "external.theme.ardc-curated_gcmd-sciencekeywords_20-2-2024-12-17";
           scope.orderById = attrs.orderById || "false";
           scope.max = gnThesaurusService.DEFAULT_NUMBER_OF_RESULTS;
           scope.fauxMultilingual = scope.fauxMultilingual === "true"; //default false
