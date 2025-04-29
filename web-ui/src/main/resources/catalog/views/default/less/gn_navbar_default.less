@@ -35,6 +35,7 @@ nav .navbar-nav > li > a {padding-top: 25px; padding-bottom: 25px;} /* Layout fi
   .navbar-nav > li > a, .navbar-nav > .open > a, .navbar-nav > .active > a {
     height: @gn-menubar-height;
     color: @gn-menubar-color;
+	background: none !important;
     &:hover, &:focus {
       color: @gn-menubar-color-hover;
       background-color: @gn-menubar-background-hover;
@@ -93,6 +94,8 @@ nav .navbar-nav > li > a {padding-top: 25px; padding-bottom: 25px;} /* Layout fi
     .gn-name {
       margin-top: 5px;
       display: inline-block;
+	  font-size: 150%;
+	  font-weight: bold;
       &.gn-truncate {
         @media (min-width: @screen-lg-min) {
           max-width: 230px;
