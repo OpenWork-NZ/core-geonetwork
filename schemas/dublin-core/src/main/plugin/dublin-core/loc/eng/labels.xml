@@ -276,8 +276,8 @@
   </element>
   <!-- ==================================================== -->
   <element name="dct:references">
-    <label>Related resource</label>
-    <description>A related resource that is referenced, cited, or otherwise pointed to by the
+    <label>Resource location</label>
+    <description>A URL or location to the resourcee or a related resource that is referenced, cited, or otherwise pointed to by the
       described resource.
     </description>
   </element>

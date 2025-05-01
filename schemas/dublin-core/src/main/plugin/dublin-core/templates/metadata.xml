@@ -37,5 +37,6 @@
   <dc:format>text/plain</dc:format>
   <dc:coverage>North 90, South -90, East 180, West -180. Global</dc:coverage>
   <dc:language>eng</dc:language>
+  <dct:references></dct:references>
   <dc:identifier/>
 </simpledc>
