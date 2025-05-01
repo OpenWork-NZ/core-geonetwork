@@ -83,6 +83,9 @@
     <xsl:variable name="creationDateType"
                   select="'creation'"/>
 
+    <xsl:variable name="publicationDateType"
+                  select="'publication'"/>
+
     <!-- Create a first document representing the main record. -->
     <doc>
       <xsl:copy-of select="gn-fn-index:add-field('docType', 'metadata')"/>
@@ -128,6 +131,22 @@
         </xsl:element>
         <xsl:element name="{$creationDateType}MonthForResource">
           <xsl:value-of select="substring($creationDate, 0, 8)"/>
+        </xsl:element>
+        <!--creationDateForResource><xsl:value-of select="date-util:convertToISOZuluDateTime(string(.))"/></creationDateForResource-->
+      </xsl:for-each>
+
+      <xsl:for-each select="dct:issued[. != '']">
+
+        <xsl:variable name="publicationDate"
+                      select="date-util:convertToISOZuluDateTime(string(current()))"/>
+        <xsl:element name="{$publicationDateType}DateForResource">
+          <xsl:value-of select="$publicationDate"/>
+        </xsl:element>
+        <xsl:element name="{$publicationDateType}YearForResource">
+          <xsl:value-of select="substring($publicationDate, 0, 5)"/>
+        </xsl:element>
+        <xsl:element name="{$publicationDateType}MonthForResource">
+          <xsl:value-of select="substring($publicationDate, 0, 8)"/>
         </xsl:element>
         <!--creationDateForResource><xsl:value-of select="date-util:convertToISOZuluDateTime(string(.))"/></creationDateForResource-->
       </xsl:for-each>

@@ -105,12 +105,12 @@
 
 
   <!-- Hide from the editor the dct:references pointing to uploaded files -->
-  <xsl:template mode="mode-dublin-core" priority="101"
+  <!--<xsl:template mode="mode-dublin-core" priority="101"
                 match="*[(name(.) = 'dct:references' or
                           name(.) = 'dc:relation') and
                          (starts-with(., 'http') or
                           contains(. , 'resources.get') or
-                          contains(., 'file.disclaimer'))]"/>
+                          contains(., 'file.disclaimer'))]"/>-->
 
 
   <!-- the other elements in DC. -->
