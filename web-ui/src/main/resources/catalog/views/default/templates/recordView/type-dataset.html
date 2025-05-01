@@ -4,10 +4,13 @@
 >
   <div ng-include="'../../catalog/views/default/templates/recordView/status.html'" />
 
-  <div class="col-md-8 gn-record">
+  <div
+    class="gn-record"
+    data-ng-class="mdView.current.record.overview.length > 0 ? 'col-md-8' : 'col-md-12'"
+  >
     <div ng-include="'../../catalog/views/default/templates/recordView/title.html'" />
   </div>
-  <div class="col-md-4 gn-md-side">
+  <div class="col-md-4 gn-md-side" data-ng-if="mdView.current.record.overview.length > 0">
     <div gn-record-is-replaced-by="mdView.current.record.uuid"></div>
 
     <div
