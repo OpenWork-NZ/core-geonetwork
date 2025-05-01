@@ -50,32 +50,33 @@
         ></div>
 
         <!-- Date Range Search -->
+        <div data-ng-if="info['node/id']!='lit'">
+          <div
+            class="gn-facet-header flex-row width-100"
+            style="font-weight: bold"
+            data-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span data-translate="">Temporal coverage</span>
+          </div>
 
-        <div
-          class="gn-facet-header flex-row width-100"
-          style="font-weight: bold"
-          data-toggle="dropdown"
-          aria-expanded="false"
-        >
-          <span data-translate="">Temporal coverage</span>
+          <div
+            data-ng-if="searchObj.params.resourceTemporalDateRange"
+            data-gn-date-range-facet="resourceTemporalDateRange"
+            data-field="searchObj.params.resourceTemporalDateRange"
+            data-field-name="'resourceTemporalDateRange'"
+            class="gn-search-filter-datepicker"
+          ></div>
+          <button
+            type="button"
+            data-ng-click="triggerSearch()"
+            title="{{'search' | translate}}"
+            class="btn btn-default btn-search"
+          >
+            <i class="fa fa-search"></i>
+            <span data-translate="">Filter by dates</span>
+          </button>
         </div>
-
-        <div
-          data-ng-if="searchObj.params.resourceTemporalDateRange"
-          data-gn-date-range-facet="resourceTemporalDateRange"
-          data-field="searchObj.params.resourceTemporalDateRange"
-          data-field-name="'resourceTemporalDateRange'"
-          class="gn-search-filter-datepicker"
-        ></div>
-        <button
-          type="button"
-          data-ng-click="triggerSearch()"
-          title="{{'search' | translate}}"
-          class="btn btn-default btn-search"
-        >
-          <i class="fa fa-search"></i>
-          <span data-translate="">Filter by dates</span>
-        </button>
         <!-- end Date range search -->
       </div>
       <!-- /.gn-search-facet -->
