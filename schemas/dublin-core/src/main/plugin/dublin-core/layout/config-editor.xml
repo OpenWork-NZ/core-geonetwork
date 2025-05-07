@@ -55,12 +55,12 @@
   <!-- View configuration -->
   <views>
     <view name="default" default="true" upAndDownControlHidden="true">
-      <!--<sidePanel>
+      <sidePanel>
         <directive data-gn-need-help="creating-metadata"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-onlinesrc-list=""
-                   data-types="onlinesrc|thumbnail|parent"/>
-      </sidePanel>-->
+                   data-types="thumbnail"/>
+      </sidePanel>
       <tab id="default" default="true" mode="flat">
         <section xpath="/simpledc"/>
       </tab>
@@ -69,23 +69,23 @@
       </flatModeExceptions>
     </view>
     <view name="advanced" upAndDownControlHidden="true">
-      <!--<sidePanel>
+      <sidePanel>
         <directive data-gn-need-help="creating-metadata"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-onlinesrc-list=""
-                   data-types="thumbnail|parent"/>
-      </sidePanel>-->
+                   data-types="thumbnail"/>
+      </sidePanel>
       <tab id="advanced" default="true">
         <section xpath="/simpledc"/>
       </tab>
     </view>
     <view name="xml">
-      <!--<sidePanel>
+      <sidePanel>
         <directive data-gn-need-help="creating-metadata"/>
         <directive data-gn-validation-report=""/>
         <directive data-gn-onlinesrc-list=""
-                   data-types="onlinesrc|thumbnail|parent"/>
-      </sidePanel>-->
+                   data-types="thumbnail"/>
+      </sidePanel>
       <tab id="xml" default="true"/>
     </view>
   </views>
