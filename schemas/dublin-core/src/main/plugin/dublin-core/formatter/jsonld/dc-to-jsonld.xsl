@@ -71,8 +71,7 @@
   <!-- TODO: Convert language code eng > en_US ? -->
 
 
-  <xsl:template name="getJsonLD"
-                mode="getJsonLD" match="simpledc">
+  <xsl:template mode="getJsonLD" match="*:simpledc">
     {
     "@context": "http://schema.org/",
     "@type": "Dataset",

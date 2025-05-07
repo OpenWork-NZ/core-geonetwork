@@ -11,7 +11,7 @@
   <xsl:template match="/">
     <textResponse>
       <xsl:apply-templates mode="getJsonLD"
-                           select="simpledc"/>
+                           select="*/*:simpledc"/>
     </textResponse>
   </xsl:template>
 </xsl:stylesheet>
