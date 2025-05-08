@@ -244,9 +244,9 @@
 
               if (scope.hasExtent) {
                 $timeout(function () {
-                  scope.map
-                    .getView()
-                    .fit(scope.extentLayer.getSource().getExtent(), scope.map.getSize());
+                  var myExtent = [-5000000, -5000000, 5000000, 5000000];
+                  scope.map.getView().fit(myExtent, scope.map.getSize());
+                  /*.fit(scope.extentLayer.getSource().getExtent(), scope.map.getSize());*/
                 }, 100);
               }
             };
