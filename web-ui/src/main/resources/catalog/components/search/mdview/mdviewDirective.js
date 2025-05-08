@@ -244,7 +244,7 @@
 
               if (scope.hasExtent) {
                 $timeout(function () {
-                  var myExtent = [-5000000, -5000000, 5000000, 5000000];
+                  var myExtent = [-5000000, -3000000, 5000000, 3000000];
                   scope.map.getView().fit(myExtent, scope.map.getSize());
                   /*.fit(scope.extentLayer.getSource().getExtent(), scope.map.getSize());*/
                 }, 100);
