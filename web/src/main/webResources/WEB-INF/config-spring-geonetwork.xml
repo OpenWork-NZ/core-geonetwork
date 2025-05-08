@@ -230,7 +230,7 @@
     <entry key="MWLR-WMTS"
            value='{
             "wmtsGetCapabilitiesURL": "https://prod-ada-3.landcareresearch.co.nz/mapcache/atda/wmts/?request=GetCapabilities&amp;service=WMTS&amp;VERSION=1.0.0",
-            "layerName":"ada_basemap_combined_jpeng-HDPI"
+            "layerName":"ada_basemap_combined"
           }'/>
     <entry key="MWLR-WMS"
            value="\${map.bbox.background.service}"/>

@@ -449,8 +449,8 @@
                 label: "WGS 84 / Antarctic Polar Stereographic",
                 def: "+proj=stere +lat_0=-90 +lat_ts=-71 +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs",
                 extent: [
-                  -3333134.0276302765, -3333134.0276302765, 3333134.0276302765,
-                  3333134.0276302765
+                  -5333134.0276302765, -5333134.0276302765, 5333134.0276302765,
+                  5333134.0276302765
                 ],
                 worldExtent: [-180, -90, 180, -60]
               }
@@ -475,18 +475,18 @@
             graticuleOgcService: {},
             "map-viewer": {
               context: "../../map/config-viewer.xml",
-              extent: [-3333134, -3333134, 3333134, 3333134],
+              extent: [-5333134, -5333134, 5333134, 5333134],
               layers: []
             },
             "map-search": {
               context: "../../map/config-viewer.xml",
-              extent: [-3333134, -3333134, 3333134, 33331340],
+              extent: [-5333134, -5333134, 5333134, 53331340],
               layers: [],
               geodesicExtents: false
             },
             "map-editor": {
               context: "../../map/config-viewer.xml",
-              extent: [-3333134, -3333134, 3333134, 3333134],
+              extent: [-5333134, -5333134, 5333134, 5333134],
               layers: [
                 {
                   type: "osm"
@@ -495,7 +495,7 @@
             },
             "map-thumbnail": {
               context: "../../map/config-viewer.xml",
-              extent: [-3333134, -3333134, 3333134, 3333134],
+              extent: [-5333134, -5333134, 5333134, 5333134],
               layers: []
             },
             autoFitOnLayer: false

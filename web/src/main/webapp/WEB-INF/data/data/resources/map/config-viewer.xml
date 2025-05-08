@@ -11,14 +11,14 @@
 
   <ows-context:General>
     <ows:BoundingBox crs="EPSG:3031">
-      <ows:LowerCorner>-4000000 -4000000</ows:LowerCorner>
-      <ows:UpperCorner>4000000 4000000</ows:UpperCorner>
+      <ows:LowerCorner>-6000000 -6000000</ows:LowerCorner>
+      <ows:UpperCorner>6000000 6000000</ows:UpperCorner>
     </ows:BoundingBox>
   </ows-context:General>
 
   <ows-context:ResourceList>
     <ows-context:Layer queryable="false"
-                       name="{type=wmts,name=ada_basemap_combined_jpeng-HDPI}"
+                       name="{type=wmts,name=ada_basemap_combined}"
                        hidden="false" opacity="1" group="Background layers">
       <ows:Title xmlns:ows="http://www.opengis.net/ows">Antarctica</ows:Title>
       <ows-context:Server service="urn:ogc:serviceType:WMS">
