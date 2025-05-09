@@ -81,7 +81,7 @@
     <!-- TODO: is the dataset language or the metadata language ? -->
     "inLanguage":"<xsl:value-of select="dc:language"/>", <!-- FIXME: Do we want to use $lang param -->
     <!-- TODO: availableLanguage -->
-    "name": <xsl:value-of select="dc:title"/>,
+    "name": "<xsl:value-of select="dc:title"/>",
 
     "dateCreated": [
     <xsl:for-each select="dct:created">
@@ -95,7 +95,7 @@
     <xsl:for-each select="dct:issued">
       "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>],
-    "description": <xsl:value-of select="dc:description"/>,
+    "description": "<xsl:value-of select="dc:description"/>",
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
     <!-- TODO: Add identifier, DOI if available or URL or text -->
