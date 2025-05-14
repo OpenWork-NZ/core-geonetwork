@@ -124,7 +124,7 @@
         <xsl:variable name="creationDate"
                       select="date-util:convertToISOZuluDateTime(string(current()))"/>
         <resourceDate type="object">
-          {"type": "creation", "date": "<xsl:value-of select="$publicationDate"/>"}
+          {"type": "creation", "date": "<xsl:value-of select="$creationDate"/>"}
         </resourceDate>
         <xsl:element name="{$creationDateType}DateForResource">
           <xsl:value-of select="$creationDate"/>
