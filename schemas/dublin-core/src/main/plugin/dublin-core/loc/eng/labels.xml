@@ -104,6 +104,7 @@
       resource, use the Format element.
     </example>
     <helper>
+      <option value="text">Text</option>
       <option value="dataset">Dataset</option>
       <option value="service">Service</option>
     </helper>

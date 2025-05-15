@@ -179,7 +179,15 @@
       </xsl:for-each>
 
       <xsl:for-each select="dc:type[. != '']">
-        <resourceType><xsl:value-of select="gn-fn-index:json-escape(.)"/></resourceType>
+        <xsl:variable name="type" select="gn-fn-index:json-escape(.)"/>
+        <xsl:choose>
+          <xsl:when test="$type = 'text'">
+            <resourceType>publication</resourceType>
+          </xsl:when>
+          <xsl:otherwise>
+            <resourceType><xsl:value-of select="gn-fn-index:json-escape(.)"/></resourceType>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:for-each>
 
       <xsl:for-each select="dc:source">

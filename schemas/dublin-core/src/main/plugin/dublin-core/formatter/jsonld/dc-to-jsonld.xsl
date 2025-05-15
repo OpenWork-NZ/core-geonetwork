@@ -74,7 +74,7 @@
   <xsl:template mode="getJsonLD" match="*:simpledc">
     {
     "@context": "http://schema.org/",
-    "@type": "Publication",
+    "@type": "Scholarly Article",
     <!-- TODO: Use the identifier property to attach any relevant Digital Object identifiers (DOIs). -->
     "@id": "<xsl:value-of select="concat($baseUrl, 'api/records/', dc:identifier)"/>",
     "includedInDataCatalog":[{"@type":"DataCatalog","url":"<xsl:value-of select="concat($baseUrl, 'search#', $catalogueName)"/>","name":"<xsl:value-of select="$catalogueName"/>"}],
@@ -114,7 +114,7 @@
       "<xsl:value-of select="." />"
       <xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>
-    ],
+    ]
 
 
     <!--
@@ -138,20 +138,22 @@
       </xsl:choose>
 
     -->
-    "publisher": [<xsl:for-each select="dc:publisher">
+    , "publisher": [<xsl:for-each select="dc:publisher">
 
           {
           "@type":"Organization",
           "name": "<xsl:value-of select="."/>"
           }
+      <xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
 
-    "creator": [<xsl:for-each select="dc:creator">
+    , "creator": [<xsl:for-each select="dc:creator">
 
           {
           "@type":"Person",
           "name": "<xsl:apply-templates select="."/>"
           }
+      <xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
     <!--
     The overall rating, based on a collection of reviews or ratings, of the item.
@@ -182,14 +184,23 @@
       ]
     </xsl:if>
 
-
     ,"spatialCoverage": [
     <xsl:for-each select="dc:coverage|dct:spatial">
+      <xsl:variable name="coverage" select="."/>
+      <xsl:variable name="nt" select="substring-after($coverage,'North ')"/>
+      <xsl:variable name="n" select="substring-before($nt, ',')"/>
+      <xsl:variable name="st" select="substring-after($coverage,'South ')"/>
+      <xsl:variable name="s" select="substring-before($st, ',')"/>
+      <xsl:variable name="et" select="substring-after($coverage,'East ')"/>
+      <xsl:variable name="e" select="substring-before($et, ',')"/>
+      <xsl:variable name="wt" select="substring-after($coverage,'West ')"/>
+      <xsl:variable name="w"
+                    select="if (contains($wt, '. ')) then substring-before($wt, '. ') else $wt"/>
       {"@type":"Place",
       "description": [],
       "geo": [
         {"@type":"GeoShape",
-        "box": "<xsl:value-of select="."/>"
+        "box": "<xsl:value-of select="string-join(($s,$w,$n,$e), ' ')"/>"
         }
       ]
       }<xsl:if test="position() != last()">,</xsl:if>
