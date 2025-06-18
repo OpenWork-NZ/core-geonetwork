@@ -1,5 +1,38 @@
 <div class="gallery">
-  <div data-ng-repeat="i in images">
+  <style>
+    .gallery dl dt {
+      margin-top: 20px;
+    }
+    .gallery dl {
+      column-count: 2;
+    }
+  </style>
+  <section
+    style="
+      margin: 20px auto;
+      padding: 10px;
+      background: #fffb;
+      text-align: center;
+      width: 50%;
+      border-radius: 20px;
+    "
+  >
+    <h2>Welcome to the GeoData New Zealand/Aotearoa spatial catalog!</h2>
+    <p>
+      This site provides access to an aggregated collection of geospatial resources from
+      around New Zealand. This site is provided free of charge by
+      <a href="https://openwork.nz/">OpenWork Ltd</a> (OWL) in Nelson, NZ.
+    </p>
+    <p>
+      OWL is the leading provider of GeoNetwork deployments across Australia and New
+      Zealand. To learn more about us please visit our website or contact us at
+      <a href="mailto:info@openwork.nz">info@openwork.nz</a>.
+    </p>
+    <p>
+      <small style="font-style: italic"> GeoData.NZ is built on GeoNetwork 4.4.7 </small>
+    </p>
+  </section>
+  <!--<div data-ng-repeat="i in images">
     <img data-ng-src="{{i.data || (i.url | thumbnailUrlSize: imageSize)}}" />
-  </div>
+  </div>-->
 </div>
