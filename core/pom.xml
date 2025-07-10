@@ -27,7 +27,7 @@
   <parent>
     <artifactId>geonetwork</artifactId>
     <groupId>org.geonetwork-opensource</groupId>
-    <version>4.2.5-0</version>
+    <version>4.2.9-0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -335,10 +335,6 @@
     <dependency>
       <groupId>org.apache.xmlgraphics</groupId>
       <artifactId>xmlgraphics-commons</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-fileupload</groupId>
-      <artifactId>commons-fileupload</artifactId>
     </dependency>
     <dependency>
       <groupId>commons-collections</groupId>

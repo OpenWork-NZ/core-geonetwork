@@ -189,11 +189,6 @@ public class FormatterApi extends AbstractFormatService implements ApplicationLi
         @Parameter(
             description = "Formatter type to use."
         )
-        @RequestHeader(
-            value = HttpHeaders.ACCEPT,
-            defaultValue = MediaType.TEXT_HTML_VALUE
-        )
-            String acceptHeader,
         @PathVariable(
             value = "formatterId"
         ) final String formatterId,
@@ -227,6 +222,8 @@ public class FormatterApi extends AbstractFormatService implements ApplicationLi
         final HttpServletRequest servletRequest) throws Exception {
 
         Locale locale = languageUtils.parseAcceptLanguage(servletRequest.getLocales());
+
+        String acceptHeader = StringUtils.isBlank(request.getHeader(HttpHeaders.ACCEPT)) ? MediaType.TEXT_HTML_VALUE : request.getHeader(HttpHeaders.ACCEPT);
 
         // TODO :
         // if text/html > xsl_view
@@ -285,7 +282,7 @@ public class FormatterApi extends AbstractFormatService implements ApplicationLi
             long roundedChangeDate = changeDateAsTime / 1000 * 1000;
             if (request.checkNotModified(language, roundedChangeDate) &&
                 context.getBean(CacheConfig.class).allowCaching(key)) {
-                if (!skipPopularityBool) {
+                if (!skipPopularityBool && approved) {
                     context.getBean(DataManager.class).increasePopularity(context, String.valueOf(metadata.getId()));
                 }
                 return;
@@ -310,7 +307,7 @@ public class FormatterApi extends AbstractFormatService implements ApplicationLi
             bytes = context.getBean(FormatterCache.class).get(key, validator, formatMetadata, false);
         }
         if (bytes != null) {
-            if (!skipPopularityBool) {
+            if (!skipPopularityBool && approved) {
                 context.getBean(DataManager.class).increasePopularity(context, String.valueOf(metadata.getId()));
             }
             writeOutResponse(context, metadataUuid,

@@ -127,6 +127,21 @@
             showMosaic: false,
             showMaps: false,
             facetConfig: {
+              "th_httpinspireeceuropaeutheme-theme_tree.key": {
+                terms: {
+                  field: "th_httpinspireeceuropaeutheme-theme_tree.key",
+                  size: 34
+                  // "order" : { "_key" : "asc" }
+                },
+                meta: {
+                  decorator: {
+                    type: "icon",
+                    prefix: "fa fa-2x pull-left gn-icon iti-",
+                    expression: "http://inspire.ec.europa.eu/theme/(.*)"
+                  },
+                  orderByTranslation: true
+                }
+              },
               "cl_topic.key": {
                 terms: {
                   field: "cl_topic.key",
@@ -136,7 +151,8 @@
                   decorator: {
                     type: "icon",
                     prefix: "fa fa-2x pull-left gn-icon-"
-                  }
+                  },
+                  orderByTranslation: true
                 }
               },
               resourceType: {
@@ -333,21 +349,28 @@
                 tplUrl:
                   "../../catalog/components/search/resultsview/partials/viewtemplates/grid.html",
                 tooltip: "Grid",
-                icon: "fa-th"
+                icon: "fa-th",
+                related: []
               },
               {
                 tplUrl:
                   "../../catalog/components/search/resultsview/partials/viewtemplates/list.html",
                 tooltip: "List",
-                icon: "fa-bars"
+                icon: "fa-bars",
+                related: ["parent", "children", "services", "datasets"]
               },
               {
                 tplUrl:
                   "../../catalog/components/search/resultsview/partials/viewtemplates/table.html",
                 tooltip: "Table",
-                icon: "fa-table"
+                icon: "fa-table",
+                related: [],
+                source: {
+                  exclude: ["resourceAbstract*", "Org*", "contact*"]
+                }
               }
             ],
+            // Optional. If not set, the first resultViewTpls is used.
             resultTemplate:
               "../../catalog/components/search/resultsview/partials/viewtemplates/list.html",
             searchResultContact: "OrgForResource",
@@ -385,6 +408,7 @@
                 class: "fa-file-o"
               }
             ],
+            // Deprecated (use configuration on resultViewTpls)
             grid: {
               related: ["parent", "children", "services", "datasets"]
             },
@@ -423,6 +447,7 @@
               valuesSeparator: ","
             },
             is3DModeAllowed: false,
+            singleTileWMS: true,
             isSaveMapInCatalogAllowed: true,
             isExportMapAsImageEnabled: false,
             isAccessible: false,
@@ -697,7 +722,7 @@
                     prefix: "fa fa-fw ",
                     map: {
                       false: "fa-lock",
-                      true: "fa-unlock"
+                      true: "fa-lock-open"
                     }
                   }
                 }
@@ -892,7 +917,7 @@
         requireProxy: [],
         gnCfg: angular.copy(defaultConfig),
         gnUrl: "",
-        docUrl: "https://geonetwork-opensource.org/manuals/4.0.x/{lang}",
+        docUrl: "https://docs.geonetwork-opensource.org/4.2/{lang}",
         //docUrl: '../../doc/',
         modelOptions: {
           updateOn: "default blur",
@@ -1083,6 +1108,19 @@
         getProxyUrl: function () {
           return this.proxyUrl;
         },
+        getDefaultResultTemplate: function () {
+          if (this.gnCfg.mods.search.resultTemplate) {
+            for (var i = 0; i < this.gnCfg.mods.search.resultViewTpls.length; i++) {
+              if (
+                this.gnCfg.mods.search.resultViewTpls[i].tplUrl ==
+                this.gnCfg.mods.search.resultTemplate
+              ) {
+                return this.gnCfg.mods.search.resultViewTpls[i];
+              }
+            }
+          }
+          return this.gnCfg.mods.search.resultViewTpls[0];
+        },
         // Removes the proxy path and decodes the layer url,
         // so the layer can be printed with MapFish.
         // Otherwise Mapfish rejects it, due to relative url.
@@ -1227,12 +1265,11 @@
 
       // Links for social media
       $scope.socialMediaLink = $location.absUrl();
-      $scope.getPermalink = gnUtilityService.getPermalink;
+      $scope.getPermalink = gnUtilityService.displayPermalink;
       $scope.fluidEditorLayout = gnGlobalSettings.gnCfg.mods.editor.fluidEditorLayout;
       $scope.fluidHeaderLayout = gnGlobalSettings.gnCfg.mods.header.fluidHeaderLayout;
       $scope.showGNName = gnGlobalSettings.gnCfg.mods.header.showGNName;
       $scope.isHeaderFixed = gnGlobalSettings.gnCfg.mods.header.isHeaderFixed;
-      $scope.isMenubarAccessible = gnGlobalSettings.gnCfg.mods.header.isMenubarAccessible;
       $scope.isLogoInHeader = gnGlobalSettings.gnCfg.mods.header.isLogoInHeader;
       $scope.isFooterEnabled = gnGlobalSettings.gnCfg.mods.footer.enabled;
 
@@ -1493,6 +1530,14 @@
           },
           canImportMetadata: function () {
             var profile = gnConfig["metadata.import.userprofile"] || "Editor",
+              fnName =
+                profile !== ""
+                  ? "is" + profile[0].toUpperCase() + profile.substring(1) + "OrMore"
+                  : "";
+            return angular.isFunction(this[fnName]) ? this[fnName]() : false;
+          },
+          canBatchEditMetadata: function () {
+            var profile = gnConfig["metadata.batchediting.accesslevel"] || "Editor",
               fnName =
                 profile !== ""
                   ? "is" + profile[0].toUpperCase() + profile.substring(1) + "OrMore"

@@ -482,6 +482,8 @@
           var addGeonames = !attrs["disableGeonames"];
           scope.regionTypes = [];
 
+          scope.lang = attrs["lang"];
+
           function setDefault() {
             var defaultThesaurus = attrs["default"];
             for (t in scope.regionTypes) {
@@ -736,6 +738,8 @@
               }
             });
           }
+          scope.lang = attrs["lang"];
+
           scope.$watch("regionType", function (val) {
             if (scope.regionType) {
               if (scope.regionType.id == "geonames") {
@@ -1267,18 +1271,22 @@
   ]);
 
   module.directive("gnStatusBadge", [
-    function () {
+    "$translate",
+    function ($translate) {
       return {
         restrict: "A",
         replace: true,
-        transclude: true,
-        template:
-          '<div data-ng-if="::md.cl_status.length > 0"' +
-          ' title="{{::md.cl_status[0].key | translate}}"' +
-          ' class="gn-status gn-status-{{::md.cl_status[0].key}}">{{::md.cl_status[0].key | translate}}' +
-          "</div>",
+        templateUrl: "../../catalog/components/utility/partials/statusbadge.html",
         scope: {
           md: "=gnStatusBadge"
+        },
+        link: function (scope, element, attrs) {
+          scope.statusTitle = "";
+          if (scope.md && scope.md.cl_status && scope.md.cl_status.length > 0) {
+            angular.forEach(scope.md.cl_status, function (status) {
+              scope.statusTitle += $translate.instant(status.key) + "\n";
+            });
+          }
         }
       };
     }
@@ -2368,7 +2376,7 @@
                   '  <button type=button class="btn btn-danger gn-btn-modal-img">' +
                   '<i class="fa fa-times"/></button>' +
                   '  <img src="' +
-                  (img.lUrl || img.url || img.id) +
+                  (attr.ngSrc || img.lUrl || img.url || img.id) +
                   '"/>' +
                   (label != "" ? labelDiv : "") +
                   "</div>" +
@@ -2574,7 +2582,7 @@
         replace: true,
         scope: {
           uuid: "=gnMetadataSelector", // Model property with the metadata uuid selected
-          searchObj: "=", // ElasticSearch search object
+          searchObj: "=", // Elasticsearch search object
           md: "=", // Metadata object selected
           elementName: "@" // Input element name for the uuid control
         },

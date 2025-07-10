@@ -204,6 +204,9 @@
             scope.isRemoteRecordPropertiesExtracted = false;
             scope.selectionList = undefined;
 
+            // Get the parent div's ID
+            scope.popupId = element.closest(".onlinesrc-popup").attr("id");
+
             scope.$on("resetSearch", function (event, args) {
               scope.remoteRecord = {
                 remoteUrl: "",
@@ -678,7 +681,6 @@
                 //   });
                 // }
                 // Add each WMS layer to the map
-                scope.layers = scope.gnCurrentEdit.layerConfig;
                 angular.forEach(scope.gnCurrentEdit.layerConfig, function (layer) {
                   scope.map.addLayer(
                     new ol.layer.Tile({
@@ -1310,7 +1312,9 @@
                           function (l) {
                             if (angular.isDefined(l.name)) {
                               scope.layers.push({
-                                Name: l.name.prefix + ":" + l.name.localPart,
+                                Name:
+                                  (l.name.prefix ? l.name.prefix + ":" : "") +
+                                  l.name.localPart,
                                 abstract: angular.isArray(l._abstract)
                                   ? l._abstract[0].value
                                   : l._abstract,
@@ -1472,7 +1476,7 @@
                     // Editing an online resource after saving the metadata doesn't trigger the params.protocol watcher
                     processSelectedWMSLayers();
                   });
-                  scope.isImage = curUrl.match(/.*.(png|jpg|jpeg|gif)$/i);
+                  scope.isImage = curUrl.match(/.*.(png|jpg|jpeg|gif)(\?.*)?$/i);
                 }
               };
               scope.$watch("params.url", updateImageTag, true);
@@ -1931,6 +1935,7 @@
                   params: {}
                 };
                 scope.modelOptions = angular.copy(gnGlobalSettings.modelOptions);
+                scope.selectRecords = [];
               },
               post: function postLink(scope, iElement, iAttrs) {
                 scope.mode = iAttrs["gnLinkToMetadata"];

@@ -516,7 +516,7 @@
                         select="$metadata/gmd:locale/*[concat('#', @id) = $languageId]/gmd:languageCode/*/@codeListValue"/>
           {
           <xsl:value-of select="concat('&quot;@value&quot;: &quot;',
-                              gn-fn-index:json-escape(gmd:LocalisedCharacterString/text()),
+                              util:escapeForJson(gmd:LocalisedCharacterString/text()),
                               '&quot;')"/>,
           <xsl:value-of select="concat('&quot;@language&quot;: &quot;',
                               $languageCode,
@@ -531,14 +531,14 @@
         <xsl:variable name="requestedValue"
                       select="lan:PT_FreeText/*/lan:LocalisedCharacterString[@id = $requestedLanguageId]/text()"/>
         <xsl:value-of select="concat('&quot;',
-                              gn-fn-index:json-escape(
+                              util:escapeForJson(
                                 if ($requestedValue != '') then $requestedValue else (gco:CharacterString|gcx:Anchor)),
                               '&quot;')"/>
       </xsl:when>
       <xsl:otherwise>
         <!-- A simple property value -->
         <xsl:value-of select="concat('&quot;',
-                              gn-fn-index:json-escape(gco:CharacterString|gcx:Anchor),
+                              util:escapeForJson(gco:CharacterString|gcx:Anchor),
                               '&quot;')"/>
       </xsl:otherwise>
     </xsl:choose>

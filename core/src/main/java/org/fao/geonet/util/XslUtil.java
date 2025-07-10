@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2001-2020 Food and Agriculture Organization of the
+ * Copyright (C) 2001-2023 Food and Agriculture Organization of the
  * United Nations (FAO-UN), United Nations World Food Programme (WFP)
  * and United Nations Environment Programme (UNEP)
  *
@@ -39,6 +39,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -84,6 +85,7 @@ import org.geotools.geometry.jts.JTS;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.referencing.CRS;
 import org.geotools.referencing.crs.DefaultGeographicCRS;
+import org.geotools.referencing.crs.DefaultProjectedCRS;
 import org.geotools.xsd.Parser;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -100,11 +102,13 @@ import org.opengis.referencing.operation.MathTransform;
 import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.reference.DefaultEncoder;
 import org.springframework.beans.factory.BeanCreationException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
@@ -184,6 +188,22 @@ public final class XslUtil {
 
                 if (geom == null) {
                     return "Warning: GML geometry is null.";
+                }
+
+                Object userData = geom.getUserData();
+                if (userData instanceof DefaultProjectedCRS) {
+                    geom = JTS.transform(
+                        geom,
+                        CRS.findMathTransform((DefaultProjectedCRS) userData,
+                            CRS.decode("EPSG:4326", true), true)
+                    );
+                }
+                else if (userData instanceof DefaultGeographicCRS) {
+                    geom = JTS.transform(
+                        geom,
+                        CRS.findMathTransform((DefaultGeographicCRS) userData,
+                            CRS.decode("EPSG:4326", true), true)
+                    );
                 }
 
                 if (!geom.isValid()) {
@@ -450,7 +470,7 @@ public final class XslUtil {
         return ApplicationContextHolder.get().getBean(org.fao.geonet.NodeInfo.class).getId();
     }
 
-    
+
     public static String getNodeLogo(String key) {
         Optional<Source> source = getSource(key);
         return source.isPresent() ? source.get().getLogo() : "";
@@ -533,7 +553,19 @@ public final class XslUtil {
         return null;
     }
 
-	/**
+    /**
+     * Check if user is authenticated.
+     */
+    public static boolean isAuthenticated() throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || AnonymousAuthenticationToken.class.isAssignableFrom(authentication.getClass())) {
+            return false;
+        }
+        return authentication.isAuthenticated();
+    }
+
+
+    /**
 	 * Check if security provider require login form
 	 */
 	public static boolean isDisableLoginForm() {
@@ -1674,5 +1706,9 @@ public final class XslUtil {
             }
         });
         return listOfLinks;
+    }
+
+    public static String escapeForJson(String value) {
+        return StringEscapeUtils.escapeJson(value);
     }
 }

@@ -156,6 +156,7 @@
     "keywordFilter": "Filter keyword",
     "keywords": "Keywords",
     "recordOwner": "Record owner",
+    "groupRecordOwner": "Group record owner",
     "map": "Map",
     "makeYourMap": "Map",
     "metadataPOCs": "Contact for the metadata",
@@ -397,6 +398,7 @@
     "featureAttributeTable": "Attribute table",
     "attributeName": "Name",
     "attributeDefinition": "Definition",
+    "attributeCardinality": "Cardinality:",
     "attributeValues": "List of values",
     "attributeType": "Type",
     "attributeCode": "Code",
@@ -505,7 +507,7 @@
     "indexingTaskFinished": "Indexing finished, {{total}} records processed",
     "indexingTaskFinishedWithErrors": "Indexing finished, {{total}} records processed with {{errors}} errors",
     "indexingTaskCanceled": "Indexing canceled",
-    "inspireValidationTaskUndefined": "Unknow INSPIRE validation task (abnormal state)",
+    "inspireValidationTaskUndefined": "Unknown INSPIRE validation task (abnormal state)",
     "inspireValidationTaskRunning": "INSPIRE validation {{total}} records...",
     "inspireValidationTaskFinished": "INSPIRE validation finished, {{total}} records processed",
     "inspireValidationTaskFinishedWithErrors": "INSPIRE validation finished, {{total}} records processed with {{errors}} errors",
@@ -542,7 +544,7 @@
     "categoriesUpdated": "Categories updated.",
     "warnPublishDraft": "When publishing records with workflow enabled, the status will change to 'Approve'. Are you sure you want to continue?",
     "cancelWorkingCopy": "Cancel working copy",
-    "deleteWorkingCopyRecordConfirm": "Do you really want to remove the working copy '{{title}}'?",
+    "deleteWorkingCopyRecordConfirm": "Do you really want to remove the working copy '{{resourceTitle}}'?",
     "workingCopy": "Working copy",
     "onTheWeb": "More online information",
     "pdfReportTocTitle": "Contents",
@@ -572,5 +574,6 @@
     "batchSubmitInfo": "This option submits the selected metadata owned by the user.",
     "reviewerNotAllowedPublish": "Reviewer not allowed to publish the metadata",
     "reviewerNotAllowedUnpublish": "Reviewer not allowed to un-publish the metadata",
-    "reviewerNotAllowedPublishUnpublish": "Reviewer not allowed to publish / un-publish the metadata"
+    "reviewerNotAllowedPublishUnpublish": "Reviewer not allowed to publish / un-publish the metadata",
+    "missingTitle": "Missing title"
 }
