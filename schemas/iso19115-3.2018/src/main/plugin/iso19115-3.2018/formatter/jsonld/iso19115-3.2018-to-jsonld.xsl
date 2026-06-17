@@ -407,7 +407,7 @@
         <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
         <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
       ],
-      "geo": [
+      "geo": <xsl:if test="count(gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">[</xsl:if>
       <xsl:for-each select="gex:geographicElement/gex:EX_GeographicBoundingBox">
         {"@type":"GeoShape",
         "box": "<xsl:value-of select="string-join((
@@ -418,7 +418,7 @@
                                               ), ' ')"/>"
         }<xsl:if test="position() != last()">,</xsl:if>
       </xsl:for-each>
-      ]
+      <xsl:if test="count(gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">]</xsl:if>
       }<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
 
