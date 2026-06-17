@@ -72,7 +72,7 @@
     should be indexed as a temporal extent information (eg. in INSPIRE
     metadata implementing rules, those elements are defined as part
     of the description of the temporal extent). -->
-  <xsl:variable name="useDateAsTemporalExtent" select="true()"/>
+  <xsl:variable name="useDateAsTemporalExtent" select="false()"/>
 
   <!-- Define if operatesOn type should be defined
   by analysis of protocol in all transfers options.
