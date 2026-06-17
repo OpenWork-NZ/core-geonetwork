@@ -208,9 +208,18 @@
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
     <!-- TODO: Add identifier, DOI if available or URL or text -->
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/*/gco:CharacterString[. != '']">
+    <!--<xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:identifier/mcc:MD_Identifier/*/gco:CharacterString[. != '']">
       "identifier": "<xsl:value-of select="."/>",
-    </xsl:for-each>
+    </xsl:for-each>-->
+    "identifier": {
+      <!--  FIXME: Where are we sourcing this ID from? I'm questioning my choice here. -->
+      <xsl:variable name="doi" select="concat('10.5066/', mdb:metadataIdentifier[1]/*/mcc:code/*/text())" />
+      "@id": "<xsl:value-of select="concat('https://doi.org/', $doi)" />",
+      "@type": "PropertyValue",
+      "propertyID": "https://registry.identifiers.org/registry/doi",
+      "value": "<xsl:value-of select="concat('doi:', $doi)" />",
+      "url": "<xsl:value-of select="concat('https://doi.org/', $doi)" />"
+    },
 
     <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:edition/gco:CharacterString[. != '']">
       "version": "<xsl:value-of select="."/>",
