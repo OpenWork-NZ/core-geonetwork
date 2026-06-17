@@ -367,7 +367,8 @@
       "name": "Distribution Metadata"
       <xsl:if test="cit:description">
         , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
-    </xsl:for-each>
+      }<xsl:if test="position() != last()">,</xsl:if>
+    </xsl:for-each>]
     <xsl:for-each select="mdb:distributionInfo">
       <xsl:if test="count(.//mrd:onLine/*[cit:linkage/gco:CharacterString != '']) > 0">
         , "additionalType": [
@@ -384,7 +385,6 @@
           <xsl:if test="position() != last()">,</xsl:if>
         </xsl:for-each>]
       </xsl:if>
-      }]
     </xsl:for-each>
 
     <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat) > 0">
