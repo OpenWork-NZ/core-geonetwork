@@ -162,6 +162,23 @@
 
 
 
+  <xsl:template name="strings">
+    <xsl:param name="entries"/>
+	<xsl:if test="count($entries) != 1">[</xsl:if>
+	<xsl:for-each select="$entries">
+	  "<xsl:value-of select="." />"<xsl:if test="position() != last()">,</xsl:if>
+	</xsl:for-each>
+	<xsl:if test="count($entries) != 1">]</xsl:if>
+  </xsl:template>
+  <xsl:template name="localizeds">
+    <xsl:param name="entries"/>
+    <xsl:if test="count($entries) != 1">[</xsl:if>
+    <xsl:for-each select="$entries">
+      "<xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
+    </xsl:for-each>
+    <xsl:if test="count($entries) != 1">]</xsl:if>
+  </xsl:template>
+
   <xsl:template name="getJsonLD"
                 mode="getJsonLD" match="mdb:MD_Metadata">
     {
@@ -184,26 +201,11 @@
                                  select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>,
 
     <!-- An alias for the item. -->
-    "alternateName": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle">
-      <xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>],
-    "dateCreated": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='creation']/*/cit:date/*/text()">
-      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>],
-    "dateModified": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='revision']/*/cit:date/*/text()">
-      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>],
-    "datePublished": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()">
-      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>],
-    "thumbnailUrl": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:graphicOverview/*/mcc:fileName/*[. != '']">
-      "<xsl:value-of select="."/>"<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>],
+    "alternateName": <xsl:call-template name="localizeds"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/></xsl:call-template>,
+    "dateCreated": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='creation']/*/cit:date/*/text()"/></xsl:call-template>,
+    "dateModified": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='revision']/*/cit:date/*/text()"/></xsl:call-template>,
+    "datePublished": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()"/></xsl:call-template>,
+    "thumbnailUrl": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:graphicOverview/*/mcc:fileName/*[. != '']"/></xsl:call-template>,
     "description": <xsl:apply-templates mode="toJsonLDLocalized" select="mdb:identificationInfo/*/mri:abstract"/>,
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
@@ -265,9 +267,7 @@
       <xsl:variable name="role" select="cit:role/cit:CI_RoleCode/@codeListValue" />
       <xsl:choose>
 
-        <xsl:when test="$role='publisher'">,"publisher": [
-
-          {
+        <xsl:when test="$role='publisher'">,"publisher": {
           <!-- TODO: Id could also be website if set -->
 
           <xsl:variable name="id"
@@ -279,10 +279,7 @@
                                           select="."/>
           </xsl:for-each>
           <xsl:if test=".//cit:electronicMailAddress">
-            ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
-            <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
-            <xsl:if test="position() != last()">,</xsl:if>
-          </xsl:for-each>]
+            ,"email":  <xsl:call-template name="localizeds"><xsl:with-param name="entries" select=".//cit:electronicMailAddress"/></xsl:call-template>
           </xsl:if>
 
           <!-- TODO: only if children available -->
@@ -306,15 +303,9 @@
           </xsl:for-each>
           }
           }
-
-
-          ]
-
         </xsl:when>
 
-        <xsl:when test="$role='author'">,"creator": [
-
-          {
+        <xsl:when test="$role='author'">,"creator": {
           <!-- TODO: Id could also be website if set -->
           <xsl:variable name="id"
                         select=".//cit:CI_Individual/cit:partyIdentifier/*/mcc:code[1]"/>
@@ -352,8 +343,6 @@
           </xsl:for-each>
           }
           }
-
-          ]
         </xsl:when>
         <!--<xsl:otherwise>provider</xsl:otherwise>-->
       </xsl:choose>
@@ -433,7 +422,7 @@
       }<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
 
-    ,"temporalCoverage": [
+    ,"temporalCoverage": <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent) != 1">[</xsl:if>
     <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent">
       "<xsl:value-of select="concat(
                                                   gml:TimePeriod/gml:beginPosition,
@@ -445,11 +434,12 @@
       "temporalCoverage" : "2013-12-19/.."
       "temporalCoverage" : "2008"
       -->
-    </xsl:for-each>]
+    </xsl:for-each><xsl:if test="count(mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent) != 1">]</xsl:if>
 
 
-    <xsl:if test="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
-      ,"license": [<xsl:for-each select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation">
+	<xsl:variable name="useLimitations" select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation" />
+    <xsl:if test="$useLimitations">
+      ,"license": <xsl:if test="count($useLimitations) != 1">[</xsl:if><xsl:for-each select="$useLimitations">
       <xsl:choose>
         <xsl:when test="starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'//')">
           "<xsl:value-of select="normalize-space(string-join(gco:CharacterString/text(),''))"/>"
@@ -465,7 +455,7 @@
         </xsl:otherwise>
       </xsl:choose>
       <xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>]
+    </xsl:for-each><xsl:if test="count($useLimitations) != 1">]</xsl:if>
     </xsl:if>
     <!-- TODO: When a dataset derives from or aggregates several originals, use the isBasedOn property. -->
     <!-- TODO: hasPart -->
