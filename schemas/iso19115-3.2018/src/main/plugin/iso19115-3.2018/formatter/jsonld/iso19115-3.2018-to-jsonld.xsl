@@ -162,6 +162,13 @@
 
 
 
+  <xsl:template name="stringsField">
+    <xsl:param name="entries"/>
+    <xsl:param name="name"/>
+    <xsl:if test="entries">
+      "<xsl:value-of select="$name"/>": <xsl:call-template name="strings"><xsl:with-param name="entries" select="$entries" /></xsl:call-template>,
+	</xsl:if>
+  </xsl:template>
   <xsl:template name="strings">
     <xsl:param name="entries"/>
 	<xsl:if test="count($entries) != 1">[</xsl:if>
@@ -169,6 +176,13 @@
 	  "<xsl:value-of select="." />"<xsl:if test="position() != last()">,</xsl:if>
 	</xsl:for-each>
 	<xsl:if test="count($entries) != 1">]</xsl:if>
+  </xsl:template>
+  <xsl:template name="localizedsField">
+    <xsl:param name="entries"/>
+    <xsl:param name="name"/>
+    <xsl:if test="entries">
+      "<xsl:value-of select="$name"/>": <xsl:call-template name="localizeds"><xsl:with-param name="entries" select="$entries" /></xsl:call-template>,
+	</xsl:if>
   </xsl:template>
   <xsl:template name="localizeds">
     <xsl:param name="entries"/>
@@ -193,7 +207,11 @@
     </xsl:if>
     <!-- TODO: Use the identifier property to attach any relevant Digital Object identifiers (DOIs). -->
     "url": "<xsl:value-of select="concat($baseUrl, 'api/records/', mdb:metadataIdentifier[1]/*/mcc:code/*/text())"/>",
-    "includedInDataCatalog":[{"@type":"DataCatalog","url":"<xsl:value-of select="concat($baseUrl, 'search#', $catalogueName)"/>","name":"<xsl:value-of select="$catalogueName"/>"}],
+    "includedInDataCatalog":[{
+      "@type":"DataCatalog",
+      "url":"<xsl:value-of select="concat($baseUrl, 'search#', $catalogueName)"/>"
+      <xsl:if test="$catalogueName">,"name":"<xsl:value-of select="$catalogueName"/>"</xsl:if>
+    }],
     <!-- TODO: is the dataset language or the metadata language ? -->
     "inLanguage":"<xsl:value-of select="if ($requestedLanguage  != '') then $requestedLanguage else $defaultLanguage"/>",
     <!-- TODO: availableLanguage -->
@@ -201,11 +219,26 @@
                                  select="mdb:identificationInfo/*/mri:citation/*/cit:title"/>,
 
     <!-- An alias for the item. -->
-    "alternateName": <xsl:call-template name="localizeds"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/></xsl:call-template>,
-    "dateCreated": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='creation']/*/cit:date/*/text()"/></xsl:call-template>,
-    "dateModified": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='revision']/*/cit:date/*/text()"/></xsl:call-template>,
-    "datePublished": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()"/></xsl:call-template>,
-    "thumbnailUrl": <xsl:call-template name="strings"><xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:graphicOverview/*/mcc:fileName/*[. != '']"/></xsl:call-template>,
+    <xsl:call-template name="localizedsField">
+      <xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:alternateTitle"/>
+      <xsl:with-param name="name" select="'alternateName'" />
+    </xsl:call-template>
+    <xsl:call-template name="stringsField">
+      <xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='creation']/*/cit:date/*/text()"/>
+      <xsl:with-param name="name" select="'dateCreated'" />
+    </xsl:call-template>
+    <xsl:call-template name="stringsField">
+      <xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='revision']/*/cit:date/*/text()"/>
+      <xsl:with-param name="name" select="'dateModified'" />
+    </xsl:call-template>
+    <xsl:call-template name="stringsField">
+      <xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:citation/*/cit:date[*/cit:dateType/*/@codeListValue='publication']/*/cit:date/*/text()"/>
+      <xsl:with-param name="name" select="'datePublished'" />
+    </xsl:call-template>
+    <xsl:call-template name="stringsField">
+      <xsl:with-param name="entries" select="mdb:identificationInfo/*/mri:graphicOverview/*/mcc:fileName/*[. != '']"/>
+      <xsl:with-param name="name" select="'thumbnailUrl'"/>
+    </xsl:call-template>
     "description": <xsl:apply-templates mode="toJsonLDLocalized" select="mdb:identificationInfo/*/mri:abstract"/>,
 
     <!-- TODO: Add citation as defined in DOI landing pages -->
@@ -362,10 +395,10 @@
       <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
       {
       "@type":"DataDownload",
-      "contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",
+      <xsl:if test="cit:linkage/*/text()">"contentUrl": "<xsl:value-of select="gn-fn-index:json-escape(cit:linkage/*/text())" />",</xsl:if>
       "encodingFormat": "WWW:LINK-1.0-http--link",
       "name": "Distribution Metadata"
-      <xsl:if test="cit:description">
+      <xsl:if test="cit:description and cit:description/text()">
         , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
       }<xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>]
@@ -403,10 +436,11 @@
     <xsl:choose>
     <xsl:when test="every $extent in mdb:identificationInfo/*/mri:extent/*[gex:geographicElement] satisfies $extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
       {"@type": "Place",
+      <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:description[count(.//text() != '') > 0]) != 0">
       "description": [<xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:description[count(.//text() != '') > 0]">
         <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
         <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
-      ],
+      ],</xsl:if>
       "geo": <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">[</xsl:if>
       <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox">
         {"@type": "GeoShape",
@@ -423,11 +457,12 @@
     </xsl:when>
     <xsl:otherwise><xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
       {"@type":"Place",
+      <xsl:if test="count(gex:description[count(.//text() != '') > 0]) != 0">
       "description": [
       <xsl:for-each select="gex:description[count(.//text() != '') > 0]">
         <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
         <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
-      ],
+      ],</xsl:if>
       "geo": <xsl:if test="count(gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">[</xsl:if>
       <xsl:for-each select="gex:geographicElement/gex:EX_GeographicBoundingBox">
         {"@type":"GeoShape",
