@@ -400,7 +400,28 @@
 
 
     ,"spatialCoverage": [
-    <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
+    <xsl:choose>
+    <xsl:when test="every $extent in mdb:identificationInfo/*/mri:extent/*[gex:geographicElement] satisfies $extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
+      {"@type": "Place",
+      "description": [<xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:description[count(.//text() != '') > 0]">
+        <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+        <xsl:if test="position() != last()">,</xsl:if></xsl:for-each>
+      ],
+      "geo": <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">[</xsl:if>
+      <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox">
+        {"@type": "GeoShape",
+        "box": "<xsl:value-of select="string-join((
+                                              gex:southBoundLatitude/gco:Decimal,
+                                              gex:westBoundLongitude/gco:Decimal,
+                                              gex:northBoundLatitude/gco:Decimal,
+                                              gex:eastBoundLongitude/gco:Decimal
+                                              ), ' ')"/>"
+        }<xsl:if test="position() != last()">,</xsl:if>
+      </xsl:for-each>
+      <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">]</xsl:if>
+      }
+    </xsl:when>
+    <xsl:otherwise><xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
       {"@type":"Place",
       "description": [
       <xsl:for-each select="gex:description[count(.//text() != '') > 0]">
@@ -420,7 +441,8 @@
       </xsl:for-each>
       <xsl:if test="count(gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">]</xsl:if>
       }<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>]
+    </xsl:for-each></xsl:otherwise>
+    </xsl:choose>]
 
     ,"temporalCoverage": <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent) != 1">[</xsl:if>
     <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent">
