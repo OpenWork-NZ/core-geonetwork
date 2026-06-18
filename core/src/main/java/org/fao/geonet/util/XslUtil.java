@@ -1709,6 +1709,6 @@ public final class XslUtil {
     }
 
     public static String escapeForJson(String value) {
-        return StringEscapeUtils.escapeJson(value);
+        return StringEscapeUtils.escapeJson(value).replace("\\/", "/"); // OpenWork NOTE: The .replace() is a bodge requested by client.
     }
 }
