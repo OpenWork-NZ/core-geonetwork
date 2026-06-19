@@ -74,7 +74,7 @@
   <xsl:template mode="getJsonLD" match="*:simpledc">
     {
     "@context": "http://schema.org/",
-    "@type": "Scholarly Article",
+    "@type": "ScholarlyArticle",
     <!-- TODO: Use the identifier property to attach any relevant Digital Object identifiers (DOIs). -->
     "@id": "<xsl:value-of select="concat($baseUrl, 'api/records/', dc:identifier)"/>",
     "includedInDataCatalog":[{"@type":"DataCatalog","url":"<xsl:value-of select="concat($baseUrl, 'search#', $catalogueName)"/>","name":"<xsl:value-of select="$catalogueName"/>"}],
