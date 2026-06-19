@@ -206,12 +206,12 @@
       "@type": "Dataset",
     </xsl:if>
     <!-- TODO: Use the identifier property to attach any relevant Digital Object identifiers (DOIs). -->
-    "url": "<xsl:value-of select="concat($baseUrl, 'api/records/', mdb:metadataIdentifier[1]/*/mcc:code/*/text())"/>",
-    "includedInDataCatalog":[{
+    "url": "<xsl:value-of select="concat($baseUrl, 'eng/catalog.search#/metadata/', mdb:metadataIdentifier[1]/*/mcc:code/*/text())"/>",
+    "includedInDataCatalog":{
       "@type":"DataCatalog",
-      "url":"<xsl:value-of select="concat($baseUrl, 'search#', $catalogueName)"/>"
+      "url":"<xsl:value-of select="$baseUrl"/>"
       <xsl:if test="$catalogueName">,"name":"<xsl:value-of select="$catalogueName"/>"</xsl:if>
-    }],
+    },
     <!-- TODO: is the dataset language or the metadata language ? -->
     "inLanguage":"<xsl:value-of select="if ($requestedLanguage  != '') then $requestedLanguage else $defaultLanguage"/>",
     <!-- TODO: availableLanguage -->
