@@ -188,7 +188,7 @@
     <xsl:param name="entries"/>
     <xsl:if test="count($entries) != 1">[</xsl:if>
     <xsl:for-each select="$entries">
-      "<xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
+      <xsl:apply-templates mode="toJsonLDLocalized" select="."/><xsl:if test="position() != last()">,</xsl:if>
     </xsl:for-each>
     <xsl:if test="count($entries) != 1">]</xsl:if>
   </xsl:template>
