@@ -349,10 +349,7 @@
                                           select="."/>
           </xsl:for-each>
           <xsl:if test=".//cit:electronicMailAddress">
-            ,"email":  [<xsl:for-each select=".//cit:electronicMailAddress">
-            <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
-            <xsl:if test="position() != last()">,</xsl:if>
-          </xsl:for-each>]
+            ,"email":  <xsl:call-template name="localizeds"><xsl:with-param name="entries" select=".//cit:electronicMailAddress"/></xsl:call-template>
           </xsl:if>
 
           <!-- TODO: only if children available -->
@@ -390,7 +387,7 @@
 
     See https://schema.org/DataDownload
     -->
-    ,"distribution": [
+    ,"distribution": <xsl:if test="count(//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource) != 1">[</xsl:if>
     <xsl:for-each select="//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource">
       <xsl:variable name="d" select="normalize-space(cit:protocol/*/text())"/>
       {
@@ -401,7 +398,7 @@
       <xsl:if test="cit:description and cit:description/text()">
         , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
       }<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each>]
+    </xsl:for-each><xsl:if test="count(//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource) != 1">]</xsl:if>
     <xsl:for-each select="mdb:distributionInfo">
       <xsl:if test="count(.//mrd:onLine/*[cit:linkage/gco:CharacterString != '']) > 0">
         , "additionalType": [
@@ -416,23 +413,20 @@
             , "description": <xsl:apply-templates mode="toJsonLDLocalized" select="cit:description"/></xsl:if>
           }
           <xsl:if test="position() != last()">,</xsl:if>
-        </xsl:for-each>]
+        </xsl:for-each><xsl:if test="count(//mdb:MD_Metadata/mdb:metadataLinkage/cit:CI_OnlineResource) != 1">]</xsl:if>
       </xsl:if>
     </xsl:for-each>
 
-    <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat) > 0">
-      ,"encodingFormat": [
-      <xsl:for-each select="mdb:distributionInfo/*/mrd:distributionFormat/*/mrd:formatSpecificationCitation/
-              cit:CI_Citation/cit:title[gco:CharacterString != '']">
-        <xsl:apply-templates mode="toJsonLDLocalized"
-                             select="."/>
-        <xsl:if test="position() != last()">,</xsl:if>
-      </xsl:for-each>
-      ]
+    <xsl:if test="count(mdb:distributionInfo/*/mrd:distributionFormat/*/mrd:formatSpecificationCitation/
+              cit:CI_Citation/cit:title[gco:CharacterString != '']) > 0">
+      ,"encodingFormat": <xsl:call-template name="localizeds">
+        <xsl:with-param name="entries" select="mdb:distributionInfo/*/mrd:distributionFormat/*/mrd:formatSpecificationCitation/
+              cit:CI_Citation/cit:title[gco:CharacterString != '']"/>
+       </xsl:call-template>
     </xsl:if>
 
 
-    ,"spatialCoverage": [
+    ,"spatialCoverage":
     <xsl:choose>
     <xsl:when test="every $extent in mdb:identificationInfo/*/mri:extent/*[gex:geographicElement] satisfies $extent/gex:geographicElement/gex:EX_GeographicBoundingBox">
       {"@type": "Place",
@@ -455,7 +449,8 @@
       <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]/gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">]</xsl:if>
       }
     </xsl:when>
-    <xsl:otherwise><xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
+    <xsl:otherwise><xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]) != 1">[</xsl:if>
+      <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]">
       {"@type":"Place",
       <xsl:if test="count(gex:description[count(.//text() != '') > 0]) != 0">
       "description": [
@@ -476,8 +471,8 @@
       </xsl:for-each>
       <xsl:if test="count(gex:geographicElement/gex:EX_GeographicBoundingBox) != 1">]</xsl:if>
       }<xsl:if test="position() != last()">,</xsl:if>
-    </xsl:for-each></xsl:otherwise>
-    </xsl:choose>]
+    </xsl:for-each><xsl:if test="count(mdb:identificationInfo/*/mri:extent/*[gex:geographicElement]) != 1">]</xsl:if></xsl:otherwise>
+    </xsl:choose>
 
     ,"temporalCoverage": <xsl:if test="count(mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent) != 1">[</xsl:if>
     <xsl:for-each select="mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent">
