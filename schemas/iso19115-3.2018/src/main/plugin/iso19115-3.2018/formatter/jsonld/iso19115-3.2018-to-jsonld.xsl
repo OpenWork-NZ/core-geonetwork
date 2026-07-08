@@ -489,20 +489,23 @@
     </xsl:for-each><xsl:if test="count(mdb:identificationInfo/*/mri:extent/*/gex:temporalElement/*/gex:extent) != 1">]</xsl:if>
 
 
-	<xsl:variable name="useLimitations" select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints/mco:useLimitation" />
+	<xsl:variable name="useLimitations" select="mdb:identificationInfo/*/mri:resourceConstraints/mco:MD_LegalConstraints" />
     <xsl:if test="$useLimitations">
       ,"license": <xsl:if test="count($useLimitations) != 1">[</xsl:if><xsl:for-each select="$useLimitations">
       <xsl:choose>
-        <xsl:when test="starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(gco:CharacterString/text(),'')),'//')">
-          "<xsl:value-of select="normalize-space(string-join(gco:CharacterString/text(),''))"/>"
+        <xsl:when test="starts-with(normalize-space(string-join(mco:useLimitation/gco:CharacterString/text(),'')),'http') or starts-with(normalize-space(string-join(mco:useLimitation/gco:CharacterString/text(),'')),'//')">
+          "<xsl:value-of select="normalize-space(string-join(mco:useLimitation/gco:CharacterString/text(),''))"/>"
         </xsl:when>
-        <xsl:when test="starts-with(string-join(gcx:Anchor/@xlink:href,''),'http') or starts-with(./@xlink:href,'//')">
-          "<xsl:value-of select="string-join(gcx:Anchor/@xlink:href,'')"/>"
+        <xsl:when test="mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage">
+          "<xsl:value-of select="normalize-space(string-join(mco:reference/cit:CI_Citation/cit:onlineResource/cit:CI_OnlineResource/cit:linkage/gco:CharacterString/text(), ''))"/>"
+        </xsl:when>
+        <xsl:when test="starts-with(string-join(mco:useLimitation/gcx:Anchor/@xlink:href,''),'http') or starts-with(mco:useLimitation/@xlink:href,'//')">
+          "<xsl:value-of select="string-join(mco:useLimitation/gcx:Anchor/@xlink:href,'')"/>"
         </xsl:when>
         <xsl:otherwise>
           {
           "@type": "CreativeWork",
-          "name": <xsl:apply-templates mode="toJsonLDLocalized" select="."/>
+          "name": <xsl:apply-templates mode="toJsonLDLocalized" select="mco:useLimitation"/>
           }
         </xsl:otherwise>
       </xsl:choose>
